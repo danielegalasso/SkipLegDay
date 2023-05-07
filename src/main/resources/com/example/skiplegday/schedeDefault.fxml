@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="555.0" prefWidth="630.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:controller="com.example.skiplegday.controller.schedeDefaultController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="555.0" prefWidth="630.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <GridPane alignment="TOP_CENTER" hgap="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
@@ -36,28 +36,28 @@
                </graphic>
             </Label>
             <Label alignment="CENTER" contentDisplay="TOP" prefHeight="171.0" prefWidth="106.0" text="AVANZATO" underline="true" GridPane.rowIndex="1">
-               <graphic>
-                  <ImageView fitHeight="150.0" fitWidth="178.0" pickOnBounds="true" preserveRatio="true">
-                     <viewport>
-                        <Rectangle2D />
-                     </viewport>
-                  </ImageView>
-               </graphic>
                <GridPane.margin>
                   <Insets left="50.0" />
                </GridPane.margin>
+               <graphic>
+                  <ImageView fitHeight="124.0" fitWidth="200.0">
+                     <image>
+                        <Image url="@icon/icongenerali/avanzato.jpg" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Label>
             <Label alignment="CENTER" contentDisplay="TOP" prefHeight="171.0" prefWidth="106.0" text="CORPO LIBERO" underline="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
-               <graphic>
-                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                     <viewport>
-                        <Rectangle2D />
-                     </viewport>
-                  </ImageView>
-               </graphic>
                <GridPane.margin>
                   <Insets left="50.0" />
                </GridPane.margin>
+               <graphic>
+                  <ImageView fitHeight="132.0" fitWidth="200.0">
+                     <image>
+                        <Image url="@icon/icongenerali/corpolibero.jpg" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Label>
             <Label alignment="CENTER" contentDisplay="TOP" prefHeight="171.0" prefWidth="106.0" text="TOTAL BODY" underline="true" GridPane.rowIndex="2">
                <graphic>
@@ -84,16 +84,16 @@
                </GridPane.margin>
             </Label>
             <Label alignment="CENTER" contentDisplay="TOP" prefHeight="171.0" prefWidth="106.0" text="INTERMEDIO" underline="true" GridPane.columnIndex="1">
-               <graphic>
-                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                     <viewport>
-                        <Rectangle2D />
-                     </viewport>
-                  </ImageView>
-               </graphic>
                <GridPane.margin>
                   <Insets left="50.0" />
                </GridPane.margin>
+               <graphic>
+                  <ImageView fitHeight="140.0" fitWidth="200.0">
+                     <image>
+                        <Image url="@icon/icongenerali/intermedio.jpg" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Label>
          </children>
          <opaqueInsets>

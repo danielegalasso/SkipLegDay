@@ -12,7 +12,7 @@ public class HelloApplication extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-        stage.setTitle("Hello Federico magari muori veramente! Federi Federi succhiami sto cazzo. FEDERICO PC. 222tbùòk 5tgùòk y");
+        stage.setTitle("Hello Federico magari muori veramente! Federi Federi succhiami sto cazzo. FEDERICO PC. 222tbùòk 5tgùòk yhofevgbèouref");
         stage.setScene(scene);
         stage.show();
     }

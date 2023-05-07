@@ -8,46 +8,76 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
-
+<?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox layoutY="46.0" prefHeight="555.0" prefWidth="130.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.topAnchor="46.0">
+      <VBox layoutY="46.0" prefHeight="555.0" prefWidth="171.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.topAnchor="46.0">
          <children>
-            <Button fx:id="SchedaPersonaleButton" alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="50.0" prefWidth="130.0" text="SCHEDA PERSONALE">
+            <Button fx:id="SchedaPersonaleButton" alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="50.0" prefWidth="173.0" text="SCHEDA PERSONALE">
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0">
                      <image>
-                        <Image url="@../skiplegday/icon/icongenerali/3436531.png" />
+                        <Image url="@../skiplegday/icon/icongenerali/5426218.png" />
                      </image>
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="SchedePredefiniteButton" alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="50.0" prefWidth="130.0" text="SCHEDE PREDEFINITE">
+            <Button fx:id="SchedePredefiniteButton" alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="50.0" prefWidth="179.0" text="SCHEDE PREDEFINITE">
                <graphic>
-                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="30.0" fitWidth="30.0">
+                     <image>
+                        <Image url="@../skiplegday/icon/icongenerali/11493125.png" />
+                     </image>
+                  </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="StatisticheButton" alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="50.0" prefWidth="130.0" text="STATISTICHE">
+            <Button fx:id="StatisticheButton" alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="50.0" prefWidth="188.0" text="STATISTICHE">
                <graphic>
-                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="30.0" fitWidth="30.0">
+                     <image>
+                        <Image url="@../skiplegday/icon/icongenerali/783633.png" />
+                     </image>
+                  </ImageView>
                </graphic>
             </Button>
-            <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="50.0" prefWidth="130.0" text="Button">
+            <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="50.0" prefWidth="195.0" text="ESERCIZI">
                <graphic>
-                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="30.0" fitWidth="30.0">
+                     <image>
+                        <Image url="@../skiplegday/icon/icongenerali/2197369.png" />
+                     </image>
+                  </ImageView>
                </graphic>
             </Button>
-            <Pane prefHeight="302.0" prefWidth="130.0" />
-            <Button fx:id="LogoutButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="130.0" text="LOGOUT" />
+            <Pane prefHeight="301.0" prefWidth="130.0" />
+            <Button fx:id="LogoutButton" alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="49.0" prefWidth="171.0" text="LOGOUT">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0">
+                     <image>
+                        <Image url="@../skiplegday/icon/icongenerali/9424351.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
          </children>
       </VBox>
       <HBox prefHeight="46.0" prefWidth="800.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label prefHeight="46.0" prefWidth="353.0" text="            Label" />
+            <Label alignment="CENTER" prefHeight="46.0" prefWidth="353.0" text="UID DESIGN SKIPLEGDAY" textFill="#c50a0a">
+               <font>
+                  <Font name="STHupo" size="14.0" />
+               </font></Label>
             <Pane prefHeight="46.0" prefWidth="345.0" />
-            <Button mnemonicParsing="false" prefHeight="46.0" prefWidth="118.0" text="Button" />
+            <Button fx:id="ProfiloButton" alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="46.0" prefWidth="118.0" text="PROFILO">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0">
+                     <image>
+                        <Image url="@../skiplegday/icon/icongenerali/808839.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
          </children>
       </HBox>
+      <AnchorPane fx:id="SceneRoot" layoutX="171.0" layoutY="46.0" prefHeight="555.0" prefWidth="630.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
    </children>
 </AnchorPane>

@@ -4,7 +4,6 @@ module com.example.prog {
 
 
     opens com.example.prog to javafx.fxml;
-    exports com.example.prog;
     exports com.example.skiplegday;
     opens com.example.skiplegday to javafx.fxml;
 }

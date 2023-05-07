@@ -13,7 +13,7 @@
    <children>
       <Label alignment="CENTER" prefHeight="49.0" prefWidth="400.0" text="UID DESIGN SKIPLEGDAY" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <Label layoutX="82.0" layoutY="116.0" text="Crea nome utente" />
-      <TextField fx:id="NomeUtentRegister" layoutX="82.0" layoutY="134.0" prefHeight="25.0" prefWidth="257.0" />
+      <TextField fx:id="NomeUtenteRegister" layoutX="82.0" layoutY="134.0" prefHeight="25.0" prefWidth="257.0" />
       <Label layoutX="82.0" layoutY="191.0" text="Crea password" />
       <PasswordField fx:id="PasswordRegister" layoutX="82.0" layoutY="209.0" prefHeight="25.0" prefWidth="257.0" />
       <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="57.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true">

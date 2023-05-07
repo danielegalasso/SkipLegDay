@@ -10,11 +10,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.skiplegday.controller.HomeController">
    <children>
       <VBox layoutY="46.0" prefHeight="555.0" prefWidth="171.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.topAnchor="46.0">
          <children>
-            <Button fx:id="SchedaPersonaleButton" alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="50.0" prefWidth="173.0" text="SCHEDA PERSONALE">
+            <Button fx:id="SchedaPersonaleButton" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#schedaPersonaleAction" prefHeight="50.0" prefWidth="173.0" text="SCHEDA PERSONALE">
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0">
                      <image>
@@ -23,7 +23,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="SchedePredefiniteButton" alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="50.0" prefWidth="179.0" text="SCHEDE PREDEFINITE">
+            <Button fx:id="SchedePredefiniteButton" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#schedePredefiniteAction" prefHeight="50.0" prefWidth="179.0" text="SCHEDE PREDEFINITE">
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0">
                      <image>
@@ -32,7 +32,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="StatisticheButton" alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="50.0" prefWidth="188.0" text="STATISTICHE">
+            <Button fx:id="StatisticheButton" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#statisticheAction" prefHeight="50.0" prefWidth="188.0" text="STATISTICHE">
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0">
                      <image>
@@ -41,7 +41,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="50.0" prefWidth="195.0" text="ESERCIZI">
+            <Button fx:id="eserciziButton" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#eserciziAction" prefHeight="50.0" prefWidth="195.0" text="ESERCIZI">
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0">
                      <image>
@@ -51,7 +51,7 @@
                </graphic>
             </Button>
             <Pane prefHeight="301.0" prefWidth="130.0" />
-            <Button fx:id="LogoutButton" alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="49.0" prefWidth="171.0" text="LOGOUT">
+            <Button fx:id="LogoutButton" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#logoutAction" prefHeight="49.0" prefWidth="171.0" text="LOGOUT">
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0">
                      <image>
@@ -68,7 +68,7 @@
                   <Font name="STHupo" size="14.0" />
                </font></Label>
             <Pane prefHeight="46.0" prefWidth="345.0" />
-            <Button fx:id="ProfiloButton" alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="46.0" prefWidth="118.0" text="PROFILO">
+            <Button fx:id="ProfiloButton" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#profiloAction" prefHeight="46.0" prefWidth="118.0" text="PROFILO">
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0">
                      <image>

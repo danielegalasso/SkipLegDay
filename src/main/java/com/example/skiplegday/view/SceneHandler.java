@@ -1,7 +1,9 @@
 package com.example.skiplegday.view;
 
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -34,6 +36,7 @@ public class SceneHandler {
                 scene.setRoot(loadRootFromFXML("login.fxml"));
             stage.setWidth(400);
             stage.setHeight(380);
+            setCentre();
             stage.setResizable(false);
         } catch (IOException ignored) {
         }
@@ -41,9 +44,10 @@ public class SceneHandler {
 
     public void createHomeScene(){
         try {
-            scene.setRoot(loadRootFromFXML("prog.fxml"));
+            scene.setRoot(loadRootFromFXML("home.fxml"));
             stage.setWidth(800);
             stage.setHeight(600);
+            setCentre();
             stage.setResizable(false);
         } catch (IOException ignored) {
         }
@@ -54,9 +58,18 @@ public class SceneHandler {
             scene.setRoot(loadRootFromFXML("register.fxml"));
             stage.setWidth(400);
             stage.setHeight(380);
+            setCentre();
             stage.setResizable(false);
         } catch (IOException ignored) {
         }
     }
 
+    private void setCentre(){
+        Screen screen = Screen.getPrimary();
+        Rectangle2D bounds = screen.getVisualBounds();
+        double x = (bounds.getWidth() - scene.getWidth()) / 2;
+        double y = (bounds.getHeight() - scene.getHeight()) / 2;
+        stage.setX(x);
+        stage.setY(y);
+    }
 }

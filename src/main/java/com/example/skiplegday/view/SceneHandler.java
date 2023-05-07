@@ -37,6 +37,7 @@ public class SceneHandler {
                 scene.setRoot(loadRootFromFXML("login.fxml"));
             stage.setWidth(400);
             stage.setHeight(380);
+            setCentre();
             stage.setResizable(false);
         } catch (IOException ignored) {
         }
@@ -46,9 +47,7 @@ public class SceneHandler {
             scene.setRoot(loadRootFromFXML("home.fxml"));
             stage.setWidth(800);
             stage.setHeight(600);
-            Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-            stage.setX((primaryScreenBounds.getWidth() - stage.getWidth()) / 2);
-            stage.setY((primaryScreenBounds.getHeight() - stage.getHeight()) / 2);
+            setCentre();
             stage.setResizable(false);
 
         } catch (IOException ignored) {
@@ -59,8 +58,14 @@ public class SceneHandler {
             scene.setRoot(loadRootFromFXML("register.fxml"));
             stage.setWidth(400);
             stage.setHeight(380);
+            setCentre();
             stage.setResizable(false);
         } catch (IOException ignored) {
         }
+    }
+    private void setCentre() {
+        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+        stage.setX((primaryScreenBounds.getWidth() - stage.getWidth()) / 2);
+        stage.setY((primaryScreenBounds.getHeight() - stage.getHeight()) / 2);
     }
 }

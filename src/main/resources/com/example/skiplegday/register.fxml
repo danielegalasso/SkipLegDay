@@ -30,6 +30,6 @@
       <Label fx:id="tornaALoginButton" layoutX="128.0" layoutY="298.0" onMouseClicked="#tornaALoginAction" text="Torna alla schermata Login" underline="true" />
    </children>
    <cursor>
-      <Cursor fx:constant="HAND" />
+      <Cursor fx:constant="DEFAULT" />
    </cursor>
 </AnchorPane>

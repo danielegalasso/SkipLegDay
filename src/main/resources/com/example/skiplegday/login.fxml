@@ -9,7 +9,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="RegisterButtonText" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#RegistraAction" prefHeight="350.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.skiplegday.controller.LoginController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.skiplegday.controller.LoginController">
    <children>
       <Label alignment="CENTER" prefHeight="49.0" prefWidth="400.0" text="UID DESIGN SKIPLEGDAY" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <Label layoutX="82.0" layoutY="116.0" text="Nome utente" />
@@ -27,9 +27,12 @@
          </image>
       </ImageView>
       <Button fx:id="LoginButton" layoutX="56.0" layoutY="260.0" mnemonicParsing="false" onAction="#loginAction" text="Login" />
-      <Label layoutX="122.0" layoutY="298.0" text="Non hai un account? Registrati" textFill="#555555" underline="true" />
+      <Label fx:id="RegisterButtonText" layoutX="122.0" layoutY="298.0" onMouseClicked="#RegistraAction" text="Non hai un account? Registrati" textFill="#555555" underline="true">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Label>
    </children>
    <cursor>
-      <Cursor fx:constant="HAND" />
+      <Cursor fx:constant="DEFAULT" />
    </cursor>
 </AnchorPane>

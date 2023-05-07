@@ -14,7 +14,6 @@ public class HelloApplication extends Application {
         SceneHandler.getInstance().init(stage);
         SceneHandler.getInstance().createLoginScene();
     }
-
     public static void main(String[] args) {
         launch();
     }

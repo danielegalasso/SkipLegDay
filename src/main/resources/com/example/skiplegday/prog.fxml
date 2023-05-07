@@ -26,10 +26,6 @@
             <Button fx:id="SchedePredefiniteButton" alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="50.0" prefWidth="130.0" text="SCHEDE PREDEFINITE">
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
-                     <image>
-                        <Image url="@../skiplegday/icon/icongenerali/3436531.png" />
-                     </image>
-                  </ImageView>
                </graphic>
             </Button>
             <Button fx:id="StatisticheButton" alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="50.0" prefWidth="130.0" text="STATISTICHE">

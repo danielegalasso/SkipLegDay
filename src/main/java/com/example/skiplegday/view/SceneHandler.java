@@ -33,7 +33,27 @@ public class SceneHandler {
             else   //se non c'è la creo altrimenti la modifico
                 scene.setRoot(loadRootFromFXML("login.fxml"));
             stage.setWidth(400);
-            stage.setHeight(350);
+            stage.setHeight(380);
+            stage.setResizable(false);
+        } catch (IOException ignored) {
+        }
+    }
+
+    public void createHomeScene(){
+        try {
+            scene.setRoot(loadRootFromFXML("prog.fxml"));
+            stage.setWidth(800);
+            stage.setHeight(600);
+            stage.setResizable(false);
+        } catch (IOException ignored) {
+        }
+    }
+
+    public void createRegistraScene() {
+        try {
+            scene.setRoot(loadRootFromFXML("register.fxml"));
+            stage.setWidth(400);
+            stage.setHeight(380);
             stage.setResizable(false);
         } catch (IOException ignored) {
         }

@@ -5,6 +5,7 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 
@@ -36,40 +37,30 @@ public class SceneHandler {
                 scene.setRoot(loadRootFromFXML("login.fxml"));
             stage.setWidth(400);
             stage.setHeight(380);
-            setCentre();
             stage.setResizable(false);
         } catch (IOException ignored) {
         }
     }
-
     public void createHomeScene(){
         try {
             scene.setRoot(loadRootFromFXML("home.fxml"));
             stage.setWidth(800);
             stage.setHeight(600);
-            setCentre();
+            Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+            stage.setX((primaryScreenBounds.getWidth() - stage.getWidth()) / 2);
+            stage.setY((primaryScreenBounds.getHeight() - stage.getHeight()) / 2);
             stage.setResizable(false);
+
         } catch (IOException ignored) {
         }
     }
-
     public void createRegistraScene() {
         try {
             scene.setRoot(loadRootFromFXML("register.fxml"));
             stage.setWidth(400);
             stage.setHeight(380);
-            setCentre();
             stage.setResizable(false);
         } catch (IOException ignored) {
         }
-    }
-
-    private void setCentre(){
-        Screen screen = Screen.getPrimary();
-        Rectangle2D bounds = screen.getVisualBounds();
-        double x = (bounds.getWidth() - scene.getWidth()) / 2;
-        double y = (bounds.getHeight() - scene.getHeight()) / 2;
-        stage.setX(x);
-        stage.setY(y);
     }
 }

@@ -28,7 +28,7 @@ public class HomeController {
     }
 
     public void eserciziAction(ActionEvent actionEvent) {
-        //galasso
+        //SceneRoot.getChildren().add(SceneSecondaryHandler.getInstance().createEserciziScene());
     }
 
     public void statisticheAction(ActionEvent actionEvent) {

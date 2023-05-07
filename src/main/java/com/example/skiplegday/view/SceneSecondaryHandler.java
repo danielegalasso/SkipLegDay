@@ -29,4 +29,11 @@ public class SceneSecondaryHandler {
     public Node createSchedePredefiniteScene() throws IOException {
         return loadRootFromFXML("schedeDefault.fxml");
     }
+    /*
+    public Node createEserciziScene(){
+        WebView webView = new WebView();
+        String htmlContent=ClasseModel.ritorna "";
+        webView.getEngine().loadContent(htmlContent);
+        return webView;
+    }  */
 }

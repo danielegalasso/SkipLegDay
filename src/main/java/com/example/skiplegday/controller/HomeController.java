@@ -1,15 +1,19 @@
 package com.example.skiplegday.controller;
 
+import com.example.skiplegday.model.FileReader;
 import com.example.skiplegday.view.SceneHandler;
 import com.example.skiplegday.view.SceneSecondaryHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Side;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 
 import java.io.IOException;
 
@@ -18,6 +22,7 @@ public class HomeController {
     private Button SchedePredefiniteButton;
     @FXML
     private AnchorPane SceneRoot;
+    private boolean settato=false;
     public void logoutAction(ActionEvent actionEvent) {
         //model.logout();  daniele galasso   devo salvare qualcosa nell'account utente??
         SceneHandler.getInstance().createLoginScene();
@@ -28,7 +33,10 @@ public class HomeController {
     }
 
     public void eserciziAction(ActionEvent actionEvent) {
-        //SceneRoot.getChildren().add(SceneSecondaryHandler.getInstance().createEserciziScene());
+        if (!settato) {
+            SceneRoot.getChildren().add(FileReader.getInstance().leggiFile("files/esercizi.txt"));
+            settato = true;
+        }
     }
 
     public void statisticheAction(ActionEvent actionEvent) {

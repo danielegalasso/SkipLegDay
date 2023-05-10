@@ -29,6 +29,10 @@ public class SceneSecondaryHandler {
     public Node createSchedePredefiniteScene() throws IOException {
         return loadRootFromFXML("schedeDefault.fxml");
     }
+    public Node createPrincipianteScene() throws IOException{
+        return loadRootFromFXML("principianteScene.fxml");
+    }
+
     /*
     public Node createEserciziScene(){
         WebView webView = new WebView();

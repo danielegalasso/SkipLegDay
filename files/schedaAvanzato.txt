@@ -1,0 +1,7 @@
+petto;panca pianaAvanzato;crociAvanz;piegamenti;
+gambe;squatAvanzato;lex extensionAvanzato;leg curl;
+dorso;lat machineAvanzato;trazioniAvanzato;
+bicipiti;curlAvanzato;curl alternatoAvanzato;
+addominali;crunchAvanzato;mountain climberAvanzato;
+spalle;militaryAvanzato;shoulder pressAvanzato;
+tricipiti;cordeAvanzato;dipAvanzato;

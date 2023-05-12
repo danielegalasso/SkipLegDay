@@ -1,0 +1,7 @@
+petto;panca pianaResistenza;croci;piegamenti;
+gambe;squatResistenza;lex extension;leg curl;
+dorso;lat machineResistenza;trazioni;
+bicipiti;curlResistenza;curl alternato;
+addominali;crunchResistenza;mountain climber;
+spalle;militaryResistenza;shoulder press;
+tricipiti;cordeResistenza;dip;

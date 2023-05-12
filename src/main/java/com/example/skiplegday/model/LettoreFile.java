@@ -1,23 +1,22 @@
 package com.example.skiplegday.model;
 
-import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
-import javafx.stage.Stage;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
-public class FileReader {
-    private FileReader(){}
-    private static final FileReader instance = new FileReader();
-    public static FileReader getInstance() {return instance;}
+public class LettoreFile {
+    private LettoreFile(){}
+    private static final LettoreFile instance = new LettoreFile();
+    public static LettoreFile getInstance() {return instance;}
     private TextFlow textFlow = new TextFlow();
-    public TextFlow leggiFile(String path) {
+    public TextFlow leggiFileCaratteri(String path) {
         textFlow.getChildren().clear();
         try {
             File file = new File(path);
@@ -62,5 +61,22 @@ public class FileReader {
         boldText.setFill(Color.RED);
         textFlow.getChildren().add(boldText);
         textFlow.getChildren().add(new Text(" "));
+    }
+    public List<List<String>> leggiSchedaDefault(String path){
+        List<List<String>> result = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] words = line.split(";");
+                List<String> row = new ArrayList<>();
+                for (String word : words) {
+                    row.add(word.trim());
+                }
+                result.add(row);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 }

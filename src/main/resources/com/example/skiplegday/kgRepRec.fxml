@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="190.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TextField fx:id="kgTextField" layoutX="14.0" layoutY="8.0" prefHeight="25.0" prefWidth="39.0" promptText="kg" />
+      <TextField fx:id="repTextField" layoutX="71.0" layoutY="8.0" prefHeight="25.0" prefWidth="39.0" promptText="rep" />
+      <TextField fx:id="recTextField" layoutX="130.0" layoutY="8.0" prefHeight="25.0" prefWidth="39.0" promptText="rec" />
+   </children>
+</AnchorPane>

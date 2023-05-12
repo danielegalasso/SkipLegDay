@@ -1,0 +1,7 @@
+petto;panca pianaCorpoLibero;croci;piegamentiCorpoLibero;
+gambe;squatCorpoLibero;lex extensionCorpoLibero;leg curl;
+dorso;lat machineCorpoLibero;trazioniCorpoLibero;
+bicipiti;curlCorpoLibero;curl alternato;
+addominali;crunchCorpoLibero;mountain climber;
+spalle;militaryCorpoLibero;shoulder press;
+tricipiti;cordeCorpoLibero;dip;

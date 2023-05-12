@@ -1,11 +1,13 @@
 package com.example.skiplegday.controller;
 
-import com.example.skiplegday.model.FileReader;
 import com.example.skiplegday.view.SceneHandler;
 import com.example.skiplegday.view.SceneSecondaryHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -20,7 +22,7 @@ public class HomeController {
         //galasso
     }
     public void eserciziAction(ActionEvent actionEvent) {  //creare gli esercizi dovrebbe essere della view???
-        sceneRoot.getChildren().setAll(FileReader.getInstance().leggiFile("files/esercizi.txt"));
+        SceneSecondaryHandler.getInstance().createEserciziScene();
     }
     public void statisticheAction(ActionEvent actionEvent) {
     }

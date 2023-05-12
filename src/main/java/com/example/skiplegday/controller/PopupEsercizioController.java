@@ -18,6 +18,7 @@ public class PopupEsercizioController {
     Button addDatiEsButton;
     public void initialize(){
         PopupHandler.getInstance().setvBoxDatiEsercizi(vBoxDatiEsercizi);
+        PopupHandler.getInstance().setNomeEsercizio(nomeEsercizio);
     }
     public void addDatiEsAction(ActionEvent actionEvent) throws IOException {
         PopupHandler.getInstance().addDatiEsercizio();

@@ -6,7 +6,7 @@ import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class Popup extends Stage {
+public class Popup extends Stage {  //è un normale stage su cui poi ci caricherò l'fxml popupEsercizio
     public Popup(Stage ownerStage, Node node) {
         Scene scene = new Scene((Parent) node);
         this.setScene(scene);
@@ -18,4 +18,5 @@ public class Popup extends Stage {
         ownerStage.toFront();
         ownerStage.requestFocus();
     }
+
 }

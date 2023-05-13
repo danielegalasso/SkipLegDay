@@ -1,7 +1,3 @@
-petto;panca pianaIntermedio;crociIntermedio;piegamenti;
-gambe;squatIntermedio;lex extensionIntermedio;leg curl;
-dorso;lat machineIntermedio;trazioni;
-bicipiti;curlIntermedio;curl alternato;
-addominali;crunchIntermedio;mountain climber;
-spalle;militaryIntermedio;shoulder press;
-tricipiti;cordeIntermedio;dip;
+petto;panca pianaIntermedio;crociIntermedio;piegamenti;/com/example/skiplegday/icon/petto/2210539.png;
+gambe;panca pianaIntermedio;crociIntermedio;piegamenti;/com/example/skiplegday/icon/petto/2210539.png;
+gambe;panca pianaIntermedio;crociIntermedio;piegamenti;/com/example/skiplegday/icon/petto/2210539.png;

@@ -1,7 +1,6 @@
 package com.example.skiplegday.controller;
 
 import com.example.skiplegday.view.Popup;
-import com.example.skiplegday.view.PopupHandler;
 import com.example.skiplegday.view.SceneSecondaryHandler;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;

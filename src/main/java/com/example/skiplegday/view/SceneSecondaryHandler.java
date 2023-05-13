@@ -4,8 +4,6 @@ import com.example.skiplegday.controller.GruppoMuscolareController;
 import com.example.skiplegday.model.LettoreFile;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -23,13 +21,6 @@ public class SceneSecondaryHandler {
         FXMLLoader fxmlLoader = new FXMLLoader(SceneHandler.class.getResource("/com/example/skiplegday/"+resourceName));
         return fxmlLoader.load();
     }
-    private<T> T setControllerAndLoadFromFXML(String resourceName, String schedeName) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(SceneHandler.class.getResource("/com/example/skiplegday/"+resourceName));
-        T group=fxmlLoader.load();
-        GruppoMuscolareController g=fxmlLoader.getController();
-        g.setGruppoMuscolare(LettoreFile.getInstance().leggiSchedaDefault("files/"+schedeName));
-        return group;
-    }
     public void createEserciziScene(){
         Node node = (Node) LettoreFile.getInstance().leggiFileCaratteri("files/esercizi.txt");
         addAndCenter(node);
@@ -40,31 +31,38 @@ public class SceneSecondaryHandler {
     }
     public void createPrincipianteScene() throws IOException{
         Node node = (Node) loadRootFromFXML("vBoxEsercizi.fxml");
-        vBox.getChildren().add(setControllerAndLoadFromFXML("gruppoMuscolare.fxml","schedaPrincipiante.txt"));
+        aggiungiSchedaPredefinita(node,"schedaPrincipiante.txt");
+        //vBox.getChildren().add(setControllerAndLoadFromFXML("gruppoMuscolare.fxml","schedaPrincipiante.txt"));
         addAndCenter(node);
     }
     public void createIntermedioScene() throws IOException {
         Node node = (Node) loadRootFromFXML("vBoxEsercizi.fxml");
-        vBox.getChildren().add(setControllerAndLoadFromFXML("gruppoMuscolare.fxml","schedaIntermedio.txt"));
+        aggiungiSchedaPredefinita(node,"schedaIntermedio.txt");
+        //vBox.getChildren().add(setControllerAndLoadFromFXML("gruppoMuscolare.fxml","schedaIntermedio.txt"));
         addAndCenter(node);
     }
     public void createAvanzatoScene(Stage mainStage) throws IOException {
-        Popup popup = new Popup(mainStage,loadRootFromFXML("popupEsercizio.fxml"));
-        PopupHandler.getInstance().addDatiEsercizio();
+        Node node = (Node) loadRootFromFXML("vBoxEsercizi.fxml");
+        aggiungiSchedaPredefinita(node,"schedaAvanzato.txt");
+        //vBox.getChildren().add(setControllerAndLoadFromFXML("gruppoMuscolare.fxml","schedaAvanzato.txt"));
+        addAndCenter(node);
     }
     public void createCorpoLiberoScene() throws IOException {
         Node node = (Node) loadRootFromFXML("vBoxEsercizi.fxml");
-        vBox.getChildren().add(setControllerAndLoadFromFXML("gruppoMuscolare.fxml","schedaCorpoLibero.txt"));
+        aggiungiSchedaPredefinita(node,"schedaCorpoLibero.txt");
+        //vBox.getChildren().add(setControllerAndLoadFromFXML("gruppoMuscolare.fxml","schedaCorpoLibero.txt"));
         addAndCenter(node);
     }
     public void createTotalBodyScene() throws IOException {
         Node node = (Node) loadRootFromFXML("vBoxEsercizi.fxml");
-        vBox.getChildren().add(setControllerAndLoadFromFXML("gruppoMuscolare.fxml","schedaTotalBody.txt"));
+        aggiungiSchedaPredefinita(node,"schedaTotalBody.txt");
+        //vBox.getChildren().add(setControllerAndLoadFromFXML("gruppoMuscolare.fxml","schedaTotalBody.txt"));
         addAndCenter(node);
     }
     public void createResistenzaScene() throws IOException {
         Node node = (Node) loadRootFromFXML("vBoxEsercizi.fxml");
-        vBox.getChildren().add(setControllerAndLoadFromFXML("gruppoMuscolare.fxml","schedaResistenza.txt"));
+        aggiungiSchedaPredefinita(node,"schedaResistenza.txt");
+        //vBox.getChildren().add(setControllerAndLoadFromFXML("gruppoMuscolare.fxml","schedaResistenza.txt"));
         addAndCenter(node);
     }
     private void addAndCenter(Node node){
@@ -74,12 +72,21 @@ public class SceneSecondaryHandler {
         AnchorPane.setLeftAnchor(node, 10.0);
         AnchorPane.setRightAnchor(node, 10.0);
     }
-    /*   HA SENSO?
-    public Popup creaPopup(Stage mainStage) throws IOException {  //VEDERE DOVE METTERE QUESTA FUNZIONE, SE VA BENE QUI(?)
-        return new Popup(mainStage,loadRootFromFXML("popupEsercizio.fxml"));
-    }*/
     public void setHomeSceneRoot(AnchorPane sceneRoot) {
         this.sceneRoot = sceneRoot;
     }
     public void setSchedeDefaultSceneRoot(VBox vBox) { this.vBox = vBox;}
+    private<T> T setControllerAndLoadFromFXML(String resourceName, List<String> l) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(SceneHandler.class.getResource("/com/example/skiplegday/"+resourceName));
+        T group=fxmlLoader.load();
+        GruppoMuscolareController g=fxmlLoader.getController();
+        g.setGruppoMuscolare(l);
+        return group;
+    }
+    private void aggiungiSchedaPredefinita(Node node, String schedaName) throws IOException {
+        List<List<String>> l=LettoreFile.getInstance().leggiSchedaDefault("files/"+schedaName);
+        for(int i=0;i<l.size();i++) {
+            vBox.getChildren().add(setControllerAndLoadFromFXML("gruppoMuscolare.fxml",l.get(i)));
+        }
+    }
 }

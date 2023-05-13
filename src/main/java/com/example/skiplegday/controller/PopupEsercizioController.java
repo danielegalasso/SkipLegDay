@@ -1,5 +1,6 @@
 package com.example.skiplegday.controller;
 
+import com.example.skiplegday.view.Popup;
 import com.example.skiplegday.view.PopupHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,7 +19,7 @@ public class PopupEsercizioController {
     Button addDatiEsButton;
     public void initialize(){
         PopupHandler.getInstance().setvBoxDatiEsercizi(vBoxDatiEsercizi);
-        PopupHandler.getInstance().setNomeEsercizio(nomeEsercizio);
+        PopupHandler.getInstance().setText(nomeEsercizio);
     }
     public void addDatiEsAction(ActionEvent actionEvent) throws IOException {
         PopupHandler.getInstance().addDatiEsercizio();

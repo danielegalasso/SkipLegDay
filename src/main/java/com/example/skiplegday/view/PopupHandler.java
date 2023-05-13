@@ -29,7 +29,7 @@ public class PopupHandler {
     public void setvBoxDatiEsercizi(VBox vBoxDatiEsercizi) { //mi carico il vBox dal controller col metodo initialize, in modo che posso gestirmi tutto da questa classe
         this.vBoxDatiEsercizi = vBoxDatiEsercizi;
     }
-    public void setNomeEsercizio(Text nomeEsercizio) {
+    public void setText(Text nomeEsercizio) { //per ottenere riferimento al nome dell'esercizio del controller
         this.nomeEsercizio = nomeEsercizio;
     }
 }

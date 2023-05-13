@@ -17,7 +17,9 @@ public class Esercizio extends Text{  //la classe esercizio non è altro che un 
         setOnMouseClicked(event -> {
             Stage mainStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             try {
-                Popup popup = new Popup(mainStage,loadRootFromFXML("popupEsercizio.fxml"));
+                Node node=loadRootFromFXML("popupEsercizio.fxml");
+                PopupHandler.getInstance().setNomeEsercizio(this.getText());
+                Popup popup= new Popup(mainStage,node);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

@@ -4,8 +4,10 @@ import com.example.skiplegday.controller.GruppoMuscolareController;
 import com.example.skiplegday.model.LettoreFile;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -13,7 +15,8 @@ import java.util.List;
 
 public class SceneSecondaryHandler {
     private AnchorPane sceneRoot;
-    private VBox vBox;
+    private VBox vBox;  //vbox nelle schede di default
+    private ScrollPane scrollPane;
     private static final SceneSecondaryHandler instance = new SceneSecondaryHandler();
     private SceneSecondaryHandler() {}
     public static SceneSecondaryHandler getInstance() {return instance;}
@@ -21,10 +24,17 @@ public class SceneSecondaryHandler {
         FXMLLoader fxmlLoader = new FXMLLoader(SceneHandler.class.getResource("/com/example/skiplegday/"+resourceName));
         return fxmlLoader.load();
     }
-    public void createEserciziScene(){
-        Node node = (Node) LettoreFile.getInstance().leggiFileCaratteri("files/esercizi.txt");
+    public void createEserciziScene() throws IOException {
+        Node node= (Node) loadRootFromFXML("manualeEsercizi.fxml");
+        aggiungiManualeEsercizi(node);
         addAndCenter(node);
     }
+
+    private void aggiungiManualeEsercizi(Node node) {
+        TextFlow t = LettoreFile.getInstance().leggiFileCaratteri("files/esercizi.txt");
+        scrollPane.setContent(t);
+    }
+
     public void createSchedePredefiniteScene() throws IOException {
         Node node = (Node) loadRootFromFXML("schedeDefault.fxml");
         addAndCenter(node);
@@ -76,6 +86,7 @@ public class SceneSecondaryHandler {
         this.sceneRoot = sceneRoot;
     }
     public void setSchedeDefaultSceneRoot(VBox vBox) { this.vBox = vBox;}
+    public void setScrollPane(ScrollPane scrollPane) {this.scrollPane = scrollPane;}
     private<T> T setControllerAndLoadFromFXML(String resourceName, List<String> l) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(SceneHandler.class.getResource("/com/example/skiplegday/"+resourceName));
         T group=fxmlLoader.load();

@@ -19,9 +19,9 @@ public class HomeController {
         SceneHandler.getInstance().createLoginScene();
     }
     public void profiloAction(ActionEvent actionEvent) {
-        //galasso
+        //di franco
     }
-    public void eserciziAction(ActionEvent actionEvent) {  //creare gli esercizi dovrebbe essere della view???
+    public void eserciziAction(ActionEvent actionEvent) throws IOException {  //creare gli esercizi dovrebbe essere della view???
         SceneSecondaryHandler.getInstance().createEserciziScene();
     }
     public void statisticheAction(ActionEvent actionEvent) {

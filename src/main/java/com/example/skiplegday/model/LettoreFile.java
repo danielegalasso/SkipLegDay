@@ -1,5 +1,8 @@
 package com.example.skiplegday.model;
 
+import javafx.geometry.Bounds;
+import javafx.scene.Node;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -17,6 +20,7 @@ public class LettoreFile {
     public static LettoreFile getInstance() {return instance;}
     private TextFlow textFlow = new TextFlow();
     public TextFlow leggiFileCaratteri(String path) {
+        int numRiga=0;
         textFlow.getChildren().clear();
         try {
             File file = new File(path);
@@ -28,6 +32,9 @@ public class LettoreFile {
                     if (checkGrassetto(word)) {
                         toGrassetto(word);
                     }
+                    else if(checkLink(word)){
+                        toLink(word);
+                    }
                     else if (checkColore(word)) {
                         toColore(word);
                     }
@@ -36,6 +43,7 @@ public class LettoreFile {
                     }
                 }
                 textFlow.getChildren().add(new Text("\n"));
+                numRiga++;
             }
             scanner.close();
         } catch (FileNotFoundException e) {
@@ -43,6 +51,33 @@ public class LettoreFile {
         }
         return textFlow;
     }
+
+    private void toLink(String word) {
+        Hyperlink link = new Hyperlink(word.substring(1, word.length() - 1));
+        link.setOnAction(event -> {
+            double y = getYPositionOfLineContainingText(textFlow, "La creatività");
+        });
+        textFlow.getChildren().add(link);
+    }
+    private double getYPositionOfLineContainingText(TextFlow textFlow, String searchText) {
+        double y = -1;
+        for (int i = 0; i < textFlow.getChildren().size(); i++) {
+            Node node = (Node) textFlow.getChildren().get(i);
+            if (node instanceof Text) {
+                Text t = (Text) node;
+                if (t.getText().contains(searchText)) {
+                    Bounds bounds = t.getBoundsInParent();
+                    y = (bounds.getMaxY() + bounds.getMinY()) / 2.0;
+                    break;
+                }
+            }
+        }
+        return y;
+    }
+    private boolean checkLink(String word) {
+        return word.startsWith("?") && word.endsWith("?");
+    }
+
     private boolean checkGrassetto(String word) {
         return word.startsWith("*") && word.endsWith("*");
     }

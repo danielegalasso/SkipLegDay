@@ -17,7 +17,7 @@ public class HelloApplication extends Application {
 
 
         ArrayList<Object> lista = LettoreFile.getInstance().prendiHashListaeserciziNomigruppiDescrizioni();
-        ArrayList<String> descrizioni = (ArrayList<String>)lista.get(3);
+        ArrayList<String> descrvhvhyjvyizioni = (ArrayList<String>)lista.get(3);
         for (String elem : descrizioni){
             System.out.println(elem);
         }

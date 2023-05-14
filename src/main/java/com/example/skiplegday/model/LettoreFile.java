@@ -117,13 +117,11 @@ public class LettoreFile {
         }
         return result;
     }
-
-
     public ArrayList<Object> prendiHashListaeserciziNomigruppiDescrizioni(){
         HashMap<String, ArrayList<String>> hashMap = new HashMap<>();
         ArrayList<String> ListaTuttiEsercizi = new ArrayList<>();
         ArrayList<String> nomiGruppiMuscolari = new ArrayList<>();
-        ArrayList<String> descrizioni = new ArrayList<>();
+        HashMap<String, String> descrizioni = new HashMap<>();
         ClassLoader classLoader = getClass().getClassLoader();
         String nomeCartellaEsercizi = "com/example/skiplegday/Esercizi";
         URL resource = classLoader.getResource(nomeCartellaEsercizi);
@@ -146,7 +144,7 @@ public class LettoreFile {
                         //System.out.println(readfile[2]);
                         EserciziXGruppiMuscolari.add(readfile[0]);
                         ListaTuttiEsercizi.add(readfile[0]);
-                        descrizioni.add(readfile[2]);
+                        descrizioni.put(readfile[0], readfile[2]);
                     }
                 }
                 hashMap.put(fileName, EserciziXGruppiMuscolari);
@@ -157,11 +155,9 @@ public class LettoreFile {
         ret.add(hashMap);               //HashMap<Gruppo Muscolare, ArrayList<Esercizi per quel gruppo muscolare>>
         ret.add(ListaTuttiEsercizi);    //Lista di tutti gli esercizi
         ret.add(nomiGruppiMuscolari);   //lista gruppi muscolari
-        ret.add(descrizioni);           //Lista descrizioni
+        ret.add(descrizioni);           //HashMap<nome esercizio, descrizione>
         return ret;
     }
-
-
     public String[] leggiFile(String percorso) {
         //ritorna in elemento 0 = nomeesercizio
         //           elemento 1 = GruppoMuscolare

@@ -1,5 +1,6 @@
 package com.example.skiplegday.controller;
 
+import com.example.skiplegday.model.InformazioniEsercizi;
 import com.example.skiplegday.model.UsersReader;
 import com.example.skiplegday.view.SceneHandler;
 import javafx.event.ActionEvent;
@@ -8,6 +9,8 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
+
+import java.util.ArrayList;
 
 public class LoginController {
     @FXML
@@ -37,5 +40,8 @@ public class LoginController {
             PasswordLogin.setText("");
             textMessage.setText("Nome utente o password errati");
         }
+    }
+    public void initialize() {  //appena starto l'applicazione mi carico tutti i dati e gli esercizi
+        InformazioniEsercizi.getInstance().caricaEsercizi();
     }
 }

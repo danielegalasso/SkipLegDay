@@ -12,6 +12,7 @@ public class ManualeEserciziController {
     @FXML
     ScrollPane scrollPaneManualeEs;
     public void scrollToIndexesAction(ActionEvent actionEvent) {
+        scrollPaneManualeEs.setVvalue(0.0);
     }
     public void initialize(){
         SceneSecondaryHandler.getInstance().setScrollPane(scrollPaneManualeEs);

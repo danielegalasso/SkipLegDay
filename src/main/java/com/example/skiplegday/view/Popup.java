@@ -18,5 +18,4 @@ public class Popup extends Stage {  //è un normale stage su cui poi ci caricher
         ownerStage.toFront();
         ownerStage.requestFocus();
     }
-
 }

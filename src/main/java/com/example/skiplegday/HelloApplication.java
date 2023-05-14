@@ -8,6 +8,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Set;
 
 public class HelloApplication extends Application {
     @Override
@@ -15,17 +17,14 @@ public class HelloApplication extends Application {
         SceneHandler.getInstance().init(stage);
         SceneHandler.getInstance().createLoginScene();
 
-
         ArrayList<Object> lista = LettoreFile.getInstance().prendiHashListaeserciziNomigruppiDescrizioni();
-        ArrayList<String> descrvhvhyjvyizioni = (ArrayList<String>)lista.get(3);
-        for (String elem : descrizioni){
-            System.out.println(elem);
+        HashMap<String, String> descrizioni = (HashMap<String, String>)lista.get(3);
+        Set<String> key=descrizioni.keySet();
+        for (String k: key){
+            System.out.println(descrizioni.get(k));
         }
     }
     public static void main(String[] args) {
         launch();
     }
-
 }
-
-

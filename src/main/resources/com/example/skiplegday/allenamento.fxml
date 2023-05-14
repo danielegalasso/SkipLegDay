@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="170.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.skiplegday.controller.AllenamentoController">
+   <children>
+      <Text fx:id="idGruppoMuscolare" layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+      <VBox fx:id="vBoxListaEsercizi" layoutY="37.0" prefHeight="121.0" prefWidth="457.0" AnchorPane.bottomAnchor="9.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="93.0" AnchorPane.topAnchor="39.66666666666667" />
+      <Button fx:id="importaButton" layoutX="478.0" layoutY="130.0" mnemonicParsing="false" onAction="#importaSchedaAction" text="importa" AnchorPane.bottomAnchor="14.666666666666657" AnchorPane.rightAnchor="14.0" />
+   </children>
+</AnchorPane>

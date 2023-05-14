@@ -5,6 +5,7 @@ import com.example.skiplegday.view.PopupHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
@@ -17,6 +18,8 @@ public class PopupEsercizioController {
     VBox vBoxDatiEsercizi;
     @FXML
     Button addDatiEsButton;
+    @FXML
+    TextField kgTextField,repTextField,recTextField;
     public void initialize(){
         PopupHandler.getInstance().setvBoxDatiEsercizi(vBoxDatiEsercizi);
         PopupHandler.getInstance().setText(nomeEsercizio);
@@ -25,6 +28,6 @@ public class PopupEsercizioController {
         PopupHandler.getInstance().addDatiEsercizio();
     }
     public void salvaProgressiAction(ActionEvent actionEvent) {
-        //galasso bastardo
+
     }
 }

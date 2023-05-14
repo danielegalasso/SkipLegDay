@@ -31,6 +31,10 @@ public class SceneSecondaryHandler {
         aggiungiManualeEsercizi(node);
         addAndCenter(node);
     }
+    public void createSchedePersonaliScene() throws IOException {
+        Node node= (Node) loadRootFromFXML("schedePersonali.fxml");
+        addAndCenter(node);
+    }
     private void aggiungiManualeEsercizi(Node node) {
         ArrayList<String> strings = InformazioniEsercizi.getInstance().getListaTuttiEsercizi();
         TextFlow t = new TextFlow();
@@ -82,6 +86,7 @@ public class SceneSecondaryHandler {
     }
     public void createDescrizioneEsercizioScene() throws IOException {
         Node node = (Node) loadRootFromFXML("descrizioneEsercizio.fxml");
+        //funzione che mi prende da database tutti gli allenamenti e me li popola
         addAndCenter(node);
     }
     private void addAndCenter(Node node){
@@ -103,5 +108,8 @@ public class SceneSecondaryHandler {
             AllenamentoHandler.getInstance().setAllenamentoPredef(l.get(i));
             vBox.getChildren().add(allenamento);
         }
+    }
+    public void createSchedaPersonaleScene() {
+
     }
 }

@@ -29,7 +29,8 @@ public class HomeController {
     public void allenamentiPredefinitiAction(ActionEvent actionEvent) throws IOException {
         SceneSecondaryHandler.getInstance().createSchedePredefiniteScene();
     }
-    public void allenamentiPersonaliAction(ActionEvent actionEvent) {
+    public void allenamentiPersonaliAction(ActionEvent actionEvent) throws IOException {
+        SceneSecondaryHandler.getInstance().createSchedePersonaliScene();
     }
     public void initialize() {
         // Imposta l'AnchorPane come campo privato della classe SceneSecondaryHandler

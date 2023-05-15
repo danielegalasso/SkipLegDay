@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
@@ -19,6 +20,7 @@ public class SceneSecondaryHandler {
     private AnchorPane sceneRoot;
     private VBox vBox;  //vbox nelle schede di default
     private ScrollPane scrollPane;
+    private GridPane gridPane; //per le schedePersonali
     private static final SceneSecondaryHandler instance = new SceneSecondaryHandler();
     private SceneSecondaryHandler() {}
     public static SceneSecondaryHandler getInstance() {return instance;}
@@ -39,7 +41,7 @@ public class SceneSecondaryHandler {
         ArrayList<String> strings = InformazioniEsercizi.getInstance().getListaTuttiEsercizi();
         TextFlow t = new TextFlow();
         for (String s: strings) {
-            t.getChildren().add(new DescrizioneEsercizio(s));
+            t.getChildren().add(new Esercizio(s));  //qua ci va DESCRIZIONEESERCIZIO !!!!
             t.getChildren().add(new Text("\n"));
         }
         scrollPane.setContent(t);
@@ -109,7 +111,19 @@ public class SceneSecondaryHandler {
             vBox.getChildren().add(allenamento);
         }
     }
-    public void createSchedaPersonaleScene() {
-
+  //DA VEDERE TUTTO QUESTO --------------------------------------
+    private int i=0,j=0;
+    public void aggiungiSchedaPersonaleScene() throws IOException {
+        Node node = (Node) loadRootFromFXML("schedaPersonale.fxml");
+        gridPane.add(node,j,i);
+        if(j==1){
+            i++;
+            j=0;
+        }
+        else
+            j++;
+    }
+    public void setGridPaneSchede(GridPane gridPane) {
+        this.gridPane = gridPane;
     }
 }

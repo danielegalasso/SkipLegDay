@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="190.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:controller="com.example.skiplegday.controller.kgRepRecController" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="190.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <TextField fx:id="kgTextField" layoutX="14.0" layoutY="8.0" prefHeight="25.0" prefWidth="39.0" promptText="kg" />
       <TextField fx:id="repTextField" layoutX="71.0" layoutY="8.0" prefHeight="25.0" prefWidth="39.0" promptText="rep" />

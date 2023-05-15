@@ -10,16 +10,25 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Esercizio extends Text{  //la classe esercizio non è altro che un Text con associato un actionEvent internamente che apre una finestra popup
+    private static final Map<String, Node> popupMap = new HashMap<>();
     public Esercizio(String text){
         setText(text);
         setOnMouseClicked(event -> {
             Stage mainStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             try {
-                Node node=loadRootFromFXML("popupEsercizio.fxml");
+                String nomeEsercizio = getText();
+                Node popupNode = popupMap.get(nomeEsercizio);
+                System.out.println(popupNode);
+                if (popupNode == null) {
+                    popupNode = loadRootFromFXML("popupEsercizio.fxml");
+                    popupMap.put(nomeEsercizio, popupNode);
+                }
                 PopupHandler.getInstance().setNomeEsercizio(this.getText());
-                Popup popup= new Popup(mainStage,node);
+                Popup popup= new Popup(mainStage, popupNode);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

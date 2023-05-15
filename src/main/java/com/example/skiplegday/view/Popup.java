@@ -7,8 +7,13 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class Popup extends Stage {  //è un normale stage su cui poi ci caricherò un fxml che sarà la finestra popup
+    private Scene scene;
     public Popup(Stage ownerStage, Node node) {
-        Scene scene = new Scene((Parent) node);
+        if(scene == null) {
+            scene = new Scene((Parent) node);
+        }
+        else   //se non c'è la creo altrimenti la modifico
+            scene.setRoot((Parent) node);
         this.setScene(scene);
         this.setHeight(450);
         this.setWidth(300);

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane fx:controller="com.example.skiplegday.controller.DescrizioneEsercizioController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Text fx:id="nomeEsercizioSpiegazione" layoutX="48.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+      <ImageView fx:id="immagineEsercizioSpiegazione" fitHeight="94.0" fitWidth="280.0" layoutX="118.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true" />
+      <ScrollPane fx:id="scrollPaneEsercizioSpiegazione" layoutX="14.0" layoutY="123.0" prefHeight="263.0" prefWidth="569.0" />
+   </children>
+</AnchorPane>

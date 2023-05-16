@@ -7,13 +7,9 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class Popup extends Stage {  //è un normale stage su cui poi ci caricherò un fxml che sarà la finestra popup
-    private Scene scene;
-    public Popup(Stage ownerStage, Node node) {
-        if(scene == null) {
-            scene = new Scene((Parent) node);
-        }
-        else   //se non c'è la creo altrimenti la modifico
-            scene.setRoot((Parent) node);
+    //non la creo singleton in quanto al costruttore devo passargli lo stage, e se è gia presente non lo posso risettare,
+    //se la mettessi singleton, ogni volta che la richiamo dovrei fare setStage, ma se ne ha gia uno mi causa eccezione
+    public Popup(Stage ownerStage, Scene scene) {
         this.setScene(scene);
         this.setHeight(450);
         this.setWidth(300);

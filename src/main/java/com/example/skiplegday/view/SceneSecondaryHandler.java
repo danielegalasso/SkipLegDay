@@ -29,9 +29,12 @@ public class SceneSecondaryHandler {
         return fxmlLoader.load();
     }
     public void createEserciziScene() throws IOException {
-        Node node= (Node) loadRootFromFXML("manualeEsercizi.fxml");
+        Node node= (Node) loadRootFromFXML("manualeEsercizi.fxml"); //non voglio far caricare sempre un nuovo nodo
+        //LO CAMBIERO
         aggiungiManualeEsercizi(node);
         addAndCenter(node);
+        rowIndex = 0;  //MOMENTANEO, POI MI SETTO LE COSE DA DANIELE, E LE CARICO
+        columnIndex = 0;
     }
     public void createSchedePersonaliScene() throws IOException {
         Node node= (Node) loadRootFromFXML("schedePersonali.fxml");
@@ -119,17 +122,31 @@ public class SceneSecondaryHandler {
             vBox.getChildren().add(allenamento);
         }
     }
+    //CONTROLLO SUL GRIDPANE
   //DA VEDERE TUTTO QUESTO --------------------------------------
-    private int i=0,j=0;
+    private int columnCount = 2;//gridPane.getColumnCount();
+    private int rowIndex = 0;  //quando ricclicco su scheda personale le resetto, finche non prendo le cose da daniele
+    private int columnIndex = 0;
     public void aggiungiSchedaPersonaleScene() throws IOException {
         Node node = (Node) loadRootFromFXML("schedaPersonale.fxml");
-        gridPane.add(node,j,i);
-        if(j==1){
-            i++;
-            j=0;
+        addSchedaNextPositionGridPane(node);
+    }
+    private void addSchedaNextPositionGridPane(Node node) {
+        gridPane.add(node, columnIndex, rowIndex);
+        columnIndex++;
+        if (columnIndex >= columnCount) {
+            columnIndex = 0;
+            rowIndex++;
         }
-        else
-            j++;
+    }
+    public void repositionSchede(List<Node> children){
+        columnCount = gridPane.getColumnCount();
+        rowIndex = 0;
+        columnIndex = 0;
+        for (Node node : children) {
+            // Riposiziona il nodo nel GridPane
+            addSchedaNextPositionGridPane(node);
+        }
     }
     public void setGridPaneSchede(GridPane gridPane) {
         this.gridPane = gridPane;

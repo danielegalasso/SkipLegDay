@@ -80,12 +80,12 @@ public class SceneHandler {
         stage.setX((primaryScreenBounds.getWidth() - stage.getWidth()) / 2);
         stage.setY((primaryScreenBounds.getHeight() - stage.getHeight()) / 2);
     }
-    private void loadFonts() {
+    void loadFonts() {
         for (String font : List.of(FONTS_PATH + "Lato/Lato-Regular.ttf", FONTS_PATH + "Lato/Lato-Bold.ttf")) {
             Font.loadFont(Objects.requireNonNull(SceneHandler.class.getResource(font)).toExternalForm(), 10);
         }
     }
-    private List<String> loadCSS() {
+    List<String> loadCSS() {
         List<String> resources = new ArrayList<>();
         for (String style : List.of(THEMES_PATH + theme + ".css", CSS_PATH + "fonts.css", CSS_PATH + "style.css")) {
             String resource = Objects.requireNonNull(SceneHandler.class.getResource(style)).toExternalForm();
@@ -93,7 +93,7 @@ public class SceneHandler {
         }
         return resources;
     }
-    private void setCSSForScene(Scene scene) {
+    void setCSSForScene(Scene scene) {
         Objects.requireNonNull(scene, "Scene cannot be null");
         List<String> resources = loadCSS();
         scene.getStylesheets().clear();

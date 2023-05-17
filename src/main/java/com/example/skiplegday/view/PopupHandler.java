@@ -1,9 +1,12 @@
 package com.example.skiplegday.view;
 
 import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -16,6 +19,7 @@ public class PopupHandler {
     public static PopupHandler getInstance() {return instance;}
     private VBox vBoxDatiEsercizi;
     private Text nomeEsercizio;
+    private Text errorText;
     private<T> T loadRootFromFXML(String resourceName) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(SceneHandler.class.getResource("/com/example/skiplegday/"+resourceName));
         return fxmlLoader.load();
@@ -31,5 +35,34 @@ public class PopupHandler {
     }
     public void setText(Text nomeEsercizio) { //per ottenere riferimento al nome dell'esercizio del controller
         this.nomeEsercizio = nomeEsercizio;
+    }
+
+    public void showErrorText(){
+        errorText.setText("Inserire tutti i campi");
+        errorText.setVisible(true);
+    }
+    public boolean chekValueNull() {
+        ObservableList<Node> items = vBoxDatiEsercizi.getChildren();
+        for (Node item : items) {
+            if (item instanceof Parent) {
+                Parent parent = (Parent) item;
+                TextField textField1 = (TextField) parent.getChildrenUnmodifiable().get(0);
+                TextField textField2 = (TextField) parent.getChildrenUnmodifiable().get(1);
+                TextField textField3 = (TextField) parent.getChildrenUnmodifiable().get(2);
+                if (textField1.getText().equals("") || textField2.getText().equals("") || textField3.getText().equals("")) {
+                    return true;
+                }
+                System.out.println("kg: " + textField1.getText() + " rep: " + textField2.getText() + " rec: " + textField3.getText());
+            }
+        }
+        return false;
+    }
+
+    public void setErrorText(Text errorText) {
+        this.errorText = errorText;
+    }
+
+    public void hideErrorText() {
+        errorText.setVisible(false);
     }
 }

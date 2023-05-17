@@ -1,5 +1,6 @@
 package com.example.skiplegday.controller;
 
+import com.example.skiplegday.model.SerieSaver;
 import com.example.skiplegday.view.Popup;
 import com.example.skiplegday.view.PopupHandler;
 import javafx.collections.ObservableList;
@@ -24,49 +25,41 @@ public class PopupEsercizioController {
     VBox vBoxDatiEsercizi;
     @FXML
     Button addDatiEsButton;
-    private List<String> nomeEsList = new ArrayList<>();
-    private List<Integer> kgList = new ArrayList<>();
-    private List<Integer> repList= new ArrayList<>();
-    private List<Integer> recList=new ArrayList<>(); //recupero espresso in secondi
+    @FXML
+    Text textError;
     public void initialize(){
         PopupHandler.getInstance().setvBoxDatiEsercizi(vBoxDatiEsercizi);
         PopupHandler.getInstance().setText(nomeEsercizio);
+        PopupHandler.getInstance().setErrorText(textError);
     }
     public void addDatiEsAction(ActionEvent actionEvent) throws IOException {
         PopupHandler.getInstance().addDatiEsercizio();
     }
     public void salvaProgressiAction(ActionEvent actionEvent) {
-        resetdati();
+        if (PopupHandler.getInstance().chekValueNull()){
+            PopupHandler.getInstance().showErrorText();
+            return;
+        }
+        PopupHandler.getInstance().hideErrorText();  //se sono qua è andato tutti a buon fine, tolgo l'errorText
+        SerieSaver.getInstance().resetdati();
         System.out.println("salva progressi");
         ObservableList<Node> items = vBoxDatiEsercizi.getChildren();
         for (Node item : items) {
             if (item instanceof Parent) {
                 Parent parent = (Parent) item;
-                // Verifica se il nodo contiene i tre TextField
-                if (parent.getChildrenUnmodifiable().size() == 4 && parent.getChildrenUnmodifiable().get(0) instanceof TextField) {
-                    TextField textField1 = (TextField) parent.getChildrenUnmodifiable().get(0);
-                    TextField textField2 = (TextField) parent.getChildrenUnmodifiable().get(1);
-                    TextField textField3 = (TextField) parent.getChildrenUnmodifiable().get(2);
-                    Integer kg = Integer.valueOf(textField1.getText());
-                    Integer rep = Integer.valueOf(textField2.getText());
-                    Integer rec = Integer.valueOf(textField3.getText());
-                    nomeEsList.add(nomeEsercizio.getText());
-                    kgList.add(kg);
-                    repList.add(rep);
-                    recList.add(rec);
-                }
+                // Verifica se il nodo contiene i tre TextField    if (parent.getChildrenUnmodifiable().size() == 4 && parent.getChildrenUnmodifiable().get(0) instanceof TextField)
+                TextField textField1 = (TextField) parent.getChildrenUnmodifiable().get(0);
+                TextField textField2 = (TextField) parent.getChildrenUnmodifiable().get(1);
+                TextField textField3 = (TextField) parent.getChildrenUnmodifiable().get(2);
+                Integer kg = Integer.valueOf(textField1.getText());
+                Integer rep = Integer.valueOf(textField2.getText());
+                Integer rec = Integer.valueOf(textField3.getText());
+                SerieSaver.getInstance().addNomeEs(nomeEsercizio.getText());
+                SerieSaver.getInstance().addKg(kg);
+                SerieSaver.getInstance().addRep(rep);
+                SerieSaver.getInstance().addRec(rec);
+                SerieSaver.getInstance().printAll();
             }
         }
-        System.out.println("ritorno a daniele galasso:");
-        System.out.println(nomeEsList);
-        System.out.println(kgList);
-        System.out.println(repList);
-        System.out.println(recList);
-    }
-    private void resetdati(){
-        nomeEsList.clear();
-        kgList.clear();
-        repList.clear();
-        recList.clear();
     }
 }

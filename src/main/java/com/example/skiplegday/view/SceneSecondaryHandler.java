@@ -145,7 +145,7 @@ public class SceneSecondaryHandler {
         columnIndex = 0;
         for (Node node : children) {
             // Riposiziona il nodo nel GridPane
-            addSchedaNextPositionGridPane(node);
+            addSchedaNextPositionGridPane(node); //chidi
         }
     }
     public void setGridPaneSchede(GridPane gridPane) {

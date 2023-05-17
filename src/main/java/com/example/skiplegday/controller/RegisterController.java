@@ -7,12 +7,15 @@ import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
 
 public class RegisterController {
     @FXML
     private PasswordField PasswordRegister;
     @FXML
     private TextField NomeUtenteRegister;
+    @FXML
+    private Text erroreRegisterText;
     public void creaAccountAction(ActionEvent actionEvent) {
         if (checkIsValid()){
             if (!UsersReader.getInstance().userEsistente(NomeUtenteRegister.getText())){
@@ -20,8 +23,7 @@ public class RegisterController {
                 SceneHandler.getInstance().createHomeScene();
             }
             else{
-                System.out.println("Utente già esistente");
-                //messaggio di errore
+                erroreRegisterText.setVisible(true);
             }
         }
     }

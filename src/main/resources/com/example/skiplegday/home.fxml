@@ -1,22 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ContextMenu?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.skiplegday.controller.HomeController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.skiplegday.controller.HomeController">
    <children>
-      <VBox layoutY="46.0" prefHeight="555.0" prefWidth="171.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.topAnchor="46.0">
+      <AnchorPane fx:id="topPane" layoutX="-2.0" layoutY="1.0" prefHeight="125.0" prefWidth="1000.0" AnchorPane.bottomAnchor="575.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Button fx:id="allenamentiPersonaliButton" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#allenamentiPersonaliAction" prefHeight="50.0" prefWidth="173.0" text="ALLENAMENTI PERSONALIZZATI">
+            <Button fx:id="homeButton" alignment="BASELINE_LEFT" graphicTextGap="20.0" layoutX="65.0" layoutY="50.0" mnemonicParsing="false" onAction="#homeAction" prefHeight="55.0" prefWidth="170.0" text="HOME" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="35.0">
+               <graphic>
+                  <ImageView fitHeight="45.0" fitWidth="50.0">
+                     <image>
+                        <Image url="@icon/icongenerali/homeLogo.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </Button>
+            <Button fx:id="profiloButton" alignment="BASELINE_LEFT" graphicTextGap="20.0" layoutX="789.0" layoutY="50.0" mnemonicParsing="false" onAction="#profiloAction" prefHeight="55.0" prefWidth="145.0" text="PROFILO" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="35.0">
+               <graphic>
+                  <ImageView fitHeight="45.0" fitWidth="50.0">
+                     <image>
+                        <Image url="@icon/icongenerali/808839.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="settingsButton" layoutX="948.0" layoutY="50.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#settingsButtonAction" prefHeight="55.0" prefWidth="55.0" styleClass="circular-button" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="35.0">
+               <graphic>
+                  <ImageView fitHeight="50.0" fitWidth="50.0">
+                     <image>
+                        <Image url="@icon/icongenerali/menuIcon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <contextMenu>
+                  <ContextMenu fx:id="settingsMenu">
+                    <items>
+                       <MenuItem fx:id="cambiaTemaItem" mnemonicParsing="false" onAction="#cambiaTemaAction" text="Cambia Tema" />
+                       <MenuItem fx:id="accessibilitaItem" mnemonicParsing="false" onAction="#accessibilitaAction" text="Accessibilità" />
+                       <MenuItem fx:id="valutaciItem" mnemonicParsing="false" onAction="#valutaciAction" text="Valutaci" />
+                    </items>
+                  </ContextMenu>
+               </contextMenu>
+            </Button>
+         </children>
+      </AnchorPane>
+      <VBox layoutY="125.0" prefHeight="575.0" prefWidth="170.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="125.0">
+         <children>
+            <Button fx:id="SchedaPersonaleButton" alignment="BASELINE_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#schedaPersonaleAction" prefHeight="60.0" prefWidth="170.0" styleClass="left-button" text="SCHEDA PERSONALE">
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0">
                      <image>
@@ -25,7 +66,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="allenamentiPredefinitiButton" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#allenamentiPredefinitiAction" prefHeight="50.0" prefWidth="179.0" text="ALLENAMENTI PREDEFINITI">
+            <Button fx:id="SchedePredefiniteButton" alignment="BASELINE_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#schedePredefiniteAction" prefHeight="60.0" prefWidth="170.0" styleClass="left-button" text="SCHEDE PREDEFINITE">
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0">
                      <image>
@@ -42,7 +83,7 @@
                   </ContextMenu>
                </contextMenu>
             </Button>
-            <Button fx:id="StatisticheButton" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#statisticheAction" prefHeight="50.0" prefWidth="188.0" text="STATISTICHE">
+            <Button fx:id="StatisticheButton" alignment="BASELINE_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#statisticheAction" prefHeight="60.0" prefWidth="170.0" styleClass="left-button" text="STATISTICHE">
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0">
                      <image>
@@ -51,7 +92,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="eserciziButton" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#eserciziAction" prefHeight="50.0" prefWidth="195.0" text="ESERCIZI">
+            <Button fx:id="eserciziButton" alignment="BASELINE_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#eserciziAction" prefHeight="60.0" prefWidth="170.0" styleClass="left-button" text="ESERCIZI">
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0">
                      <image>
@@ -60,34 +101,34 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Pane prefHeight="301.0" prefWidth="130.0" />
-            <Button fx:id="LogoutButton" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#logoutAction" prefHeight="49.0" prefWidth="171.0" text="LOGOUT">
+            <Button fx:id="obiettiviButton" alignment="BASELINE_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#obiettiviAction" prefHeight="60.0" prefWidth="170.0" styleClass="left-button" text="OBIETTIVI">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0">
+                     <image>
+                        <Image url="@icon/icongenerali/rewardIcon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="170.0" />
+            <Button fx:id="LogoutButton" alignment="BASELINE_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#logoutAction" prefHeight="50.0" prefWidth="170.0" text="LOGOUT">
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0">
                      <image>
                         <Image url="@../skiplegday/icon/icongenerali/9424351.png" />
                      </image>
                   </ImageView>
-               </graphic></Button>
+               </graphic>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin></Button>
          </children>
       </VBox>
-      <HBox prefHeight="46.0" prefWidth="800.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <Label alignment="CENTER" prefHeight="46.0" prefWidth="353.0" text="UID DESIGN SKIPLEGDAY" textFill="#c50a0a">
-               <font>
-                  <Font name="STHupo" size="14.0" />
-               </font></Label>
-            <Pane prefHeight="46.0" prefWidth="345.0" />
-            <Button fx:id="ProfiloButton" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#profiloAction" prefHeight="46.0" prefWidth="118.0" text="PROFILO">
-               <graphic>
-                  <ImageView fitHeight="30.0" fitWidth="30.0">
-                     <image>
-                        <Image url="@../skiplegday/icon/icongenerali/808839.png" />
-                     </image>
-                  </ImageView>
-               </graphic></Button>
-         </children>
-      </HBox>
-      <AnchorPane fx:id="sceneRoot" layoutX="171.0" layoutY="46.0" prefHeight="555.0" prefWidth="630.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="170.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="44.66666666666663" />
+      <AnchorPane fx:id="sceneRoot" layoutX="171.0" layoutY="124.0" prefHeight="575.0" prefWidth="830.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="170.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="125.0" />
+      <ImageView fitHeight="105.0" fitWidth="400.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="10.0">
+         <image>
+            <Image url="@icon/icongenerali/SkipLegDayLogoRemoveBG.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

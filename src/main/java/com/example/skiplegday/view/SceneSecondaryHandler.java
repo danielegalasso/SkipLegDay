@@ -46,6 +46,14 @@ public class SceneSecondaryHandler {
         }
         scrollPane.setContent(t);
     }
+    public void createDatiPersonaliScene() throws IOException {
+        Node node = (Node) loadRootFromFXML("datiPersonali.fxml");
+        addAndCenter(node);
+    }
+    public void createValutaciScene() throws IOException {
+        Node node = (Node) loadRootFromFXML("recensione.fxml");
+        addAndCenter(node);
+    }
     public void createSchedePredefiniteScene() throws IOException {
         Node node = (Node) loadRootFromFXML("schedeDefault.fxml");
         addAndCenter(node);

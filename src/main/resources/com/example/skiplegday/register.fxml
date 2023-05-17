@@ -8,10 +8,10 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.skiplegday.controller.RegisterController">
    <children>
-      <Label alignment="CENTER" prefHeight="49.0" prefWidth="400.0" text="UID DESIGN SKIPLEGDAY" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <Label layoutX="82.0" layoutY="116.0" text="Crea nome utente" />
       <TextField fx:id="NomeUtenteRegister" layoutX="82.0" layoutY="134.0" prefHeight="25.0" prefWidth="257.0" />
       <Label layoutX="82.0" layoutY="191.0" text="Crea password" />
@@ -26,8 +26,14 @@
             <Image url="@icon/icongenerali/passLogin.png" />
          </image>
       </ImageView>
-      <Button fx:id="registratiButton" layoutX="56.0" layoutY="260.0" mnemonicParsing="false" onAction="#creaAccountAction" text="Registrati" />
-      <Label fx:id="tornaALoginButton" layoutX="128.0" layoutY="298.0" onMouseClicked="#tornaALoginAction" text="Torna alla schermata Login" underline="true" />
+      <Button fx:id="registratiButton" layoutX="57.0" layoutY="260.0" mnemonicParsing="false" onAction="#creaAccountAction" prefHeight="25.0" prefWidth="100.0" text="REGISTRATI" />
+      <Label fx:id="tornaALoginButton" layoutX="125.0" layoutY="305.0" onMouseClicked="#tornaALoginAction" prefHeight="20.0" prefWidth="170.0" text="Torna alla schermata di accesso" underline="true" />
+      <ImageView fitHeight="100.0" fitWidth="400.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="350.0" AnchorPane.topAnchor="0.0">
+         <image>
+            <Image url="@icon/icongenerali/SkipLegDayLogoRemoveBG.png" />
+         </image>
+      </ImageView>
+      <Text fx:id="erroreRegisterText" layoutX="192.0" layoutY="277.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome utente già esistente" visible="false" />
    </children>
    <cursor>
       <Cursor fx:constant="DEFAULT" />

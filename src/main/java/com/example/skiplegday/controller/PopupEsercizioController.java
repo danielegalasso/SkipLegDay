@@ -43,7 +43,7 @@ public class PopupEsercizioController {
             if (item instanceof Parent) {
                 Parent parent = (Parent) item;
                 // Verifica se il nodo contiene i tre TextField
-                if (parent.getChildrenUnmodifiable().size() == 3 && parent.getChildrenUnmodifiable().get(0) instanceof TextField) {
+                if (parent.getChildrenUnmodifiable().size() == 4 && parent.getChildrenUnmodifiable().get(0) instanceof TextField) {
                     TextField textField1 = (TextField) parent.getChildrenUnmodifiable().get(0);
                     TextField textField2 = (TextField) parent.getChildrenUnmodifiable().get(1);
                     TextField textField3 = (TextField) parent.getChildrenUnmodifiable().get(2);

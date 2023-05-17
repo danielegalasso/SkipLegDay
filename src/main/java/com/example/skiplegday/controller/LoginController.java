@@ -10,22 +10,20 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 
-import java.util.ArrayList;
-
 public class LoginController {
     @FXML
     private TextField NomeUtenteLogin;
     @FXML
     private PasswordField PasswordLogin;
     @FXML
-    private Text textMessage;
+    private Text erroreLoginText;
     public void RegistraAction(MouseEvent mouseEvent) {
         //model.createUser();  daniele galasso
         SceneHandler.getInstance().createRegistraScene();
     }
     public void loginAction(ActionEvent actionEvent) {
         String user= NomeUtenteLogin.getText();
-        String pass=PasswordLogin.getText();
+        String pass= PasswordLogin.getText();
         if(UsersReader.getInstance().checkAccess(user,pass)) {
             //vanno caricati gli esercizi e le schede (?)
             try {
@@ -35,10 +33,9 @@ public class LoginController {
             }
         }
         else{
-            textMessage.setVisible(true);
             NomeUtenteLogin.setText("");
             PasswordLogin.setText("");
-            textMessage.setText("Nome utente o password errati");
+            erroreLoginText.setVisible(true);
         }
     }
     public void initialize() {  //appena starto l'applicazione mi carico tutti i dati e gli esercizi

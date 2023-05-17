@@ -3,10 +3,16 @@ package com.example.skiplegday.view;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
+import javafx.scene.text.Font;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 public class SceneHandler {
     private static final SceneHandler instance = new SceneHandler();
@@ -14,11 +20,18 @@ public class SceneHandler {
     public static SceneHandler getInstance() {return instance;}
     private Stage stage;
     private Scene scene;
+    private String theme = "light";                                                  //da aggiungere
+    private static final String RESOURCE_PATH = "/com/example/skiplegday/";         //da aggiungere
+    private static final String CSS_PATH = RESOURCE_PATH + "css/";                  //da aggiungere
+    private static final String FONTS_PATH = RESOURCE_PATH + "fonts/";              //da aggiungere
+    private static final String THEMES_PATH = CSS_PATH + "themes/";                //da aggiungere
     public void init(Stage stage) {
         if(this.stage==null){
             this.stage = stage;
             this.stage.setTitle("SkipLegDay");
             createLoginScene();  //funzione che imposta la scene dello SceneHandler
+            loadFonts();            //da aggiungere
+            setCSSForScene(scene);  //da aggiungere
             this.stage.setScene(scene);
             this.stage.show();
         }
@@ -44,8 +57,8 @@ public class SceneHandler {
     public void createHomeScene(){
         try {
             scene.setRoot(loadRootFromFXML("home.fxml"));
-            stage.setWidth(800);
-            stage.setHeight(600);
+            stage.setWidth(1000);
+            stage.setHeight(700);
             setCentre();
             stage.setResizable(false);
 
@@ -66,5 +79,25 @@ public class SceneHandler {
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
         stage.setX((primaryScreenBounds.getWidth() - stage.getWidth()) / 2);
         stage.setY((primaryScreenBounds.getHeight() - stage.getHeight()) / 2);
+    }
+    private void loadFonts() {
+        for (String font : List.of(FONTS_PATH + "Lato/Lato-Regular.ttf", FONTS_PATH + "Lato/Lato-Bold.ttf")) {
+            Font.loadFont(Objects.requireNonNull(SceneHandler.class.getResource(font)).toExternalForm(), 10);
+        }
+    }
+    private List<String> loadCSS() {
+        List<String> resources = new ArrayList<>();
+        for (String style : List.of(THEMES_PATH + theme + ".css", CSS_PATH + "fonts.css", CSS_PATH + "style.css")) {
+            String resource = Objects.requireNonNull(SceneHandler.class.getResource(style)).toExternalForm();
+            resources.add(resource);
+        }
+        return resources;
+    }
+    private void setCSSForScene(Scene scene) {
+        Objects.requireNonNull(scene, "Scene cannot be null");
+        List<String> resources = loadCSS();
+        scene.getStylesheets().clear();
+        for(String resource : resources)
+            scene.getStylesheets().add(resource);
     }
 }

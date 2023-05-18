@@ -31,7 +31,7 @@ public class SceneHandler {
             this.stage.setTitle("SkipLegDay");
             createLoginScene();  //funzione che imposta la scene dello SceneHandler
             loadFonts();            //da aggiungere
-            setCSSForScene(scene);  //da aggiungere
+            //setCSSForScene(scene);  //da aggiungere
             this.stage.setScene(scene);
             this.stage.show();
         }

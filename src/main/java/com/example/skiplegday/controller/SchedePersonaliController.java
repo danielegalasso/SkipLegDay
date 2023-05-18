@@ -14,7 +14,9 @@ public class SchedePersonaliController {
     @FXML
     Button aggiungiEsercizioButton;
     public void aggiungiEsercizioAction(ActionEvent actionEvent) throws IOException {
-        SceneSecondaryHandler.getInstance().aggiungiSchedaPersonaleScene();
+        //SceneSecondaryHandler.getInstance().aggiungiSchedaPersonaleScene();  non la devo aggiungere
+        //prima la creo, e quando premo salva la aggiungo
+        SceneSecondaryHandler.getInstance().createCreateAllenamentoScene();
     }
     public void initialize(){
         SceneSecondaryHandler.getInstance().setGridPaneSchede(gridPane);

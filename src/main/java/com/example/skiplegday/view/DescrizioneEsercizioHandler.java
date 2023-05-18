@@ -24,8 +24,8 @@ public class DescrizioneEsercizioHandler {
         this.scrollPaneEsercizioSpiegazione=scrollPaneEsercizioSpiegazione;
         this.nomeEsercizioSpiegazione.setText(textPulsantePremuto);
         this.scrollPaneEsercizioSpiegazione.setContent(new Text(InformazioniEsercizi.getInstance().getDescrizioni().get(textPulsantePremuto)));
-        this.immagineEsercizioSpiegazione.setImage(new Image(InformazioniEsercizi.getInstance().getImageEsercizio(textPulsantePremuto+"Descrizione")));
-    }
+        //this.immagineEsercizioSpiegazione.setImage(new Image(InformazioniEsercizi.getInstance().getImageEsercizio(textPulsantePremuto+"Descrizione")));
+    }  //IMPORTANTE -------   decommentare quando setto le immagini
     public void setTextPulsantePremuto(String textPulsantePremuto){
         this.textPulsantePremuto=textPulsantePremuto;
     }

@@ -4,9 +4,11 @@ import com.example.skiplegday.model.InformazioniEsercizi;
 import com.example.skiplegday.model.LettoreFile;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
@@ -21,6 +23,7 @@ public class SceneSecondaryHandler {
     private VBox vBox;  //vbox nelle schede di default
     private ScrollPane scrollPane;
     private GridPane gridPane; //per le schedePersonali
+    private Node lastScene;
     private static final SceneSecondaryHandler instance = new SceneSecondaryHandler();
     private SceneSecondaryHandler() {}
     public static SceneSecondaryHandler getInstance() {return instance;}
@@ -44,7 +47,7 @@ public class SceneSecondaryHandler {
         ArrayList<String> strings = InformazioniEsercizi.getInstance().getListaTuttiEsercizi();
         TextFlow t = new TextFlow();
         for (String s: strings) {
-            t.getChildren().add(new Esercizio(s));  //qua ci va DESCRIZIONEESERCIZIO !!!!
+            t.getChildren().add(new DescrizioneEsercizio(s));  //qua ci va DESCRIZIONEESERCIZIO !!!!
             t.getChildren().add(new Text("\n"));
         }
         scrollPane.setContent(t);
@@ -98,7 +101,7 @@ public class SceneSecondaryHandler {
         addAndCenter(node);
     }
     public void createDescrizioneEsercizioScene() throws IOException {
-        Node node = (Node) loadRootFromFXML("descrizioneEsercizio.fxml");
+        Node node = (Node) loadRootFromFXML("descrizioneEsercizio.fxml");  //quando aggiungo l'fxml si attiva in automatico il controller associato che fa tutto
         //funzione che mi prende da database tutti gli allenamenti e me li popola
         addAndCenter(node);
     }
@@ -150,5 +153,47 @@ public class SceneSecondaryHandler {
     }
     public void setGridPaneSchede(GridPane gridPane) {
         this.gridPane = gridPane;
+    }
+    //--------------------  CREA SCHEDA PERSONALIZZATA
+    private ScrollPane scrollPaneEsercizi;
+    private VBox vBoxTuoAllenamento;
+    public void createCreateAllenamentoScene() throws IOException {
+        Node node = (Node) loadRootFromFXML("createAllenamento.fxml");
+        //Node manuale = (Node) loadRootFromFXML("manualeEsercizi.fxml");
+        //paneEserciziAdd.getChildren().setAll(manuale);
+        //NELLO SCROLLPANE NON DEVO CARICARE IL MANUALE ESERCIZI, CARICARE GLI ESERCIZI OTTENUTI CON LA FUNZIONE DI DANIELE
+        //E PRIMA DI CARICARLI CREO UN HBOX CON SPIEGAZIONE ESERCIZIO E A DESTRA BUTTON PER AGGIUNGERE
+        ArrayList<String> strings = InformazioniEsercizi.getInstance().getListaTuttiEsercizi();
+        TextFlow t = new TextFlow();
+        for (String s: strings) {
+            HBox hBox = new HBox();
+            Button button = new Button("Aggiungi");
+            DescrizioneEsercizio desc= new DescrizioneEsercizio(s);
+            button.setOnMouseClicked(event -> {
+                //System.out.println(desc.getText());
+                vBoxTuoAllenamento.getChildren().add(new DescrizioneEsercizio(desc.getText()));
+                    });
+            hBox.getChildren().addAll(desc,button);
+            //t.getChildren().add(new DescrizioneEsercizio(s));  //qua ci va DESCRIZIONEESERCIZIO !!!!
+            t.getChildren().add(hBox);
+            t.getChildren().add(new Text("\n"));
+        }
+        scrollPaneEsercizi.setContent(t);
+        addAndCenter(node);
+    }
+    public void setScrollPaneEserciziAdd(ScrollPane scrollPaneEsercizi) {
+        this.scrollPaneEsercizi=scrollPaneEsercizi;
+    }
+    public void setVBoxTuoAllenamento(VBox vBoxTuoAllenamento) {
+        this.vBoxTuoAllenamento = vBoxTuoAllenamento;
+    }
+    //-----------------------------
+    public void CreateLastScene() {
+        sceneRoot.getChildren().setAll(lastScene);
+    }
+    public void setLastScene() {
+        // Ottieni il nodo FXML attualmente presente nel sceneRoot
+        Node currentFXMLNode = sceneRoot.getChildren().get(0);
+        lastScene = currentFXMLNode;
     }
 }

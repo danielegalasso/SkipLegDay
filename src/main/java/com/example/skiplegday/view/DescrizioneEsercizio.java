@@ -12,6 +12,7 @@ public class DescrizioneEsercizio extends Text {
         setOnMouseClicked(event -> {
             try {
                 DescrizioneEsercizioHandler.getInstance().setTextPulsantePremuto(this.getText());
+                SceneSecondaryHandler.getInstance().setLastScene();
                 SceneSecondaryHandler.getInstance().createDescrizioneEsercizioScene();
             } catch (Exception e) {
                 throw new RuntimeException(e);

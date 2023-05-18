@@ -31,27 +31,25 @@ public class SceneSecondaryHandler {
         FXMLLoader fxmlLoader = new FXMLLoader(SceneHandler.class.getResource("/com/example/skiplegday/"+resourceName));
         return fxmlLoader.load();
     }
-    public void createEserciziScene() throws IOException {
-        Node node= (Node) loadRootFromFXML("manualeEsercizi.fxml"); //non voglio far caricare sempre un nuovo nodo
-        //LO CAMBIERO
-        aggiungiManualeEsercizi(node);
-        addAndCenter(node);
-        rowIndex = 0;  //MOMENTANEO, POI MI SETTO LE COSE DA DANIELE, E LE CARICO
-        columnIndex = 0;
-    }
+    //SCENE PRINICIPALI---------------------------------------------------
     public void createSchedePersonaliScene() throws IOException {
         Node node= (Node) loadRootFromFXML("schedePersonali.fxml");
         addAndCenter(node);
     }
-    private void aggiungiManualeEsercizi(Node node) {
-        ArrayList<String> strings = InformazioniEsercizi.getInstance().getListaTuttiEsercizi();
-        TextFlow t = new TextFlow();
-        for (String s: strings) {
-            t.getChildren().add(new DescrizioneEsercizio(s));  //qua ci va DESCRIZIONEESERCIZIO !!!!
-            t.getChildren().add(new Text("\n"));
-        }
-        scrollPane.setContent(t);
+    public void createSchedePredefiniteScene() throws IOException {
+        Node node = (Node) loadRootFromFXML("schedeDefault.fxml");
+        addAndCenter(node);
     }
+    //DA FARE STATISTICHE
+    public void createEserciziScene() throws IOException {
+        Node node= (Node) loadRootFromFXML("manualeEsercizi.fxml"); //non voglio far caricare sempre un nuovo nodo
+        //LO CAMBIERO
+        aggiungiManualeEsercizi(node);
+        addAndCenter(node);   //MOMENTANEO, POI MI SETTO LE COSE DA DANIELE, E LE CARICO
+        rowIndex = 0;
+        columnIndex = 0;
+    }
+    //FARE OBIETTIVI
     public void createDatiPersonaliScene() throws IOException {
         Node node = (Node) loadRootFromFXML("datiPersonali.fxml");
         addAndCenter(node);
@@ -60,10 +58,7 @@ public class SceneSecondaryHandler {
         Node node = (Node) loadRootFromFXML("recensione.fxml");
         addAndCenter(node);
     }
-    public void createSchedePredefiniteScene() throws IOException {
-        Node node = (Node) loadRootFromFXML("schedeDefault.fxml");
-        addAndCenter(node);
-    }
+    //SCHEDE DEFAULT---------------------------------------------
     public void createPrincipianteScene() throws IOException{
         Node node = (Node) loadRootFromFXML("vBoxEsercizi.fxml");
         aggiungiSchedaPredefinita("schedaPrincipiante.txt");
@@ -100,11 +95,22 @@ public class SceneSecondaryHandler {
         //vBox.getChildren().add(setControllerAndLoadFromFXML("allenamento.fxml","schedaResistenza.txt"));
         addAndCenter(node);
     }
+    //MANUALE ESERCIZI--------------------------------------------(anche per aggiungere allenamenti)
+    private void aggiungiManualeEsercizi(Node node) {
+        ArrayList<String> strings = InformazioniEsercizi.getInstance().getListaTuttiEsercizi();
+        TextFlow t = new TextFlow();
+        for (String s: strings) {
+            t.getChildren().add(new Esercizio(s));  //qua ci va DESCRIZIONEESERCIZIO !!!!
+            t.getChildren().add(new Text("\n"));
+        }
+        scrollPane.setContent(t);
+    }
     public void createDescrizioneEsercizioScene() throws IOException {
         Node node = (Node) loadRootFromFXML("descrizioneEsercizio.fxml");  //quando aggiungo l'fxml si attiva in automatico il controller associato che fa tutto
         //funzione che mi prende da database tutti gli allenamenti e me li popola
         addAndCenter(node);
     }
+    //METODI UTILI -----------------------------------------------------
     private void addAndCenter(Node node){
         sceneRoot.getChildren().setAll(node);
         AnchorPane.setTopAnchor(node,10.0);
@@ -112,11 +118,20 @@ public class SceneSecondaryHandler {
         AnchorPane.setLeftAnchor(node, 10.0);
         AnchorPane.setRightAnchor(node, 10.0);
     }
+    public void CreateLastScene() {
+        sceneRoot.getChildren().setAll(lastScene);
+    }
+    public void setLastScene() {
+        // Ottieni il nodo FXML attualmente presente nel sceneRoot
+        Node currentFXMLNode = sceneRoot.getChildren().get(0);
+        lastScene = currentFXMLNode;
+    }
     public void setHomeSceneRoot(AnchorPane sceneRoot) {
         this.sceneRoot = sceneRoot;
     }
     public void setSchedeDefaultSceneRoot(VBox vBox) { this.vBox = vBox;}
     public void setScrollPane(ScrollPane scrollPane) {this.scrollPane = scrollPane;}
+    //-
     private void aggiungiSchedaPredefinita(String schedaName) throws IOException {
         List<List<String>> l=LettoreFile.getInstance().leggiSchedaDefault("files/"+schedaName);
         for(int i=0;i<l.size();i++) {
@@ -125,8 +140,7 @@ public class SceneSecondaryHandler {
             vBox.getChildren().add(allenamento);
         }
     }
-    //CONTROLLO SUL GRIDPANE
-  //DA VEDERE TUTTO QUESTO --------------------------------------
+  //SCHEDA PERSONALE (allenamenti personali) --------------------------------------
     private int columnCount = 2;//gridPane.getColumnCount();
     private int rowIndex = 0;  //quando ricclicco su scheda personale le resetto, finche non prendo le cose da daniele
     private int columnIndex = 0;
@@ -154,7 +168,8 @@ public class SceneSecondaryHandler {
     public void setGridPaneSchede(GridPane gridPane) {
         this.gridPane = gridPane;
     }
-    //--------------------  CREA SCHEDA PERSONALIZZATA
+
+    //--------------------  CREA SCHEDA PERSONALIZZATA   (ALLENAMENTI PERSONALIZZATI)-----
     private ScrollPane scrollPaneEsercizi;
     private VBox vBoxTuoAllenamento;
     public void createCreateAllenamentoScene() throws IOException {
@@ -187,13 +202,5 @@ public class SceneSecondaryHandler {
     public void setVBoxTuoAllenamento(VBox vBoxTuoAllenamento) {
         this.vBoxTuoAllenamento = vBoxTuoAllenamento;
     }
-    //-----------------------------
-    public void CreateLastScene() {
-        sceneRoot.getChildren().setAll(lastScene);
-    }
-    public void setLastScene() {
-        // Ottieni il nodo FXML attualmente presente nel sceneRoot
-        Node currentFXMLNode = sceneRoot.getChildren().get(0);
-        lastScene = currentFXMLNode;
-    }
+    //----------------------------------------------------
 }

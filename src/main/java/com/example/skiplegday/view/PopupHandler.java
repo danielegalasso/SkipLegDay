@@ -52,7 +52,6 @@ public class PopupHandler {
                 if (textField1.getText().equals("") || textField2.getText().equals("") || textField3.getText().equals("")) {
                     return true;
                 }
-                System.out.println("kg: " + textField1.getText() + " rep: " + textField2.getText() + " rec: " + textField3.getText());
             }
         }
         return false;
@@ -61,8 +60,12 @@ public class PopupHandler {
     public void setErrorText(Text errorText) {
         this.errorText = errorText;
     }
-
     public void hideErrorText() {
         errorText.setVisible(false);
+    }
+    private boolean saved=false;
+    public void setSaved(boolean saved) {this.saved = saved;}
+    public boolean chekNotSave() {
+        return !saved;
     }
 }

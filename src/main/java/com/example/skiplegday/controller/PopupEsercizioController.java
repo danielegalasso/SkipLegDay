@@ -1,5 +1,6 @@
 package com.example.skiplegday.controller;
 
+import com.example.skiplegday.model.Serie;
 import com.example.skiplegday.model.SerieSaver;
 import com.example.skiplegday.view.Popup;
 import com.example.skiplegday.view.PopupHandler;
@@ -33,6 +34,7 @@ public class PopupEsercizioController {
         PopupHandler.getInstance().setErrorText(textError);
     }
     public void addDatiEsAction(ActionEvent actionEvent) throws IOException {
+        PopupHandler.getInstance().setSaved(false);   //ogni volta che aggiungo un esercizio devo salvare prima di uscire
         PopupHandler.getInstance().addDatiEsercizio();
     }
     public void salvaProgressiAction(ActionEvent actionEvent) {
@@ -41,7 +43,9 @@ public class PopupEsercizioController {
             return;
         }
         PopupHandler.getInstance().hideErrorText();  //se sono qua è andato tutti a buon fine, tolgo l'errorText
-        SerieSaver.getInstance().resetdati();
+        SerieSaver.getInstance().resetdati();  //resetto i dati per evitare di avere dati doppi, ad esempio se salvo piu volte di fila
+        //oppure se elimino unKgRepRec, ne aggiungo un altro, ecc.
+        PopupHandler.getInstance().setSaved(true);
         System.out.println("salva progressi");
         ObservableList<Node> items = vBoxDatiEsercizi.getChildren();
         for (Node item : items) {
@@ -54,12 +58,16 @@ public class PopupEsercizioController {
                 Integer kg = Integer.valueOf(textField1.getText());
                 Integer rep = Integer.valueOf(textField2.getText());
                 Integer rec = Integer.valueOf(textField3.getText());
+                Serie serie = new Serie(nomeEsercizio.getText(), kg, rep, rec);
+                /*
                 SerieSaver.getInstance().addNomeEs(nomeEsercizio.getText());
                 SerieSaver.getInstance().addKg(kg);
                 SerieSaver.getInstance().addRep(rep);
-                SerieSaver.getInstance().addRec(rec);
-                SerieSaver.getInstance().printAll();
+                SerieSaver.getInstance().addRec(rec);*/
+                SerieSaver.getInstance().addSerie(serie);
+
             }
         }
+        SerieSaver.getInstance().printAll();
     }
 }

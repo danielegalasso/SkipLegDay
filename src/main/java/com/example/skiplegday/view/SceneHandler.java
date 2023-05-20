@@ -61,6 +61,7 @@ public class SceneHandler {
             stage.setHeight(700);
             setCentre();
             stage.setResizable(false);
+            SceneSecondaryHandler.getInstance().createSchedePersonaliScene();
 
         } catch (IOException ignored) {
         }

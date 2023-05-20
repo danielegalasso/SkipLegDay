@@ -39,7 +39,9 @@ public class SceneSecondaryHandler {
     //SCENE PRINICIPALI---------------------------------------------------
     public void createSchedePersonaliScene() throws IOException {
         Parent root = sceneMap.get("schedePersonali");
-        if(root == null) {
+        //il node lo carico già in SceneHandler quando avvio la homeScene, altrimenti se apro prima esercizi, e faccio importa, il gridPane è null
+        //in quanto non l'ho ancora caricato e mi da nullPointerException
+       if(root == null) {
             root = loadRootFromFXML("schedePersonali.fxml");
             sceneMap.put("schedePersonali", root);
         }
@@ -154,12 +156,23 @@ public class SceneSecondaryHandler {
   //SCHEDA PERSONALE (allenamenti personali) --------------------------------------
     private List<String> mieiAllenamenti = new ArrayList<>();  //ste due funzioni ignoratele, devo provare una cosa
     private String nameAllenamento(String nameAllenamento) {
+        int count = 0;
+        for (String s : mieiAllenamenti) {
+            if (s.startsWith(nameAllenamento)) {
+                count++;
+            }
+        }
+        if (count > 0) {
+            return nameAllenamento + (count + 1);
+        }
         return nameAllenamento;
     }
     private int columnCount = 2;//gridPane.getColumnCount();
     private int rowIndex = 0;  //quando ricclicco su scheda personale le resetto, finche non prendo le cose da daniele
     private int columnIndex = 0;
     public void aggiungiSchedaPersonaleScene(String nameExercise) throws IOException {
+        nameExercise= nameAllenamento(nameExercise);
+        mieiAllenamenti.add(nameExercise);
         //Node node = (Node) loadRootFromFXML("schedaPersonale.fxml"); non posso farla con questa funzione perche mi serve
         //controller associato
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/skiplegday/schedaPersonale.fxml"));

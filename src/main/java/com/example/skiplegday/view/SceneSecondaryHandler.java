@@ -1,9 +1,11 @@
 package com.example.skiplegday.view;
 
+import com.example.skiplegday.controller.SchedaPersonaleController;
 import com.example.skiplegday.model.InformazioniEsercizi;
 import com.example.skiplegday.model.LettoreFile;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
@@ -16,7 +18,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class SceneSecondaryHandler {
     private AnchorPane sceneRoot;
@@ -24,6 +28,7 @@ public class SceneSecondaryHandler {
     private ScrollPane scrollPane;
     private GridPane gridPane; //per le schedePersonali
     private Node lastScene;
+    private Map<String,Parent> sceneMap= new HashMap<>();
     private static final SceneSecondaryHandler instance = new SceneSecondaryHandler();
     private SceneSecondaryHandler() {}
     public static SceneSecondaryHandler getInstance() {return instance;}
@@ -33,8 +38,13 @@ public class SceneSecondaryHandler {
     }
     //SCENE PRINICIPALI---------------------------------------------------
     public void createSchedePersonaliScene() throws IOException {
-        Node node= (Node) loadRootFromFXML("schedePersonali.fxml");
-        addAndCenter(node);
+        Parent root = sceneMap.get("schedePersonali");
+        if(root == null) {
+            root = loadRootFromFXML("schedePersonali.fxml");
+            sceneMap.put("schedePersonali", root);
+        }
+        //Node node= (Node) loadRootFromFXML("schedePersonali.fxml");
+        addAndCenter(root);
     }
     public void createSchedePredefiniteScene() throws IOException {
         Node node = (Node) loadRootFromFXML("schedeDefault.fxml");
@@ -46,8 +56,6 @@ public class SceneSecondaryHandler {
         //LO CAMBIERO
         aggiungiManualeEsercizi(node);
         addAndCenter(node);   //MOMENTANEO, POI MI SETTO LE COSE DA DANIELE, E LE CARICO
-        rowIndex = 0;
-        columnIndex = 0;
     }
     //FARE OBIETTIVI
     public void createDatiPersonaliScene() throws IOException {
@@ -95,12 +103,20 @@ public class SceneSecondaryHandler {
         //vBox.getChildren().add(setControllerAndLoadFromFXML("allenamento.fxml","schedaResistenza.txt"));
         addAndCenter(node);
     }
+    private void aggiungiSchedaPredefinita(String schedaName) throws IOException {
+        List<List<String>> l=LettoreFile.getInstance().leggiSchedaDefault("files/"+schedaName);
+        for(int i=0;i<l.size();i++) {
+            Node allenamento= (Node) loadRootFromFXML("allenamento.fxml");
+            AllenamentoHandler.getInstance().setAllenamentoPredef(l.get(i));
+            vBox.getChildren().add(allenamento);
+        }
+    }
     //MANUALE ESERCIZI--------------------------------------------(anche per aggiungere allenamenti)
     private void aggiungiManualeEsercizi(Node node) {
         ArrayList<String> strings = InformazioniEsercizi.getInstance().getListaTuttiEsercizi();
         TextFlow t = new TextFlow();
         for (String s: strings) {
-            t.getChildren().add(new Esercizio(s));  //qua ci va DESCRIZIONEESERCIZIO !!!!
+            t.getChildren().add(new DescrizioneEsercizio(s));  //qua ci va DESCRIZIONEESERCIZIO !!!!
             t.getChildren().add(new Text("\n"));
         }
         scrollPane.setContent(t);
@@ -131,21 +147,25 @@ public class SceneSecondaryHandler {
     }
     public void setSchedeDefaultSceneRoot(VBox vBox) { this.vBox = vBox;}
     public void setScrollPane(ScrollPane scrollPane) {this.scrollPane = scrollPane;}
-    //-
-    private void aggiungiSchedaPredefinita(String schedaName) throws IOException {
-        List<List<String>> l=LettoreFile.getInstance().leggiSchedaDefault("files/"+schedaName);
-        for(int i=0;i<l.size();i++) {
-            Node allenamento= (Node) loadRootFromFXML("allenamento.fxml");
-            AllenamentoHandler.getInstance().setAllenamentoPredef(l.get(i));
-            vBox.getChildren().add(allenamento);
-        }
+    public void clearAll() {
+        sceneMap.clear();
     }
+    //-
   //SCHEDA PERSONALE (allenamenti personali) --------------------------------------
+    private List<String> mieiAllenamenti = new ArrayList<>();  //ste due funzioni ignoratele, devo provare una cosa
+    private String nameAllenamento(String nameAllenamento) {
+        return nameAllenamento;
+    }
     private int columnCount = 2;//gridPane.getColumnCount();
     private int rowIndex = 0;  //quando ricclicco su scheda personale le resetto, finche non prendo le cose da daniele
     private int columnIndex = 0;
-    public void aggiungiSchedaPersonaleScene() throws IOException {
-        Node node = (Node) loadRootFromFXML("schedaPersonale.fxml");
+    public void aggiungiSchedaPersonaleScene(String nameExercise) throws IOException {
+        //Node node = (Node) loadRootFromFXML("schedaPersonale.fxml"); non posso farla con questa funzione perche mi serve
+        //controller associato
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/skiplegday/schedaPersonale.fxml"));
+        Node node = loader.load();
+        SchedaPersonaleController controller = loader.getController();
+        controller.setLabelSchedaPersonalizzata(nameExercise);
         addSchedaNextPositionGridPane(node);
     }
     private void addSchedaNextPositionGridPane(Node node) {
@@ -185,8 +205,8 @@ public class SceneSecondaryHandler {
             Button button = new Button("Aggiungi");
             DescrizioneEsercizio desc= new DescrizioneEsercizio(s);
             button.setOnMouseClicked(event -> {
-                //System.out.println(desc.getText());
-                vBoxTuoAllenamento.getChildren().add(new DescrizioneEsercizio(desc.getText()));
+                //addvBoxIfUnique(desc.getText());
+                addvBoxIfUnique(desc.getText());
                     });
             hBox.getChildren().addAll(desc,button);
             //t.getChildren().add(new DescrizioneEsercizio(s));  //qua ci va DESCRIZIONEESERCIZIO !!!!
@@ -196,11 +216,43 @@ public class SceneSecondaryHandler {
         scrollPaneEsercizi.setContent(t);
         addAndCenter(node);
     }
+    private void addvBoxIfUnique(String text) {
+        boolean isUnique = true;
+        for (Node hboxs : vBoxTuoAllenamento.getChildren()) {
+            HBox hbox = (HBox) hboxs;
+            String exercise = ((Text)hbox.getChildren().get(0)).getText();
+            if (exercise.equals(text)) {
+                isUnique = false;
+                break;
+            }
+        }
+        if (isUnique) {  //SE NON è PRESENTE CREO L'HOB CON ESERCIZIO E BUTTON RIMUOVI
+            HBox hbox = new HBox();
+            Button b= new Button("Rimuovi");
+            b.setOnMouseClicked(event -> {
+                vBoxTuoAllenamento.getChildren().remove(hbox);
+            });
+            hbox.getChildren().addAll(new DescrizioneEsercizio(text),b);
+            vBoxTuoAllenamento.getChildren().add(hbox);
+        }
+    }
     public void setScrollPaneEserciziAdd(ScrollPane scrollPaneEsercizi) {
         this.scrollPaneEsercizi=scrollPaneEsercizi;
     }
     public void setVBoxTuoAllenamento(VBox vBoxTuoAllenamento) {
         this.vBoxTuoAllenamento = vBoxTuoAllenamento;
     }
+    //per accedere all'allenamento pers quando sono sulla label
+    public void accediSchedaPersonalizzataScene(String text) throws IOException {  //meglio chiamarlo accedi allenamento
+        Node node = (Node) loadRootFromFXML("vBoxEsercizi.fxml");
+        Node allenamento= (Node) loadRootFromFXML("allenamento.fxml");
+        //tramite il NomeAllenamento faccio una query al database che mi restituisce la lista degli esercizi da cui è composto e le rispettive immagini
+        List<String> esercizi = new ArrayList<>();
+        esercizi.add(text); esercizi.add("esercizio2"); esercizi.add("esercizio3");
+        AllenamentoHandler.getInstance().setAllenamentoPers(esercizi);
+        vBox.getChildren().add(allenamento);
+        addAndCenter(node);
+    }
+
     //----------------------------------------------------
 }

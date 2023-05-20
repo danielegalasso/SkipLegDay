@@ -1,24 +1,20 @@
 package com.example.skiplegday.controller;
 
 import com.example.skiplegday.view.SceneSecondaryHandler;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,9 +27,11 @@ public class SchedaPersonaleController {
     Button deleteSchedaButton;
     @FXML
     TextField fieldSetNameScheda;
-    public void accediSchedaPersonalizzata(MouseEvent mouseEvent) {
-        labelSchedaPersonalizzata.getText();
-        //e co sto testo devo trova l'allenamento nel database dal model
+    public void setLabelSchedaPersonalizzata(String text) {
+        labelSchedaPersonalizzata.setText(text);
+    }
+    public void accediSchedaPersonalizzata(MouseEvent mouseEvent) throws IOException {
+       //questa posso eliminarla, faccio tutto con la funzione on MOuseClicked
     }
 
     public void deleteSchedaAction(ActionEvent actionEvent) {
@@ -62,7 +60,7 @@ public class SchedaPersonaleController {
         }
         return null;
     }
-    public void setNameSchedaAction(MouseEvent mouseEvent) {
+    public void setNameSchedaAction(MouseEvent mouseEvent) throws IOException {
         if (mouseEvent.getClickCount() == 2) {
             // Nascondi la label
             labelSchedaPersonalizzata.setVisible(false);
@@ -71,6 +69,12 @@ public class SchedaPersonaleController {
             fieldSetNameScheda.setVisible(true);
             fieldSetNameScheda.setText(labelSchedaPersonalizzata.getText());
             fieldSetNameScheda.requestFocus();
+        }
+        else{
+            System.out.println("Accedi scheda personalizzata");
+            labelSchedaPersonalizzata.getText();
+            SceneSecondaryHandler.getInstance().accediSchedaPersonalizzataScene(labelSchedaPersonalizzata.getText());
+            //e co sto testo devo trova l'allenamento nel database dal model
         }
     }
     @FXML

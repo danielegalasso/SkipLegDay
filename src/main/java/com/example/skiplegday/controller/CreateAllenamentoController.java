@@ -1,5 +1,6 @@
 package com.example.skiplegday.controller;
 
+import com.example.skiplegday.view.AllenamentoHandler;
 import com.example.skiplegday.view.SceneSecondaryHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -8,6 +9,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
+import java.io.IOException;
+import java.util.List;
+
 public class CreateAllenamentoController {
     @FXML
     TextField fieldCreateNameAllenamento;
@@ -15,8 +19,13 @@ public class CreateAllenamentoController {
     VBox vBoxTuoAllenamento;
     @FXML
     ScrollPane scrollPaneEsercizi;
-    public void saveAllenamentoAction(ActionEvent actionEvent) {
-        //aggiungo nel databasecreao fxml con label e immagine avente come nome questo textField
+    public void saveAllenamentoAction(ActionEvent actionEvent) throws IOException {
+        //aggiungo nel database creo fxml con label e immagine avente come nome questo textField  !!!!!!!!!!!!!!!!!!
+        if(fieldCreateNameAllenamento.getText().equals("") || vBoxTuoAllenamento.getChildren().size() == 0){
+            return;
+        }
+        SceneSecondaryHandler.getInstance().aggiungiSchedaPersonaleScene(fieldCreateNameAllenamento.getText());
+        SceneSecondaryHandler.getInstance().createSchedePersonaliScene();
     }
     public void initialize(){
         SceneSecondaryHandler.getInstance().setScrollPaneEserciziAdd(scrollPaneEsercizi);

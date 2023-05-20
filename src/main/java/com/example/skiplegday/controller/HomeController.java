@@ -25,6 +25,7 @@ public class HomeController {
     public void logoutAction(ActionEvent actionEvent) {
         //model.logout();  daniele galasso   devo salvare qualcosa nell'account utente??
         SceneHandler.getInstance().createLoginScene();
+        SceneSecondaryHandler.getInstance().clearAll();
     }
     public void eserciziAction(ActionEvent actionEvent) throws IOException {  //creare gli esercizi dovrebbe essere della view???
         SceneSecondaryHandler.getInstance().createEserciziScene();

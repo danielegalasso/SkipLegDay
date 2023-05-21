@@ -13,7 +13,7 @@
          <graphic>
             <ImageView fitHeight="128.0" fitWidth="142.0">
                <image>
-                  <Image url="@icon/petto/Spinte Panca Bassa Bilanciere.png" />
+                  <Image url="@icon/Spinte Panca Bassa Bilanciere.png" />
                </image>
             </ImageView>
          </graphic>

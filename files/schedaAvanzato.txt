@@ -1,7 +1,4 @@
-petto;panca pianaAvanzato;crociAvanz;piegamenti;
-gambe;squatAvanzato;lex extensionAvanzato;leg curl;
-dorso;lat machineAvanzato;trazioniAvanzato;
-bicipiti;curlAvanzato;curl alternatoAvanzato;
-addominali;crunchAvanzato;mountain climberAvanzato;
-spalle;militaryAvanzato;shoulder pressAvanzato;
-tricipiti;cordeAvanzato;dipAvanzato;
+Petto-Dorso-Bicipiti;Panca Piana Manubri;Panca Inclinata Manubri;Chest Press;Lat Machine; Pulley;Concentrato Manubri;Curl Bilanciere;
+Gambe-Spalle-Tricipiti;Leg Press;Squat;Calf Machine;Shoulder Press Manubri;Military Press Seduto;Push Down;Pull Over Singolo;
+Dorso-Petto-Bicipiti;Trazioni;Rematore Bilanciere TBar;Lat Machine Triangolo;Croci Cavi;Pec Fly;Curl Seduto;Curl Bilanciere Curvo;
+Spalle-Gambe-Tricipiti;Alzate Laterali;Shoulder Press Manubri Alternati;Alzate Frontali;Leg Curl;Hip Trust;Dip tra panche;

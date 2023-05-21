@@ -34,7 +34,8 @@ public class AllenamentoHandler {
         idGruppoMuscolare.setText(l.get(0));
         for(int i=1;i<l.size()-1;++i){
             HBox hBox = new HBox();
-            ImageView img= new ImageView(new Image(getClass().getResource(FONT_PATH+l.get(l.size()-1)).openStream()));
+            System.out.println();
+            ImageView img= new ImageView(new Image(getClass().getResource(FONT_PATH+l.get(i)+".png").openStream()));
             img.setFitHeight(30);
             img.setFitWidth(30);
             hBox.getChildren().addAll(img,new Text(l.get(i)));

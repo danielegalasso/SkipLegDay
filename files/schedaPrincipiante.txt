@@ -1,7 +1,2 @@
-petto;panca pianaPrincipiante;croci;piegamenti;petto/dippetto.png;
-gambe;squatPrincipiante;lex extensionPrincipiante;leg curl;petto/dippetto.png;
-dorso;lat machinePrincipiante;trazioni;petto/petto.png;
-bicipiti;curlPrincipiante;curl alternato;petto/dippetto.png;
-addominali;crunchPrincipiante;mountain climber;petto/petto.png;
-spalle;militaryPrincipiante;shoulder press;petto/petto.png;
-tricipiti;cordePrincipiante;dip;petto/petto.png;
+Principiante Giorno 1;Chest Press;Alzate Laterali;Curl Manubri Alternato;Curl Seduto;Crunch;
+Principiante Giorno 2;Abductor Machine;Polpacci Bilanciere;Lat Machine;Push Down;Crunch;

@@ -1,5 +1,7 @@
 package com.example.skiplegday.view;
 
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -23,7 +25,11 @@ public class AllenamentoHandler {
     public void setAllenamentoPers(List<String> l) throws IOException {
         idGruppoMuscolare.setText(l.get(0));
         for(int i=1;i<l.size();++i){
-            vBoxListaEsercizi.getChildren().add(new Esercizio(l.get(i)));
+            Node node = (Node) loadRootFromFXML("esercizio.fxml");
+            EsercizioHandler.getInstance().setEsercizio(loadImage(l.get(i)),new Esercizio(l.get(i)),false);
+            //HBox hBox = new HBox();
+            //hBox.getChildren().addAll(loadImage(l.get(i)),new Esercizio(l.get(i)),new EmptyPanel(),new Button("X"));
+            vBoxListaEsercizi.getChildren().add(node);
         }
         importaButton.setVisible(false);
         saveAllenamentoButton.setVisible(true);
@@ -33,21 +39,28 @@ public class AllenamentoHandler {
     public void setAllenamentoPredef(List<String> l) throws IOException {
         idGruppoMuscolare.setText(l.get(0));
         for(int i=1;i<l.size();++i){
-            HBox hBox = new HBox();
-            System.out.println();
-            ImageView img= new ImageView(new Image(getClass().getResource(FONT_PATH+l.get(i)+".png").openStream()));
-            img.setFitHeight(30);
-            img.setFitWidth(30);
-            hBox.getChildren().addAll(img,new Text(l.get(i)));
-            vBoxListaEsercizi.getChildren().add(hBox);
+            Node node = (Node) loadRootFromFXML("esercizio.fxml");
+            EsercizioHandler.getInstance().setEsercizio(loadImage(l.get(i)),new Esercizio(l.get(i)),true);
+            //HBox hBox = new HBox();
+            //System.out.println();
+            //hBox.getChildren().addAll(loadImage(l.get(i)),new Text(l.get(i)));
+            vBoxListaEsercizi.getChildren().add(node);
         }
         importaButton.setVisible(true);
         saveAllenamentoButton.setVisible(false);
+    }
+    private Image loadImage(String nomeEsercizio) throws IOException {
+        Image img=new Image(getClass().getResource(FONT_PATH+nomeEsercizio+".png").openStream());
+        return img;
     }
     public void setAllenamento(Text idGruppoMuscolare, VBox vBoxListaEsercizi, Button importaButton, Button saveAllenamentoButton){
         this.idGruppoMuscolare=idGruppoMuscolare;
         this.vBoxListaEsercizi=vBoxListaEsercizi;
         this.importaButton=importaButton;
         this.saveAllenamentoButton=saveAllenamentoButton;
+    }
+    private<T> T loadRootFromFXML(String resourceName) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(SceneHandler.class.getResource("/com/example/skiplegday/"+resourceName));
+        return fxmlLoader.load();
     }
 }

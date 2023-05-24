@@ -10,6 +10,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -214,25 +216,53 @@ public class SceneSecondaryHandler {
         //NELLO SCROLLPANE NON DEVO CARICARE IL MANUALE ESERCIZI, CARICARE GLI ESERCIZI OTTENUTI CON LA FUNZIONE DI DANIELE
         //E PRIMA DI CARICARLI CREO UN HBOX CON SPIEGAZIONE ESERCIZIO E A DESTRA BUTTON PER AGGIUNGERE
         ArrayList<String> strings = InformazioniEsercizi.getInstance().getListaTuttiEsercizi();
-        TextFlow t = new TextFlow();
+        //TextFlow t = new TextFlow();
+        VBox vb = new VBox();
         for (String s: strings) {
+            Node node1 = (Node) loadRootFromFXML("esercizio.fxml");
+            EsercizioHandler.getInstance().setDescrizioneEsercizio(loadImage(s),new DescrizioneEsercizio(s));
+            EsercizioHandler.getInstance().setOnMouseClickedEvent(event -> {
+                try {
+                    addvBoxIfUnique(s);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            },"Aggiungi");
+            /*
             HBox hBox = new HBox();
             Button button = new Button("Aggiungi");
             DescrizioneEsercizio desc= new DescrizioneEsercizio(s);
             button.setOnMouseClicked(event -> {
-                //addvBoxIfUnique(desc.getText());
                 addvBoxIfUnique(desc.getText());
                     });
             hBox.getChildren().addAll(desc,button);
             //t.getChildren().add(new DescrizioneEsercizio(s));  //qua ci va DESCRIZIONEESERCIZIO !!!!
             t.getChildren().add(hBox);
-            t.getChildren().add(new Text("\n"));
+            t.getChildren().add(new Text("\n"));*/
+            vb.getChildren().add(node1);
         }
-        scrollPaneEsercizi.setContent(t);
+        scrollPaneEsercizi.setContent(vb); //rimettere t
         addAndCenter(node);
     }
-    private void addvBoxIfUnique(String text) {
+    //CODICE GIà PRESENTE NELLA CLASSE ALLENAMENTOHANDLER CREARE EMGA CLASSE AUSILIARIA CON FONT E TUTTI QUESTI METODI
+    private static final String FONT_PATH = "/com/example/skiplegday/icon/";
+    private Image loadImage(String nomeEsercizio) throws IOException {
+        Image img=new Image(getClass().getResource(FONT_PATH+nomeEsercizio+".png").openStream());
+        return img;
+    }
+    private void addvBoxIfUnique(String text) throws IOException {
         boolean isUnique = true;
+        for (Node n: vBoxTuoAllenamento.getChildren()) {
+            if (n instanceof Parent) {
+                Parent parent = (Parent) n;
+                String textField = ((TextField) parent.getChildrenUnmodifiable().get(1)).getText();
+                if (textField.equals(text)) {
+                    isUnique = false;
+                    break;
+                }
+            }
+        }
+        /*
         for (Node hboxs : vBoxTuoAllenamento.getChildren()) {
             HBox hbox = (HBox) hboxs;
             String exercise = ((Text)hbox.getChildren().get(0)).getText();
@@ -240,8 +270,9 @@ public class SceneSecondaryHandler {
                 isUnique = false;
                 break;
             }
-        }
+        }*/
         if (isUnique) {  //SE NON è PRESENTE CREO L'HOB CON ESERCIZIO E BUTTON RIMUOVI
+            /*
             HBox hbox = new HBox();
             Button b= new Button("Rimuovi");
             b.setOnMouseClicked(event -> {
@@ -249,6 +280,12 @@ public class SceneSecondaryHandler {
             });
             hbox.getChildren().addAll(new DescrizioneEsercizio(text),b);
             vBoxTuoAllenamento.getChildren().add(hbox);
+             */
+            Node node1 = (Node) loadRootFromFXML("esercizio.fxml");
+            EsercizioHandler.getInstance().setDescrizioneEsercizio(loadImage(text),new DescrizioneEsercizio(text));
+            EsercizioHandler.getInstance().setOnMouseClickedEvent(event -> {
+                vBoxTuoAllenamento.getChildren().remove(node1);
+            },"Rimuovi");
         }
     }
     public void setScrollPaneEserciziAdd(ScrollPane scrollPaneEsercizi) {
@@ -264,11 +301,9 @@ public class SceneSecondaryHandler {
         //tramite il NomeAllenamento faccio una query al database che mi restituisce la lista degli esercizi da cui è composto e le rispettive immagini
         //List<String> esercizi = Database.getInstance().getEserciziScheda(UtenteAttuale.getInstance().getUsername(), schedaNome);
         ArrayList<String> esercizi = new ArrayList<>();
-        esercizi.add("squat");
+        esercizi.add("squat");esercizi.add("panca piana manubri");esercizi.add("stacco");
 
-
-        //VIVA LA FIGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        esercizi.add(0,schedaNome);
+        esercizi.add(0,schedaNome);  //<-----------------------------------------NOME ALLENAMENTO
         AllenamentoHandler.getInstance().setAllenamentoPers(esercizi);
         vBox.getChildren().add(allenamento);
         addAndCenter(node);

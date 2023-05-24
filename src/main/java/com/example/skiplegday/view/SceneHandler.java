@@ -70,7 +70,7 @@ public class SceneHandler {
         try {
             scene.setRoot(loadRootFromFXML("register.fxml"));
             stage.setWidth(400);
-            stage.setHeight(380);
+            stage.setHeight(500);
             setCentre();
             stage.setResizable(false);
         } catch (IOException ignored) {

@@ -1,13 +1,11 @@
 package com.example.skiplegday.controller;
 
 import com.example.skiplegday.model.Serie;
-import com.example.skiplegday.model.SerieSaver;
-import com.example.skiplegday.view.Popup;
+import com.example.skiplegday.model.AllenamentoSaver;
 import com.example.skiplegday.view.PopupHandler;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
@@ -43,11 +41,12 @@ public class PopupEsercizioController {
             return;
         }
         PopupHandler.getInstance().hideErrorText();  //se sono qua è andato tutti a buon fine, tolgo l'errorText
-        SerieSaver.getInstance().resetdati();  //resetto i dati per evitare di avere dati doppi, ad esempio se salvo piu volte di fila
+        AllenamentoSaver.getInstance().resetdati();  //resetto i dati per evitare di avere dati doppi, ad esempio se salvo piu volte di fila
         //oppure se elimino unKgRepRec, ne aggiungo un altro, ecc.
         PopupHandler.getInstance().setSaved(true);
         System.out.println("salva progressi");
         ObservableList<Node> items = vBoxDatiEsercizi.getChildren();
+        ArrayList<Serie> serieList= new ArrayList<>();
         for (Node item : items) {
             if (item instanceof Parent) {
                 Parent parent = (Parent) item;
@@ -58,16 +57,11 @@ public class PopupEsercizioController {
                 Integer kg = Integer.valueOf(textField1.getText());
                 Integer rep = Integer.valueOf(textField2.getText());
                 Integer rec = Integer.valueOf(textField3.getText());
-                Serie serie = new Serie(nomeEsercizio.getText(), kg, rep, rec);
-                /*
-                SerieSaver.getInstance().addNomeEs(nomeEsercizio.getText());
-                SerieSaver.getInstance().addKg(kg);
-                SerieSaver.getInstance().addRep(rep);
-                SerieSaver.getInstance().addRec(rec);*/
-                SerieSaver.getInstance().addSerie(serie);
 
+                Serie serie= new Serie(kg,rep,rec);
+                serieList.add(serie);
             }
         }
-        SerieSaver.getInstance().printAll();
+        AllenamentoSaver.getInstance().addSerie(nomeEsercizio.getText(),serieList);
     }
 }

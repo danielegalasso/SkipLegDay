@@ -1,6 +1,8 @@
 module com.example.prog {
     requires javafx.controls;
     requires javafx.fxml;
+    requires java.sql;
+    requires spring.security.crypto;
 
     exports com.example.skiplegday;
     opens com.example.skiplegday to javafx.fxml;

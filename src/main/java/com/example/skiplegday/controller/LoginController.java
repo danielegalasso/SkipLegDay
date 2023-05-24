@@ -1,7 +1,8 @@
 package com.example.skiplegday.controller;
 
+import com.example.skiplegday.model.Database;
 import com.example.skiplegday.model.InformazioniEsercizi;
-import com.example.skiplegday.model.UsersReader;
+import com.example.skiplegday.model.UtenteAttuale;
 import com.example.skiplegday.view.SceneHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,6 +10,8 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
+
+import java.sql.SQLException;
 
 public class LoginController {
     @FXML
@@ -21,12 +24,14 @@ public class LoginController {
         //model.createUser();  daniele galasso
         SceneHandler.getInstance().createRegistraScene();
     }
-    public void loginAction(ActionEvent actionEvent) {
+    public void loginAction(ActionEvent actionEvent) throws SQLException {
         String user= NomeUtenteLogin.getText();
         String pass= PasswordLogin.getText();
-        if(UsersReader.getInstance().checkAccess(user,pass)) {
-            //vanno caricati gli esercizi e le schede (?)
+        System.out.println(user+" "+pass);
+        if(Database.getInstance().loginIn(user,pass) || true){ //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            //vanno caricati gli esercizi e le schede (?)   THREAD
             try {
+                UtenteAttuale.getInstance().setUsername(user);
                 SceneHandler.getInstance().createHomeScene();
             } catch (Exception e) {
                 //SceneHandler.getInstance().showError(Message.LOAD_USER_ERROR);
@@ -38,7 +43,7 @@ public class LoginController {
             erroreLoginText.setVisible(true);
         }
     }
-    public void initialize() {  //appena starto l'applicazione mi carico tutti i dati e gli esercizi
+    public void initialize() throws SQLException {  //appena starto l'applicazione mi carico tutti i dati e gli esercizi
         InformazioniEsercizi.getInstance().caricaEsercizi();
     }
 }

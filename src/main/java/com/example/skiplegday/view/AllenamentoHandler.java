@@ -22,7 +22,7 @@ public class AllenamentoHandler {
     private static final String FONT_PATH = "/com/example/skiplegday/icon/";
     public void setAllenamentoPers(List<String> l) throws IOException {
         idGruppoMuscolare.setText(l.get(0));
-        for(int i=1;i<l.size()-1;++i){
+        for(int i=1;i<l.size();++i){
             vBoxListaEsercizi.getChildren().add(new Esercizio(l.get(i)));
         }
         importaButton.setVisible(false);
@@ -32,7 +32,7 @@ public class AllenamentoHandler {
     }
     public void setAllenamentoPredef(List<String> l) throws IOException {
         idGruppoMuscolare.setText(l.get(0));
-        for(int i=1;i<l.size()-1;++i){
+        for(int i=1;i<l.size();++i){
             HBox hBox = new HBox();
             System.out.println();
             ImageView img= new ImageView(new Image(getClass().getResource(FONT_PATH+l.get(i)+".png").openStream()));

@@ -117,47 +117,6 @@ public class LettoreFile {
         }
         return result;
     }
-    public ArrayList<Object> prendiHashListaeserciziNomigruppiDescrizioni(){
-        HashMap<String, ArrayList<String>> hashMap = new HashMap<>();
-        ArrayList<String> ListaTuttiEsercizi = new ArrayList<>();
-        ArrayList<String> nomiGruppiMuscolari = new ArrayList<>();
-        HashMap<String, String> descrizioni = new HashMap<>();
-        ClassLoader classLoader = getClass().getClassLoader();
-        String nomeCartellaEsercizi = "com/example/skiplegday/Esercizi";
-        URL resource = classLoader.getResource(nomeCartellaEsercizi);
-        if (resource != null) {
-            File folder = new File(resource.getFile());
-            String[] fileNames = folder.list();
-            for (String fileName : fileNames) {
-                //System.out.println(fileName);
-                nomiGruppiMuscolari.add(fileName);
-                URL resource1 = classLoader.getResource(nomeCartellaEsercizi + "/" + fileName);
-                ArrayList<String> EserciziXGruppiMuscolari = new ArrayList<>();
-                if (resource1 != null) {
-                    File folder1 = new File(resource1.getFile());
-                    String[] fileNames1 = folder1.list();
-                    for (String fileName1 : fileNames1) {
-                        System.out.println(fileName1);
-                        String[] readfile = leggiFile("/" + nomeCartellaEsercizi + "/" + fileName + "/" + fileName1);
-                        //System.out.println(readfile[0]);
-                        //System.out.println(readfile[1]);
-                        //System.out.println(readfile[2]);
-                        EserciziXGruppiMuscolari.add(readfile[0]);
-                        ListaTuttiEsercizi.add(readfile[0]);
-                        descrizioni.put(readfile[0], readfile[2]);
-                    }
-                }
-                hashMap.put(fileName, EserciziXGruppiMuscolari);
-            }
-        }
-        //L'hashmap associa ad ogni gruppo muscolare un lista di esercizi
-        ArrayList<Object> ret = new ArrayList<>();
-        ret.add(hashMap);               //HashMap<Gruppo Muscolare, ArrayList<Esercizi per quel gruppo muscolare>>
-        ret.add(ListaTuttiEsercizi);    //Lista di tutti gli esercizi
-        ret.add(nomiGruppiMuscolari);   //lista gruppi muscolari
-        ret.add(descrizioni);           //HashMap<nome esercizio, descrizione>
-        return ret;
-    }
     public String[] leggiFile(String percorso) {
         //ritorna in elemento 0 = nomeesercizio
         //           elemento 1 = GruppoMuscolare

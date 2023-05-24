@@ -1,8 +1,10 @@
 package com.example.skiplegday.view;
 
 import com.example.skiplegday.controller.SchedaPersonaleController;
+import com.example.skiplegday.model.Database;
 import com.example.skiplegday.model.InformazioniEsercizi;
 import com.example.skiplegday.model.LettoreFile;
+import com.example.skiplegday.model.UtenteAttuale;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -256,12 +258,17 @@ public class SceneSecondaryHandler {
         this.vBoxTuoAllenamento = vBoxTuoAllenamento;
     }
     //per accedere all'allenamento pers quando sono sulla label
-    public void accediSchedaPersonalizzataScene(String text) throws IOException {  //meglio chiamarlo accedi allenamento
+    public void accediSchedaPersonalizzataScene(String schedaNome) throws IOException {  //meglio chiamarlo accedi allenamento
         Node node = (Node) loadRootFromFXML("vBoxEsercizi.fxml");
         Node allenamento= (Node) loadRootFromFXML("allenamento.fxml");
         //tramite il NomeAllenamento faccio una query al database che mi restituisce la lista degli esercizi da cui è composto e le rispettive immagini
-        List<String> esercizi = new ArrayList<>();
-        esercizi.add(text); esercizi.add("esercizio2"); esercizi.add("esercizio3");
+        //List<String> esercizi = Database.getInstance().getEserciziScheda(UtenteAttuale.getInstance().getUsername(), schedaNome);
+        ArrayList<String> esercizi = new ArrayList<>();
+        esercizi.add("squat");
+
+
+        //VIVA LA FIGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        esercizi.add(0,schedaNome);
         AllenamentoHandler.getInstance().setAllenamentoPers(esercizi);
         vBox.getChildren().add(allenamento);
         addAndCenter(node);

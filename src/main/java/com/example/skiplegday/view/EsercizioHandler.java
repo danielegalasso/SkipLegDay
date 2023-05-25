@@ -1,5 +1,6 @@
 package com.example.skiplegday.view;
 
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -22,6 +23,8 @@ public class EsercizioHandler {
     }
     public void setEsercizio(Image esercizioImage, Esercizio nameEsercizio, boolean isPredefinito){
         imageEsercizio.setImage(esercizioImage);
+        nameEsercizio.setFont(javafx.scene.text.Font.font("System", 50));  //sicuro vengono sovrascritte del css
+        nameEsercizio.setLineSpacing(45);
         esercizioTextFlow.getChildren().add(nameEsercizio);
         if (isPredefinito){
             removeEsercizio.setVisible(false);
@@ -34,19 +37,8 @@ public class EsercizioHandler {
         imageEsercizio.setImage(esercizioImage);
         esercizioTextFlow.getChildren().add(nameEsercizio);
     }
-    public void setButtonAggiungiInCreaAllenamentoScene() {
-        // Rimuovo l'azione di default del button esistente
-        removeEsercizio.setOnAction(null);
-
-        // Aggiungo l'azione desiderata al nuovo button
-        removeEsercizio.setOnAction(event -> { // Azione personalizzata del nuovo button
-            System.out.println("Nuovo Button cliccato!");
-        });
-
-        removeEsercizio.setText("Aggiungi");
-    }
-    public void setOnMouseClickedEvent(EventHandler<MouseEvent> eventHandler,String nameButton) {
-        removeEsercizio.setOnMouseClicked(eventHandler);
+    public void setOnMouseClickedEvent(EventHandler<ActionEvent> eventHandler, String nameButton) {
+        removeEsercizio.setOnAction(eventHandler);
         removeEsercizio.setText(nameButton);
     }
 

@@ -215,7 +215,9 @@ public class SceneSecondaryHandler {
         //paneEserciziAdd.getChildren().setAll(manuale);
         //NELLO SCROLLPANE NON DEVO CARICARE IL MANUALE ESERCIZI, CARICARE GLI ESERCIZI OTTENUTI CON LA FUNZIONE DI DANIELE
         //E PRIMA DI CARICARLI CREO UN HBOX CON SPIEGAZIONE ESERCIZIO E A DESTRA BUTTON PER AGGIUNGERE
-        ArrayList<String> strings = InformazioniEsercizi.getInstance().getListaTuttiEsercizi();
+        //ArrayList<String> strings = InformazioniEsercizi.getInstance().getListaTuttiEsercizi();  RIMETTERE DECOMMENTANDOLO!!!!!!!!!!!
+        ArrayList<String> strings = new ArrayList<>(); //mi serve come prova, poi lo elimino e tengo lo string di sopra
+        strings.add("panca piana manubri");strings.add("croci cavi");strings.add("squat");
         //TextFlow t = new TextFlow();
         VBox vb = new VBox();
         for (String s: strings) {
@@ -244,24 +246,32 @@ public class SceneSecondaryHandler {
         scrollPaneEsercizi.setContent(vb); //rimettere t
         addAndCenter(node);
     }
-    //CODICE GIà PRESENTE NELLA CLASSE ALLENAMENTOHANDLER CREARE EMGA CLASSE AUSILIARIA CON FONT E TUTTI QUESTI METODI
+    //CODICE GIà PRESENTE NELLA CLASSE ALLENAMENTOHANDLER CREARE MEGA CLASSE AUSILIARIA CON FONT E TUTTI QUESTI METODI
     private static final String FONT_PATH = "/com/example/skiplegday/icon/";
     private Image loadImage(String nomeEsercizio) throws IOException {
         Image img=new Image(getClass().getResource(FONT_PATH+nomeEsercizio+".png").openStream());
         return img;
     }
     private void addvBoxIfUnique(String text) throws IOException {
+        System.out.println("addvBoxIfUnique");
         boolean isUnique = true;
         for (Node n: vBoxTuoAllenamento.getChildren()) {
-            if (n instanceof Parent) {
+            if (n instanceof Parent) {  //nodoEsercizio:  image (0)  textFlow(1)   button(2
                 Parent parent = (Parent) n;
-                String textField = ((TextField) parent.getChildrenUnmodifiable().get(1)).getText();
+                /*
+                String textField = ((TextFlow) parent.getChildrenUnmodifiable().get(1)).getChildren().get(0).toString();
+//textField: [Text[text="panca piana manubri", x=0.0, y=0.0, alignment=LEFT, origin=BASELINE, boundsType=LOGICAL, font=Font[name=System Regular, family=System, style=Re*/
+                TextFlow textFlow = (TextFlow) parent.getChildrenUnmodifiable().get(1);
+                Text textNode = (Text) textFlow.getChildren().get(0);
+                String textField = textNode.getText();
+                System.out.println("textField: "+textField);
                 if (textField.equals(text)) {
                     isUnique = false;
                     break;
                 }
             }
         }
+        System.out.println("isUnique: "+isUnique);
         /*
         for (Node hboxs : vBoxTuoAllenamento.getChildren()) {
             HBox hbox = (HBox) hboxs;
@@ -281,11 +291,12 @@ public class SceneSecondaryHandler {
             hbox.getChildren().addAll(new DescrizioneEsercizio(text),b);
             vBoxTuoAllenamento.getChildren().add(hbox);
              */
-            Node node1 = (Node) loadRootFromFXML("esercizio.fxml");
+            Node node2 = (Node) loadRootFromFXML("esercizio.fxml");
             EsercizioHandler.getInstance().setDescrizioneEsercizio(loadImage(text),new DescrizioneEsercizio(text));
             EsercizioHandler.getInstance().setOnMouseClickedEvent(event -> {
-                vBoxTuoAllenamento.getChildren().remove(node1);
+                vBoxTuoAllenamento.getChildren().remove(node2);
             },"Rimuovi");
+            vBoxTuoAllenamento.getChildren().add(node2);
         }
     }
     public void setScrollPaneEserciziAdd(ScrollPane scrollPaneEsercizi) {

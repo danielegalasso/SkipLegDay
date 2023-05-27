@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane fx:controller="com.example.skiplegday.controller.EsercizioController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="555.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane fx:id="setCalendarRoot" layoutX="21.0" layoutY="20.0" prefHeight="250.0" prefWidth="807.0" />
+   </children>
+</AnchorPane>

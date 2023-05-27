@@ -27,6 +27,8 @@ public class CreateAllenamentoController {
         if(fieldCreateNameAllenamento.getText().equals("") || vBoxTuoAllenamento.getChildren().size() == 0){
             return;
         }
+        //SceneSecondaryHandler.getInstance().getEserciziAggiuntiScheda(); CON QUESTA FUNZIONE MI PRENDO TUTTI GLI
+        //ESRCIZI EFFETTIVAMENTE INSERITI NELLA SCHEDA E LI AGGIUNGO AL DATABASE TRAMITE THREAD
         SceneSecondaryHandler.getInstance().aggiungiSchedaPersonaleScene(fieldCreateNameAllenamento.getText());
         SceneSecondaryHandler.getInstance().createSchedePersonaliScene();
     }
@@ -37,4 +39,5 @@ public class CreateAllenamentoController {
     public void indietroAction(ActionEvent actionEvent) {
         SceneSecondaryHandler.getInstance().CreateLastScene();
     }
+
 }

@@ -119,26 +119,24 @@ public class Database{
 
         return pesoGruppiMuscolari;
     }
-    public boolean registerUser(String username, String password, String nome, String cognome, String email, String dataNascita, String altezza) throws SQLException {
+    public boolean registerUser(String username, String password, String nome, String cognome, String sesso, String peso, String dataNascita, String altezza) throws SQLException {
         if (this.con != null && !this.con.isClosed()) {
-            PreparedStatement stmt = this.con.prepareStatement("INSERT INTO utenti (username, password, nome, cognome, email, dataNascita, altezza, css) VALUES(?, ?, ?, ?, ?, ?, ?, ?);");
+            PreparedStatement stmt = this.con.prepareStatement("INSERT INTO utenti (username, password, nome, cognome, sesso, peso, dataNascita, altezza) VALUES(?, ?, ?, ?, ?, ?, ?, ?);");
             stmt.setString(1, username);
             String generatedSecuredPasswordHash = BCrypt.hashpw(password, BCrypt.gensalt(12));
             stmt.setString(2, generatedSecuredPasswordHash);
             stmt.setString(3, nome);
             stmt.setString(4, cognome);
-            stmt.setString(5, email);
-            stmt.setString(6, dataNascita);
-            stmt.setString(7, altezza);
-            stmt.setString(8, "");
+            stmt.setString(5, sesso);
+            stmt.setString(6, peso);
+            stmt.setString(7, dataNascita);
+            stmt.setString(8, altezza);
             stmt.execute();
             stmt.close();
             return true;
         }
         return false;
     }
-
-
     public ArrayList<String> getSchede(String username) throws SQLException {
         ArrayList<String> temp = new ArrayList<>();
         temp.add(username);
@@ -153,9 +151,7 @@ public class Database{
         }
         return nomi_schede_string;
     }
-
     public ArrayList<String> getEserciziScheda(String username, String scheda) throws SQLException {
-
         ArrayList<String> temp = new ArrayList<>();
         temp.add(username);
         temp.add(scheda);

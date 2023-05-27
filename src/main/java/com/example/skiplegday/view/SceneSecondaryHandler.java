@@ -2,11 +2,9 @@ package com.example.skiplegday.view;
 
 import com.example.skiplegday.controller.AllenamentoPersonaleController;
 import com.example.skiplegday.controller.SchedaPersonaleController;
-import com.example.skiplegday.model.Database;
-import com.example.skiplegday.model.InformazioniEsercizi;
-import com.example.skiplegday.model.LettoreFile;
-import com.example.skiplegday.model.UtenteAttuale;
+import com.example.skiplegday.model.*;
 import javafx.animation.TranslateTransition;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Bounds;
 import javafx.scene.Node;
@@ -53,7 +51,21 @@ public class SceneSecondaryHandler {
         if(root == null) {
             root = loadRootFromFXML("schedePersonali.fxml");
             sceneMap.put("schedePersonali", root);
-            aggiungiSchedaPersonaleScene("aniello");
+            //--------------------------------
+            GetSchedeService getSchedeService = new GetSchedeService();  //devo salvarmi i dati in utente attuale!!!!!!!!!!!!!!!
+            getSchedeService.setDati(UtenteAttuale.getInstance().getUsername());
+            getSchedeService.reset();
+            getSchedeService.setOnSucceeded(event -> {  //va fatto solo all'inizio?????? altrimenti sarebbe inefficiente
+                ArrayList<String> schede = getSchedeService.getValue();
+                for (int i = 0; i < schede.size(); i++) {
+                    try {
+                        aggiungiSchedaPersonaleScene(schede.get(i));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            //----------------------------------
         }
         //Node node= (Node) loadRootFromFXML("schedePersonali.fxml");
         addAndCenter(root);
@@ -69,7 +81,11 @@ public class SceneSecondaryHandler {
         transition.setByX(-200);
         transition.play();*/
     }
-    //DA FARE STATISTICHE
+    public void createStatisticheScene() throws IOException {
+        Node node = (Node) loadRootFromFXML("statistiche.fxml");
+
+        addAndCenter(node);
+    }
     public void createEserciziScene() throws IOException {
         Node node= (Node) loadRootFromFXML("manualeEsercizi.fxml"); //non voglio far caricare sempre un nuovo nodo
         //LO CAMBIERO
@@ -318,6 +334,20 @@ public class SceneSecondaryHandler {
             vBoxTuoAllenamento.getChildren().add(node2);
         }
     }
+    public List<String> getEserciziAggiuntiScheda(){
+        ObservableList<Node> children = vBoxTuoAllenamento.getChildren();
+        List<String> esercizi = new ArrayList<>();
+        for (Node n: children) {
+            if (n instanceof Parent) {  //nodoEsercizio:  image (0)  textFlow(1)   button(2
+                Parent parent = (Parent) n;
+                TextFlow textFlow = (TextFlow) parent.getChildrenUnmodifiable().get(1);
+                Text textNode = (Text) textFlow.getChildren().get(0); //sia DescrTExt che sercizio ereditano da Text
+                String textField = textNode.getText();
+                esercizi.add(textField);
+            }
+        }
+        return esercizi;
+    }
     public void setScrollPaneEserciziAdd(ScrollPane scrollPaneEsercizi) {
         this.scrollPaneEsercizi=scrollPaneEsercizi;
     }
@@ -335,10 +365,11 @@ public class SceneSecondaryHandler {
         //tramite il NomeAllenamento faccio una query al database che mi restituisce la lista degli esercizi da cui è composto e le rispettive immagini
         //List<String> esercizi = Database.getInstance().getEserciziScheda(UtenteAttuale.getInstance().getUsername(), schedaNome);
         ArrayList<String> esercizi = new ArrayList<>();
-        esercizi.add("squat");
-        esercizi.add("panca piana manubri");
-        esercizi.add("stacco");
-
+        GetEserciziSchedaService getEserciziSchedaService = new GetEserciziSchedaService();
+        getEserciziSchedaService.setDati(UtenteAttuale.getInstance().getUsername(),schedaNome);
+        getEserciziSchedaService.setOnSucceeded(event -> {
+            esercizi.addAll(getEserciziSchedaService.getValue());
+        });
         esercizi.add(0, schedaNome);  //<-----------------------------------------NOME ALLENAMENTO
         AllenamentoHandler.getInstance().setAllenamentoPers(esercizi);
         AllenamentoPersonaleController allenamentoPersonaleController = loader.getController();

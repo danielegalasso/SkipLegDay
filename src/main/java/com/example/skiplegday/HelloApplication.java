@@ -35,6 +35,7 @@ public class HelloApplication extends Application {
         //db.closeConnection();
     }
     //--------------------------------------
+    /*
     public static void main(String[] args) {
         launch();
     }
@@ -59,6 +60,6 @@ public class HelloApplication extends Application {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
+    }*/
     //---------------------------------------
 }

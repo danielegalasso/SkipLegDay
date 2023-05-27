@@ -34,7 +34,8 @@ public class HomeController {
     public void eserciziAction(ActionEvent actionEvent) throws IOException {  //creare gli esercizi dovrebbe essere della view???
         SceneSecondaryHandler.getInstance().createEserciziScene();
     }
-    public void statisticheAction(ActionEvent actionEvent) {
+    public void statisticheAction(ActionEvent actionEvent) throws IOException {
+        SceneSecondaryHandler.getInstance().createStatisticheScene();
     }
     public void schedePredefiniteAction(ActionEvent actionEvent) throws IOException {
         SceneSecondaryHandler.getInstance().createSchedePredefiniteScene();

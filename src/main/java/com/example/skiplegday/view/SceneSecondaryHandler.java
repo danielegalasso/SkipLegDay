@@ -83,7 +83,7 @@ public class SceneSecondaryHandler {
     }
     public void createStatisticheScene() throws IOException {
         Node node = (Node) loadRootFromFXML("statistiche.fxml");
-
+        StatisticheHandler.getInstance().loadCalendar();
         addAndCenter(node);
     }
     public void createEserciziScene() throws IOException {

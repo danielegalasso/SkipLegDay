@@ -50,9 +50,10 @@ public class SceneSecondaryHandler {
         Parent root = sceneMap.get("schedePersonali");
         //il node lo carico già in SceneHandler quando avvio la homeScene, altrimenti se apro prima esercizi, e faccio importa, il gridPane è null
         //in quanto non l'ho ancora caricato e mi da nullPointerException
-       if(root == null) {
+        if(root == null) {
             root = loadRootFromFXML("schedePersonali.fxml");
             sceneMap.put("schedePersonali", root);
+            aggiungiSchedaPersonaleScene("aniello");
         }
         //Node node= (Node) loadRootFromFXML("schedePersonali.fxml");
         addAndCenter(root);
@@ -183,7 +184,7 @@ public class SceneSecondaryHandler {
             }
         }
         if (count > 0) {
-            return nameAllenamento + (count + 1);
+            return nameAllenamento + (count);
         }
         return nameAllenamento;
     }
@@ -325,8 +326,7 @@ public class SceneSecondaryHandler {
     }
     //per accedere all'allenamento pers quando sono sulla label
     public void accediSchedaPersonalizzataScene(String schedaNome) throws IOException {  //meglio chiamarlo accedi allenamento
-
-
+        setLastScene();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/skiplegday/allenamentoPersonale.fxml"));
         Node node=loader.load();
         //Node node = (Node) loadRootFromFXML("allenamentoPersonale.fxml");

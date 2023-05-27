@@ -63,6 +63,10 @@ public class AllenamentoPersonaleController {
         transition.play();
          */
     }
+
+    public void indietroAction(ActionEvent actionEvent) {
+        SceneSecondaryHandler.getInstance().CreateLastScene();
+    }
     /*
     private<T> T loadRootFromFXML(String resourceName) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(SceneHandler.class.getResource("/com/example/skiplegday/"+resourceName));

@@ -137,6 +137,41 @@ public class Database{
         }
         return false;
     }
+
+
+    public ArrayList<String> getSchede(String username) throws SQLException {
+        ArrayList<String> temp = new ArrayList<>();
+        temp.add(username);
+        PreparedStatement ps = Database.getInstance().prepareQuery("select distinct nome_scheda from schedepersonalizzate where username = ?;", temp);
+        ArrayList<Object> nomi_schede = fromPrepStatementToArrayList(ps, 1);
+
+        ArrayList<String> nomi_schede_string = new ArrayList<String>();
+
+        for (Object obj : nomi_schede) {
+            String str = (String) obj; // Casting dell'oggetto in una String
+            nomi_schede_string.add(str);
+        }
+        return nomi_schede_string;
+    }
+
+    public ArrayList<String> getEserciziScheda(String username, String scheda) throws SQLException {
+
+        ArrayList<String> temp = new ArrayList<>();
+        temp.add(username);
+        temp.add(scheda);
+        PreparedStatement ps = Database.getInstance().prepareQuery("select nome_esercizi from schedepersonalizzate where username=? and nome_scheda = ?;", temp);
+        ArrayList<Object> nomi_schede = fromPrepStatementToArrayList(ps, 1);
+
+        ArrayList<String> nomi_schede_string = new ArrayList<String>();
+
+        for (Object obj : nomi_schede) {
+            String str = (String) obj; // Casting dell'oggetto in una String
+            nomi_schede_string.add(str);
+        }
+        return nomi_schede_string;
+    }
+
+
     public boolean loginIn(String username, String password) throws SQLException {
         ArrayList<String> args = new ArrayList<>();
         args.add(username);
@@ -317,6 +352,52 @@ public class Database{
             return false;
         }
     }
+
+    public ArrayList<Object> daDataAAllenamento(String username, String dataAllenamento) throws SQLException {
+        String nomeScheda = "";
+        HashMap<String, ArrayList<Serie>> seriePerEsercizio = new HashMap<>();
+
+        PreparedStatement stmt = con.prepareStatement("SELECT scheda FROM allenamenti WHERE username = ? AND data = ?");
+        stmt.setString(1, username);
+        stmt.setString(2, dataAllenamento);
+        ResultSet rsScheda = stmt.executeQuery();
+
+        if (rsScheda.next()) {
+            nomeScheda = rsScheda.getString("scheda");
+        }
+
+        PreparedStatement stmtSerie = con.prepareStatement("SELECT esercizio_nome, peso, ripetizioni, recuperoSecondi FROM serie WHERE allenamento_username = ? AND allenamento_data = ?");
+        stmtSerie.setString(1, username);
+        stmtSerie.setString(2, dataAllenamento);
+        ResultSet rsSerie = stmtSerie.executeQuery();
+
+        while (rsSerie.next()) {
+            String nomeEsercizio = rsSerie.getString("esercizio_nome");
+            double peso = rsSerie.getDouble("peso");
+            int ripetizioni = rsSerie.getInt("ripetizioni");
+            int recuperoSecondi = rsSerie.getInt("recuperoSecondi");
+
+            Serie serie = new Serie(peso, ripetizioni, recuperoSecondi);
+
+            if (seriePerEsercizio.containsKey(nomeEsercizio)) {
+                seriePerEsercizio.get(nomeEsercizio).add(serie);
+            } else {
+                ArrayList<Serie> serieList = new ArrayList<>();
+                serieList.add(serie);
+                seriePerEsercizio.put(nomeEsercizio, serieList);
+            }
+        }
+
+        stmt.close();
+        stmtSerie.close();
+
+
+        ArrayList<Object> results = new ArrayList<>();
+        results.add(nomeScheda);
+        results.add(seriePerEsercizio);
+        return results;
+    }
+
     public ArrayList<Object> daUtenteDateBilancia(String username) throws SQLException {
         ArrayList<String> temp = new ArrayList<>();
         temp.add(username);

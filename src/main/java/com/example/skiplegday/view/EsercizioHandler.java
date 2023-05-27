@@ -23,14 +23,14 @@ public class EsercizioHandler {
     }
     public void setEsercizio(Image esercizioImage, Esercizio nameEsercizio, boolean isPredefinito){
         imageEsercizio.setImage(esercizioImage);
-        nameEsercizio.setFont(javafx.scene.text.Font.font("System", 50));  //sicuro vengono sovrascritte del css
-        nameEsercizio.setLineSpacing(45);
+        //nameEsercizio.setFont(javafx.scene.text.Font.font("System", 30));  //sicuro vengono sovrascritte del css
         esercizioTextFlow.getChildren().add(nameEsercizio);
         if (isPredefinito){
             removeEsercizio.setVisible(false);
         }
         else{
-            removeEsercizio.setVisible(true);
+            removeEsercizio.setVisible(false);   // da mettere true, o in caso cacciarlo se non voglio far piu vedere il
+            //remove esercizio
         }
     }
     public void setDescrizioneEsercizio(Image esercizioImage, DescrizioneEsercizio nameEsercizio){

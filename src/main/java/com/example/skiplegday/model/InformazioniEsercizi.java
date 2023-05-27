@@ -1,10 +1,8 @@
 package com.example.skiplegday.model;
 
-import java.io.FileReader;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class InformazioniEsercizi {
     private InformazioniEsercizi(){}
@@ -16,11 +14,21 @@ public class InformazioniEsercizi {
     private HashMap<String, ArrayList<String>> gruppoMuscolareEsercizi = new HashMap<>();
     private HashMap<String, String> descrizioni = new HashMap<>(); //esercizi-descrizione
     public void caricaEsercizi() throws SQLException {
+        prendiHashService infServ = new prendiHashService();
+        infServ.restart();
+        infServ.setOnSucceeded(event -> {
+            ArrayList<Object> risultato = infServ.getValue();
+            gruppoMuscolareEsercizi = (HashMap<String, ArrayList<String>>) risultato.get(0);
+            ListaTuttiEsercizi = (ArrayList<String>) risultato.get(1);
+            nomiGruppiMuscolari = (ArrayList<String>) risultato.get(2);
+            descrizioni = (HashMap<String, String>) risultato.get(3);
+            hashMap = gruppoMuscolareEsercizi;
+        });/*
         ArrayList<Object> risultato = Database.getInstance().prendiHashListaeserciziNomigruppiDescrizioni();
         gruppoMuscolareEsercizi = (HashMap<String, ArrayList<String>>) risultato.get(0);
         ListaTuttiEsercizi = (ArrayList<String>) risultato.get(1);
         nomiGruppiMuscolari = (ArrayList<String>) risultato.get(2);
-        descrizioni = (HashMap<String, String>) risultato.get(3);
+        descrizioni = (HashMap<String, String>) risultato.get(3);*/
     }
     public HashMap<String, ArrayList<String>> getHashMap() {
         return hashMap;

@@ -4,12 +4,14 @@ import com.example.skiplegday.view.SceneHandler;
 import com.example.skiplegday.view.SceneSecondaryHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -22,6 +24,8 @@ public class HomeController {
     private Button settingsButton;
     @FXML
     private ContextMenu settingsMenu;
+    @FXML
+    private HBox hBoxHome;
     public void logoutAction(ActionEvent actionEvent) {
         //model.logout();  daniele galasso   devo salvare qualcosa nell'account utente??
         SceneHandler.getInstance().createLoginScene();
@@ -60,5 +64,7 @@ public class HomeController {
     public void initialize() {
         // Imposta l'AnchorPane come campo privato della classe SceneSecondaryHandler
         SceneSecondaryHandler.getInstance().setHomeSceneRoot(sceneRoot);
+        HBox.setHgrow(hBoxHome, javafx.scene.layout.Priority.ALWAYS);
+        SceneSecondaryHandler.getInstance().setHBoxHome(hBoxHome);
     }
 }

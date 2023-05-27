@@ -26,9 +26,7 @@ public class HelloApplication extends Application {
         SceneHandler.getInstance().createLoginScene();
 
 
-
         //db.registerUser("domenico", "1234", "Dome", "Visci", "dsduiws@gmail.com", "03-02-2009","1.80");
-        System.out.println(db.loginIn("domenico", "1234"));
 
         //db.closeConnection();
     }

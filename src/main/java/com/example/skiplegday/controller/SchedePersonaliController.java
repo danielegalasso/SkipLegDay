@@ -16,6 +16,7 @@ public class SchedePersonaliController {
     public void aggiungiEsercizioAction(ActionEvent actionEvent) throws IOException {
         //SceneSecondaryHandler.getInstance().aggiungiSchedaPersonaleScene();  non la devo aggiungere
         //prima la creo, e quando premo salva la aggiungo
+        SceneSecondaryHandler.getInstance().setLastScene();
         SceneSecondaryHandler.getInstance().createCreateAllenamentoScene();
     }
     public void initialize(){

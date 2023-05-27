@@ -1,11 +1,14 @@
 package com.example.skiplegday.view;
 
+import com.example.skiplegday.controller.AllenamentoPersonaleController;
 import com.example.skiplegday.controller.SchedaPersonaleController;
 import com.example.skiplegday.model.Database;
 import com.example.skiplegday.model.InformazioniEsercizi;
 import com.example.skiplegday.model.LettoreFile;
 import com.example.skiplegday.model.UtenteAttuale;
+import javafx.animation.TranslateTransition;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Bounds;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
@@ -19,6 +22,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -31,6 +35,7 @@ public class SceneSecondaryHandler {
     private VBox vBox;  //vbox nelle schede di default
     private ScrollPane scrollPane;
     private GridPane gridPane; //per le schedePersonali
+    private HBox hBoxHome; //prova
     private Node lastScene;
     private Map<String,Parent> sceneMap= new HashMap<>();
     private static final SceneSecondaryHandler instance = new SceneSecondaryHandler();
@@ -55,6 +60,13 @@ public class SceneSecondaryHandler {
     public void createSchedePredefiniteScene() throws IOException {
         Node node = (Node) loadRootFromFXML("schedeDefault.fxml");
         addAndCenter(node);
+        /*Node node1 = (Node) loadRootFromFXML("schedeDefault.fxml");
+        hBoxHome.getChildren().get(0).setDisable(true);
+        hBoxHome.getChildren().add(node1);
+        node1.setTranslateX(200);
+        TranslateTransition transition = new TranslateTransition(Duration.millis(200),node1);
+        transition.setByX(-200);
+        transition.play();*/
     }
     //DA FARE STATISTICHE
     public void createEserciziScene() throws IOException {
@@ -135,10 +147,11 @@ public class SceneSecondaryHandler {
     //METODI UTILI -----------------------------------------------------
     private void addAndCenter(Node node){
         sceneRoot.getChildren().setAll(node);
+        /*
         AnchorPane.setTopAnchor(node,10.0);
         AnchorPane.setBottomAnchor(node, 10.0);
         AnchorPane.setLeftAnchor(node, 10.0);
-        AnchorPane.setRightAnchor(node, 10.0);
+        AnchorPane.setRightAnchor(node, 10.0);*/
     }
     public void CreateLastScene() {
         sceneRoot.getChildren().setAll(lastScene);
@@ -150,6 +163,9 @@ public class SceneSecondaryHandler {
     }
     public void setHomeSceneRoot(AnchorPane sceneRoot) {
         this.sceneRoot = sceneRoot;
+    }
+    public void setHBoxHome(HBox hBoxHome) {
+        this.hBoxHome = hBoxHome;
     }
     public void setSchedeDefaultSceneRoot(VBox vBox) { this.vBox = vBox;}
     public void setScrollPane(ScrollPane scrollPane) {this.scrollPane = scrollPane;}
@@ -218,6 +234,8 @@ public class SceneSecondaryHandler {
         //ArrayList<String> strings = InformazioniEsercizi.getInstance().getListaTuttiEsercizi();  RIMETTERE DECOMMENTANDOLO!!!!!!!!!!!
         ArrayList<String> strings = new ArrayList<>(); //mi serve come prova, poi lo elimino e tengo lo string di sopra
         strings.add("panca piana manubri");strings.add("croci cavi");strings.add("squat");
+        //OLTRE A CARICARE TUTTI GLI ESERCIZI NELLO SCROLLPANE DEVO CARICARE ANCHE GLI ESERCIZI DELLA SCHEDA PERSONALE
+        //NEL VBOXTUO ALLENAMENTO, OVVIAMENTE SE ESISTE
         //TextFlow t = new TextFlow();
         VBox vb = new VBox();
         for (String s: strings) {
@@ -307,18 +325,30 @@ public class SceneSecondaryHandler {
     }
     //per accedere all'allenamento pers quando sono sulla label
     public void accediSchedaPersonalizzataScene(String schedaNome) throws IOException {  //meglio chiamarlo accedi allenamento
-        Node node = (Node) loadRootFromFXML("vBoxEsercizi.fxml");
-        Node allenamento= (Node) loadRootFromFXML("allenamento.fxml");
+
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/skiplegday/allenamentoPersonale.fxml"));
+        Node node=loader.load();
+        //Node node = (Node) loadRootFromFXML("allenamentoPersonale.fxml");
+
+        Node allenamento = (Node) loadRootFromFXML("allenamento.fxml");
         //tramite il NomeAllenamento faccio una query al database che mi restituisce la lista degli esercizi da cui è composto e le rispettive immagini
         //List<String> esercizi = Database.getInstance().getEserciziScheda(UtenteAttuale.getInstance().getUsername(), schedaNome);
         ArrayList<String> esercizi = new ArrayList<>();
-        esercizi.add("squat");esercizi.add("panca piana manubri");esercizi.add("stacco");
+        esercizi.add("squat");
+        esercizi.add("panca piana manubri");
+        esercizi.add("stacco");
 
-        esercizi.add(0,schedaNome);  //<-----------------------------------------NOME ALLENAMENTO
+        esercizi.add(0, schedaNome);  //<-----------------------------------------NOME ALLENAMENTO
         AllenamentoHandler.getInstance().setAllenamentoPers(esercizi);
-        vBox.getChildren().add(allenamento);
+        AllenamentoPersonaleController allenamentoPersonaleController = loader.getController();
+        allenamentoPersonaleController.setPaneAllenamento(allenamento);
         addAndCenter(node);
     }
-
+    /*
+    private AnchorPane paneAllenamento;
+    public void setAnchorPaneAllenamento(AnchorPane paneAllenamento) {
+        this.paneAllenamento=paneAllenamento;
+    }*/
     //----------------------------------------------------
 }

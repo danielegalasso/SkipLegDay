@@ -5,7 +5,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 public class AllenamentoSaver {
     //public void aggiungiAllenamento(String username, String scheda, String data, HashMap<String, ArrayList<Serie>> seriePerEsercizio)
@@ -23,8 +22,15 @@ public class AllenamentoSaver {
         allenamento.put(nomeEsercizio, serie);
     }
     public void loadAllenameto(String nomeAllenamento) throws SQLException {
+        AggiungiAllenamentoService aggiungiAllenamentoService = new AggiungiAllenamentoService();
+        aggiungiAllenamentoService.setDati(UtenteAttuale.getInstance().getUsername(), nomeAllenamento, getData(true), allenamento);
+        aggiungiAllenamentoService.restart();
+        aggiungiAllenamentoService.setOnSucceeded(event -> {
+            System.out.println("Aggiunto allenamento");
+        });
+        /*
         Database.getInstance().aggiungiAllenamento(UtenteAttuale.getInstance().getUsername(), nomeAllenamento, getData(true), allenamento);
-        //salva esterno, carico queste list nel database
+        //salva esterno, carico queste list nel database*/
     }
     private String getData(boolean formatoCorto){
         if (formatoCorto){

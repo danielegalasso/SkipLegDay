@@ -21,7 +21,7 @@ public class Popup extends Stage {  //è un normale stage su cui poi ci caricher
         this.setHeight(450);
         this.setWidth(300);
         SceneHandler.getInstance().loadFonts();            //facendo cosi aggiungo automaticamente stessi font e css delle altre scene
-        SceneHandler.getInstance().setCSSForScene(scene);
+        //SceneHandler.getInstance().setCSSForScene(scene);
         PopupHandler.getInstance().setSaved(true); //appena la avvio posso chiuderla senza problemi
         this.initModality(Modality.APPLICATION_MODAL); // Imposta la finestra secondaria come modale
         this.initOwner(ownerStage); // Imposta la finestra principale come proprietario della finestra secondaria

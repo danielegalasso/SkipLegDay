@@ -8,11 +8,14 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.util.List;
 
 public class CreateAllenamentoController {
+    @FXML
+    Text scegliNomeText;
     @FXML
     TextField fieldCreateNameAllenamento;
     @FXML
@@ -30,5 +33,8 @@ public class CreateAllenamentoController {
     public void initialize(){
         SceneSecondaryHandler.getInstance().setScrollPaneEserciziAdd(scrollPaneEsercizi);
         SceneSecondaryHandler.getInstance().setVBoxTuoAllenamento(vBoxTuoAllenamento);
+    }
+    public void indietroAction(ActionEvent actionEvent) {
+        SceneSecondaryHandler.getInstance().CreateLastScene();
     }
 }

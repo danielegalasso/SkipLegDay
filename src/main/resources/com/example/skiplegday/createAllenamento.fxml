@@ -9,16 +9,17 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="555.0" prefWidth="630.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.skiplegday.controller.CreateAllenamentoController">
    <children>
-      <Text layoutX="27.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Scegli un nome per il tuo allenamento" />
+      <Text fx:id="scegliNomeText" layoutX="27.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Scegli un nome per il tuo allenamento" />
       <TextField fx:id="fieldCreateNameAllenamento" layoutX="247.0" layoutY="23.0" prefHeight="25.0" prefWidth="169.0" promptText="inserisci nome" />
       <Text layoutX="28.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Clicca sul + per aggiungere un esercizio" />
       <ScrollPane fx:id="scrollPaneEsercizi" layoutX="28.0" layoutY="96.0" prefHeight="200.0" prefWidth="471.0" />
-      <Text layoutX="27.0" layoutY="321.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ecco gli esercizi che verranno aggiunti al tuo allenamento" />
+      <Text layoutX="27.0" layoutY="321.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Il tuo allenamento:" />
       <ScrollPane layoutX="28.0" layoutY="334.0" prefHeight="200.0" prefWidth="471.0">
          <content>
             <VBox fx:id="vBoxTuoAllenamento" prefHeight="200.0" prefWidth="449.0" />
          </content>
       </ScrollPane>
       <Button fx:id="saveAllenamentoButton" layoutX="504.0" layoutY="508.0" mnemonicParsing="false" onAction="#saveAllenamentoAction" text="salva allenamento" />
+      <Button fx:id="indietroButton" layoutX="560.0" layoutY="14.0" mnemonicParsing="false" onAction="#indietroAction" text="indietro" />
    </children>
 </AnchorPane>

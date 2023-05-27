@@ -3,6 +3,12 @@
   -fx-background-color: primaryBackgroundColor;
 }
 
+.split-pane > .split-pane-divider {
+    -fx-padding: 0 0 0 0.10em;
+    -fx-background-color: lineColor;
+    -fx-background-insets: 0;
+}
+
 .text-field * {
     -fx-background-color: secondaryBackgroundColor;
     -fx-background-radius: 5px;

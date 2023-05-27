@@ -10,6 +10,7 @@ public class Database{
     private static Database instance = new Database();
     private Database(){}
     public static Database getInstance() {return instance;}
+    private prendiHashService prendiHashService = new prendiHashService();
 
     private Connection con = null;
 
@@ -96,13 +97,10 @@ public class Database{
         }
         return somma;
     }
-
-
     public HashMap<String, Double> calcolaPesoGruppiMuscolariSettimanaCorrente() throws SQLException {
         ArrayList<String> gruppiMuscolari = (ArrayList<String>) prendiHashListaeserciziNomigruppiDescrizioni().get(2);
         HashMap<String, Double> pesoGruppiMuscolari = new HashMap<>();
         String query = "SELECT e.gruppoMuscolare, SUM(s.peso * s.ripetizioni) AS peso_totale FROM serie AS s, esercizi AS e WHERE allenamento_username = 'marco' AND s.esercizio_nome = e.nome AND strftime('%Y-%W', s.allenamento_data) = strftime('%Y-%W', 'now') GROUP BY e.gruppoMuscolare;";
-
         PreparedStatement stmt = con.prepareStatement(query);
         ResultSet rs = stmt.executeQuery();
 
@@ -121,7 +119,6 @@ public class Database{
 
         return pesoGruppiMuscolari;
     }
-
     public boolean registerUser(String username, String password, String nome, String cognome, String email, String dataNascita, String altezza) throws SQLException {
         if (this.con != null && !this.con.isClosed()) {
             PreparedStatement stmt = this.con.prepareStatement("INSERT INTO utenti (username, password, nome, cognome, email, dataNascita, altezza, css) VALUES(?, ?, ?, ?, ?, ?, ?, ?);");
@@ -140,7 +137,6 @@ public class Database{
         }
         return false;
     }
-
     public boolean loginIn(String username, String password) throws SQLException {
         ArrayList<String> args = new ArrayList<>();
         args.add(username);
@@ -152,7 +148,6 @@ public class Database{
         boolean matched = BCrypt.checkpw(password, (String) objs.get(0));
         return matched;
     }
-
     public boolean removeUser(String username, String password) throws SQLException {
         if (this.con != null && !this.con.isClosed() && loginIn(username, password)) {
             String query = "DELETE FROM utenti WHERE username = ?";
@@ -164,13 +159,11 @@ public class Database{
         }
         return false;
     }
-
     public ArrayList<Object> prendiHashListaeserciziNomigruppiDescrizioni() throws SQLException {
         HashMap<String, ArrayList<String>> gruppoMuscolareEsercizi = new HashMap<>();
         ArrayList<String> ListaTuttiEsercizi = new ArrayList<>();
         ArrayList<String> nomiGruppiMuscolari = new ArrayList<>();
         HashMap<String, String> descrizioni = new HashMap<>();
-
 
         // Query per ottenere tutti gli esercizi con i rispettivi gruppi muscolari
         String queryEsercizi = "SELECT nome, gruppoMuscolare FROM esercizi";
@@ -239,40 +232,36 @@ public class Database{
         ArrayList<String> nomiGruppiMuscolari = (ArrayList<String>) risultato.get(2);
         HashMap<String, String> descrizioni = (HashMap<String, String>) risultato.get(3);
          */
-
     }
 
-    public void aggiungiAllenamento(String username, String scheda, String data, HashMap<String, ArrayList<Serie>> seriePerEsercizio) throws SQLException {
+    public boolean aggiungiAllenamento(String username, String scheda, String data, HashMap<String,ArrayList<Serie>> seriePerEsercizio){
+        try {
+            // Inserimento dell'allenamento nella tabella "allenamenti"
+            String queryAllenamento = "INSERT INTO allenamenti (username, data, scheda) VALUES (?, ?, ?)";
+            PreparedStatement statementAllenamento = con.prepareStatement(queryAllenamento);
+            statementAllenamento.setString(1, username);
+            statementAllenamento.setString(2, data);
+            statementAllenamento.setString(3, scheda);
+            statementAllenamento.executeUpdate();
+            statementAllenamento.close();
 
-        // Inserimento dell'allenamento nella tabella "allenamenti"
-        String queryAllenamento = "INSERT INTO allenamenti (username, data, scheda) VALUES (?, ?, ?)";
-        PreparedStatement statementAllenamento = con.prepareStatement(queryAllenamento);
-        statementAllenamento.setString(1, username);
-        statementAllenamento.setString(2, data);
-        statementAllenamento.setString(3, scheda);
-        statementAllenamento.executeUpdate();
-        statementAllenamento.close();
+            // Inserimento delle serie per ciascun esercizio nella tabella "serie"
+            String querySerie = "INSERT INTO serie (allenamento_username, allenamento_data, esercizio_nome, peso, ripetizioni, recuperoSecondi) VALUES (?, ?, ?, ?, ?, ?)";
+            PreparedStatement statementSerie = con.prepareStatement(querySerie);
 
-
-        // Inserimento delle serie per ciascun esercizio nella tabella "serie"
-        String querySerie = "INSERT INTO serie (allenamento_username, allenamento_data, esercizio_nome, peso, ripetizioni, recuperoSecondi) VALUES (?, ?, ?, ?, ?, ?)";
-        PreparedStatement statementSerie = con.prepareStatement(querySerie);
-
-        for (String esercizio : seriePerEsercizio.keySet()) {
-            ArrayList<Serie> serie = seriePerEsercizio.get(esercizio);
-
-            for (Serie s : serie) {
-                statementSerie.setString(1, username);
-                statementSerie.setString(2, data);
-                statementSerie.setString(3, esercizio);
-                statementSerie.setDouble(4, s.getPeso());
-                statementSerie.setInt(5, s.getRipetizioni());
-                statementSerie.setInt(6, s.getRecuperoSecondi());
-                statementSerie.executeUpdate();
+            for (String esercizio : seriePerEsercizio.keySet()) {
+                ArrayList<Serie> serie = seriePerEsercizio.get(esercizio);
+                for (Serie s : serie) {
+                    statementSerie.setString(1, username);
+                    statementSerie.setString(2, data);
+                    statementSerie.setString(3, esercizio);
+                    statementSerie.setDouble(4, s.getPeso());
+                    statementSerie.setInt(5, s.getRipetizioni());
+                    statementSerie.setInt(6, s.getRecuperoSecondi());
+                    statementSerie.executeUpdate();
+                }
             }
-        }
-
-        statementSerie.close();
+            statementSerie.close();
 
         /*
         // Dati di esempio per l'allenamento
@@ -298,27 +287,36 @@ public class Database{
         // Aggiunta dell'allenamento al database
         aggiungiAllenamento(username, scheda, data, seriePerEsercizio);
          */
+            return true;
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
-    public void eliminaAllenamento(String username, String data) throws SQLException {
+    public boolean eliminaAllenamento(String username, String data){
+        try {
+            // Elimina l'allenamento dalla tabella "allenamenti"
+            String queryEliminaAllenamento = "DELETE FROM allenamenti WHERE username = ? AND data = ?";
+            PreparedStatement statementEliminaAllenamento = con.prepareStatement(queryEliminaAllenamento);
+            statementEliminaAllenamento.setString(1, username);
+            statementEliminaAllenamento.setString(2, data);
+            statementEliminaAllenamento.executeUpdate();
 
-        // Elimina l'allenamento dalla tabella "allenamenti"
-        String queryEliminaAllenamento = "DELETE FROM allenamenti WHERE username = ? AND data = ?";
-        PreparedStatement statementEliminaAllenamento = con.prepareStatement(queryEliminaAllenamento);
-        statementEliminaAllenamento.setString(1, username);
-        statementEliminaAllenamento.setString(2, data);
-        statementEliminaAllenamento.executeUpdate();
-
-        // Elimina le serie associate all'allenamento dalla tabella "serie"
-        String queryEliminaSerie = "DELETE FROM serie WHERE allenamento_username = ? AND allenamento_data = ?";
-        PreparedStatement statementEliminaSerie = con.prepareStatement(queryEliminaSerie);
-        statementEliminaSerie.setString(1, username);
-        statementEliminaSerie.setString(2, data);
-        statementEliminaSerie.executeUpdate();
-
-
+            // Elimina le serie associate all'allenamento dalla tabella "serie"
+            String queryEliminaSerie = "DELETE FROM serie WHERE allenamento_username = ? AND allenamento_data = ?";
+            PreparedStatement statementEliminaSerie = con.prepareStatement(queryEliminaSerie);
+            statementEliminaSerie.setString(1, username);
+            statementEliminaSerie.setString(2, data);
+            statementEliminaSerie.executeUpdate();
+            return true;
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
-
     public ArrayList<Object> daUtenteDateBilancia(String username) throws SQLException {
         ArrayList<String> temp = new ArrayList<>();
         temp.add(username);
@@ -328,7 +326,6 @@ public class Database{
 
         return results;
     }
-
     public ArrayList<ArrayList<String>> calcolaPunteggiUtenteXEsercizio(String username, String nomeEsercizio) throws SQLException {
         ArrayList<ArrayList<String>> punteggiUtente = new ArrayList<>();
         String query = "select peso, ripetizioni, allenamento_data from serie where allenamento_username = ? AND esercizio_nome = ?;";
@@ -336,19 +333,15 @@ public class Database{
         stmt.setString(1, username);
         stmt.setString(2, nomeEsercizio);
         ResultSet rs = stmt.executeQuery();
-
         System.out.println("ciao");
-
         HashMap<String, ArrayList<Serie>> seriePerGiorno = new HashMap<>();
 
         while (rs.next()) {
             String data = rs.getString("allenamento_data");
             double peso = rs.getDouble("peso");
             int ripetizioni = rs.getInt("ripetizioni");
-
             // Creare l'oggetto Serie
             Serie serie = new Serie(peso, ripetizioni, 0); // il recuperoSecondi non necessario per il calcolo del punteggio
-
             if (seriePerGiorno.containsKey(data)) {
                 // Aggiungere la serie alla lista delle serie del giorno
                 seriePerGiorno.get(data).add(serie);

@@ -23,8 +23,6 @@ public class AllenamentoPersonaleController {
     @FXML
     private AnchorPane paneAllenamento;
     @FXML
-    private Button modificaAllenamentoAction;
-    @FXML
     private AnchorPane paneListaEs;
     public void modificaAllenamentoAction(ActionEvent actionEvent) throws IOException {
         SceneSecondaryHandler.getInstance().setLastScene();
@@ -33,10 +31,23 @@ public class AllenamentoPersonaleController {
     public void setPaneAllenamento(Node node){
         paneAllenamento.getChildren().add(node);
     }
+    public void indietroAction(ActionEvent actionEvent) {
+        SceneSecondaryHandler.getInstance().CreateLastScene();
+    }
+    /*
+    private<T> T loadRootFromFXML(String resourceName) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(SceneHandler.class.getResource("/com/example/skiplegday/"+resourceName));
+        return fxmlLoader.load();
+    }
+    private static final String FONT_PATH = "/com/example/skiplegday/icon/";
+    private Image loadImage(String nomeEsercizio) throws IOException {
+        Image img=new Image(getClass().getResource(FONT_PATH+nomeEsercizio+".png").openStream());
+        return img;
+    }*/
     /*
     public void initialize(){
         SceneSecondaryHandler.getInstance().setAnchorPaneAllenamento(paneAllenamento);
-    }*/
+    }
     public void addEserSchedaAction(ActionEvent actionEvent) throws IOException {
         /*
         ScrollPane scrollPane = new ScrollPane();
@@ -61,20 +72,6 @@ public class AllenamentoPersonaleController {
         TranslateTransition transition = new TranslateTransition(Duration.millis(200),paneListaEs);
         transition.setByX(-400);
         transition.play();
-         */
-    }
 
-    public void indietroAction(ActionEvent actionEvent) {
-        SceneSecondaryHandler.getInstance().CreateLastScene();
-    }
-    /*
-    private<T> T loadRootFromFXML(String resourceName) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(SceneHandler.class.getResource("/com/example/skiplegday/"+resourceName));
-        return fxmlLoader.load();
-    }
-    private static final String FONT_PATH = "/com/example/skiplegday/icon/";
-    private Image loadImage(String nomeEsercizio) throws IOException {
-        Image img=new Image(getClass().getResource(FONT_PATH+nomeEsercizio+".png").openStream());
-        return img;
     }*/
 }

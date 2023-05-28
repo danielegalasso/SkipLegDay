@@ -1,9 +1,8 @@
 package com.example.skiplegday.controller;
 
-import com.example.skiplegday.model.AggiungiAllenamentoService;
-import com.example.skiplegday.model.AllenamentoSaver;
-import com.example.skiplegday.model.UtenteAttuale;
+import com.example.skiplegday.model.*;
 import com.example.skiplegday.view.AllenamentoHandler;
+import com.example.skiplegday.view.ErrorMessage;
 import com.example.skiplegday.view.Esercizio;
 import com.example.skiplegday.view.SceneSecondaryHandler;
 import javafx.event.ActionEvent;
@@ -33,7 +32,30 @@ public class AllenamentoController {
     }
     public void importaSchedaAction(ActionEvent actionEvent) throws IOException {
         //da fare con daniele gay   salvare tutta questa scheda default nel database
-
+        CheckSchedaGiaPresenteService checkSchedaGiaPresenteService = new CheckSchedaGiaPresenteService();
+        checkSchedaGiaPresenteService.setDati(UtenteAttuale.getInstance().getUsername(), idGruppoMuscolare.getText());
+        checkSchedaGiaPresenteService.restart();
+        checkSchedaGiaPresenteService.setOnSucceeded(event ->{
+            if (checkSchedaGiaPresenteService.getValue()) {
+                AddSchedaService addSchedaService = new AddSchedaService();
+                //QUANDO INVECE MODIFICO DEVO CAPIRE DA DOVE PRENDERE IL NOME DELLA SCHEDA ALLENAMENTO VVVVV
+                addSchedaService.setDati(UtenteAttuale.getInstance().getUsername(),idGruppoMuscolare.getText(), SceneSecondaryHandler.getInstance().getEserciziAggiuntiScheda());
+                addSchedaService.restart();
+                addSchedaService.setOnSucceeded(event1 ->{
+                    if (addSchedaService.getValue()) {
+                        try {
+                            SceneSecondaryHandler.getInstance().aggiungiSchedaPersonaleScene(idGruppoMuscolare.getText());
+                            SceneSecondaryHandler.getInstance().createSchedePersonaliScene();
+                        } catch (IOException ignoredEvent) {}
+                    } else {
+                        System.out.println("Scheda non aggiunta");
+                    }
+                });
+            }
+            else{
+                ErrorMessage.getInstance().showErrorMessage("Scheda già presente");
+            }
+        });
         //gli esercizi dell'allenamento li salvo nel database, cliccando sulla label dell'allenamento, lo cerco nel database
         //e mi prendo tutti gli esercizi che ci sono dentro
     }

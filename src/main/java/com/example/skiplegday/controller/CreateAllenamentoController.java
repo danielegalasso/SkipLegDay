@@ -1,6 +1,11 @@
 package com.example.skiplegday.controller;
 
+import com.example.skiplegday.model.AddSchedaService;
+import com.example.skiplegday.model.CheckSchedaGiaPresenteService;
+import com.example.skiplegday.model.InformazioniEsercizi;
+import com.example.skiplegday.model.UtenteAttuale;
 import com.example.skiplegday.view.AllenamentoHandler;
+import com.example.skiplegday.view.ErrorMessage;
 import com.example.skiplegday.view.SceneSecondaryHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -27,10 +32,33 @@ public class CreateAllenamentoController {
         if(fieldCreateNameAllenamento.getText().equals("") || vBoxTuoAllenamento.getChildren().size() == 0){
             return;
         }
-        //SceneSecondaryHandler.getInstance().getEserciziAggiuntiScheda(); CON QUESTA FUNZIONE MI PRENDO TUTTI GLI
-        //ESRCIZI EFFETTIVAMENTE INSERITI NELLA SCHEDA E LI AGGIUNGO AL DATABASE TRAMITE THREAD
-        SceneSecondaryHandler.getInstance().aggiungiSchedaPersonaleScene(fieldCreateNameAllenamento.getText());
-        SceneSecondaryHandler.getInstance().createSchedePersonaliScene();
+        CheckSchedaGiaPresenteService checkSchedaGiaPresenteService = new CheckSchedaGiaPresenteService();
+        checkSchedaGiaPresenteService.setDati(UtenteAttuale.getInstance().getUsername(),fieldCreateNameAllenamento.getText());
+        checkSchedaGiaPresenteService.restart();
+        checkSchedaGiaPresenteService.setOnSucceeded(event ->{
+            if (checkSchedaGiaPresenteService.getValue()) {
+                AddSchedaService addSchedaService = new AddSchedaService();
+                //QUANDO INVECE MODIFICO DEVO CAPIRE DA DOVE PRENDERE IL NOME DELLA SCHEDA ALLENAMENTO VVVVV
+                addSchedaService.setDati(UtenteAttuale.getInstance().getUsername(),fieldCreateNameAllenamento.getText(), SceneSecondaryHandler.getInstance().getEserciziAggiuntiScheda());
+                addSchedaService.restart();
+                addSchedaService.setOnSucceeded(event1 ->{
+                    if (addSchedaService.getValue()) {
+                        try {
+                            SceneSecondaryHandler.getInstance().aggiungiSchedaPersonaleScene(fieldCreateNameAllenamento.getText());
+                            SceneSecondaryHandler.getInstance().createSchedePersonaliScene();
+                        } catch (IOException ignoredEvent) {}
+                    } else {
+                        System.out.println("Scheda non aggiunta");
+                    }
+                });
+            }
+            else{
+                //scegliNomeText.setText("Nome già presente");  //non devo farlo su questo text ma ne creo uno fatto apposta per questo errore
+                //!!!!!!!!!!!!!!!!!!!!!!!! INVECE DEL TEXT CREO UN POPUP DI ERRORE PERCHE POSSO AGGIUNGERE
+                //ANCHE DA SCHEDE DI DEFAULT CON IL PULSANTE IMPORTA
+                ErrorMessage.getInstance().showErrorMessage("Scheda già presente");
+            }
+        });
     }
     public void initialize(){
         SceneSecondaryHandler.getInstance().setScrollPaneEserciziAdd(scrollPaneEsercizi);

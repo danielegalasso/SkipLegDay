@@ -12,7 +12,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
-
 public class PopupHandler {
     private static final PopupHandler instance = new PopupHandler();
     private PopupHandler() {}
@@ -36,7 +35,6 @@ public class PopupHandler {
     public void setText(Text nomeEsercizio) { //per ottenere riferimento al nome dell'esercizio del controller
         this.nomeEsercizio = nomeEsercizio;
     }
-
     public void showErrorText(){
         errorText.setText("Inserire tutti i campi");
         errorText.setVisible(true);
@@ -56,7 +54,6 @@ public class PopupHandler {
         }
         return false;
     }
-
     public void setErrorText(Text errorText) {
         this.errorText = errorText;
     }

@@ -33,4 +33,13 @@ public class Serie {
     public void setRecuperoSecondi(int recuperoSecondi) {
         this.recuperoSecondi = recuperoSecondi;
     }
+
+    @Override
+    public String toString() {
+        return "Serie{" +
+                "peso=" + peso +
+                ", ripetizioni=" + ripetizioni +
+                ", recuperoSecondi=" + recuperoSecondi +
+                '}';
+    }
 }

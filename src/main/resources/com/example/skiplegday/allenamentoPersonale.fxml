@@ -7,7 +7,6 @@
    <children>
       <AnchorPane fx:id="paneAllenamento" layoutX="23.0" layoutY="25.0" prefHeight="258.0" prefWidth="505.0" AnchorPane.leftAnchor="23.0" AnchorPane.topAnchor="25.0" />
       <Button fx:id="modificaSchedaButton" layoutX="14.0" layoutY="516.0" mnemonicParsing="false" onAction="#modificaAllenamentoAction" text="Modifica " AnchorPane.bottomAnchor="13.666666666666668" AnchorPane.leftAnchor="14.0" />
-      <Button fx:id="addEserSchedaButton" layoutX="784.0" layoutY="12.0" mnemonicParsing="false" onAction="#addEserSchedaAction" text="+" />
       <AnchorPane fx:id="paneListaEs" layoutX="605.0" layoutY="46.0" prefHeight="509.0" prefWidth="245.0" />
       <Button fx:id="indietroButton" layoutX="676.0" layoutY="12.0" mnemonicParsing="false" onAction="#indietroAction" text="indietro" />
    </children>

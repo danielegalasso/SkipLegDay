@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -34,6 +35,9 @@ public class Esercizio extends Text{  //la classe esercizio non è altro che un 
                     scene = new Scene(root);
                 }
                 else {
+                    PopupHandler.getInstance().setvBoxDatiEsercizi((VBox) root.lookup("#vBoxDatiEsercizi")); //se non lo setto qui perdo il riferimento al vBox,
+                    //in qunato non caricando il fxml non si crea il controller associato che setta il Vbox, quindi se prima clicco su un altro esercizio
+                    //e poi su questo, il vBox non è settato e non posso aggiungere i dati dell'esercizio.
                     scene.setRoot(root);
                 }
                 PopupHandler.getInstance().setNomeEsercizio(this.getText()); //passo il nome dell'esercizio alla classe singleton che gestisce le finestre popup

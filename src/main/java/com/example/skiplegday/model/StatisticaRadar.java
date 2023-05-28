@@ -13,6 +13,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class StatisticaRadar {
+    private static final StatisticaRadar instance = new StatisticaRadar();
+    private StatisticaRadar() {}
+    public static StatisticaRadar getInstance() {return instance;}
     private double[] normalizeDataValues(double[] array){
         // Trova il massimo valore nell'array
         double max = Arrays.stream(array).max().getAsDouble();
@@ -25,9 +28,7 @@ public class StatisticaRadar {
         for (int i = 0; i < array.length; i++) {
             d[i] = array[i] * scaleFactor;
         }
-
         return d;
-
     }
     public void createRadarChart(Group root, ArrayList<String> categories, double[] dataValues) {
         /*

@@ -18,7 +18,7 @@ public class RemoveSchedaService extends Service<Boolean> {
             }
         };
     }
-    public void setDati(String username, String nomeScheda, ArrayList<String> esercizi){
+    public void setDati(String username, String nomeScheda){
         this.username=username;
         this.nomeScheda=nomeScheda;
     }

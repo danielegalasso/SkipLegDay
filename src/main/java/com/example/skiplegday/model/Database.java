@@ -493,6 +493,18 @@ public class Database{
         return Math.round((s.getPeso() / (1.0278 - (0.0278 * s.getRipetizioni()))) * 10.0) / 10.0;
     }
 
+    public boolean checkSchedaInDb(String utente, String nomeScheda) throws SQLException {
+        ArrayList<String> temp = new ArrayList<>();
+        temp.add(utente);
+        temp.add(nomeScheda);
+        PreparedStatement ps = prepareQuery("select * from schedepersonalizzate where username = ? and nome_scheda = ?;", temp);
+        ArrayList<Object> results = fromPrepStatementToArrayList(ps, 1);
+        if (results.size() == 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
     public ArrayList<Object> ottieniSeriePerEsercizio(String username, String dataAllenamento) throws SQLException {
         //funzione per statistiche dato un esercizio ed il giorno in cui si allena tira fuori tutti gli allenamenti e le corrispettive serie fatte in quel giorno
         String nomeScheda = "";

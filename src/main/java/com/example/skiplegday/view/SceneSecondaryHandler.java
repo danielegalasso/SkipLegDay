@@ -51,7 +51,7 @@ public class SceneSecondaryHandler {
         if(root == null) {
             root = loadRootFromFXML("schedePersonali.fxml");
             sceneMap.put("schedePersonali", root);
-            //--------------------------------
+            /*--------------------------------
             GetSchedeService getSchedeService = new GetSchedeService();  //devo salvarmi i dati in utente attuale!!!!!!!!!!!!!!!
             getSchedeService.setDati(UtenteAttuale.getInstance().getUsername());
             getSchedeService.reset();
@@ -65,7 +65,8 @@ public class SceneSecondaryHandler {
                     }
                 }
             });
-            //----------------------------------
+            //----------------------------------*/
+            aggiungiSchedaPersonaleScene("chidi");
         }
         //Node node= (Node) loadRootFromFXML("schedePersonali.fxml");
         addAndCenter(root);
@@ -191,6 +192,7 @@ public class SceneSecondaryHandler {
     }
     //-
   //SCHEDA PERSONALE (allenamenti personali) --------------------------------------
+    /*
     private List<String> mieiAllenamenti = new ArrayList<>();  //ste due funzioni ignoratele, devo provare una cosa
     private String nameAllenamento(String nameAllenamento) {
         int count = 0;
@@ -203,13 +205,14 @@ public class SceneSecondaryHandler {
             return nameAllenamento + (count);
         }
         return nameAllenamento;
-    }
+    }*/
     private int columnCount = 2;//gridPane.getColumnCount();
     private int rowIndex = 0;  //quando ricclicco su scheda personale le resetto, finche non prendo le cose da daniele
     private int columnIndex = 0;
     public void aggiungiSchedaPersonaleScene(String nameExercise) throws IOException {
+        /*
         nameExercise= nameAllenamento(nameExercise);
-        mieiAllenamenti.add(nameExercise);
+        mieiAllenamenti.add(nameExercise);*/
         //Node node = (Node) loadRootFromFXML("schedaPersonale.fxml"); non posso farla con questa funzione perche mi serve
         //controller associato
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/skiplegday/schedaPersonale.fxml"));
@@ -334,9 +337,9 @@ public class SceneSecondaryHandler {
             vBoxTuoAllenamento.getChildren().add(node2);
         }
     }
-    public List<String> getEserciziAggiuntiScheda(){
+    public ArrayList<String> getEserciziAggiuntiScheda(){
         ObservableList<Node> children = vBoxTuoAllenamento.getChildren();
-        List<String> esercizi = new ArrayList<>();
+        ArrayList<String> esercizi = new ArrayList<>();
         for (Node n: children) {
             if (n instanceof Parent) {  //nodoEsercizio:  image (0)  textFlow(1)   button(2
                 Parent parent = (Parent) n;
@@ -365,11 +368,13 @@ public class SceneSecondaryHandler {
         //tramite il NomeAllenamento faccio una query al database che mi restituisce la lista degli esercizi da cui è composto e le rispettive immagini
         //List<String> esercizi = Database.getInstance().getEserciziScheda(UtenteAttuale.getInstance().getUsername(), schedaNome);
         ArrayList<String> esercizi = new ArrayList<>();
+        /*
         GetEserciziSchedaService getEserciziSchedaService = new GetEserciziSchedaService();
         getEserciziSchedaService.setDati(UtenteAttuale.getInstance().getUsername(),schedaNome);
         getEserciziSchedaService.setOnSucceeded(event -> {
             esercizi.addAll(getEserciziSchedaService.getValue());
-        });
+        });*/
+        esercizi.add("panca piana manubri");esercizi.add("squat"); //eliminare questo rigo
         esercizi.add(0, schedaNome);  //<-----------------------------------------NOME ALLENAMENTO
         AllenamentoHandler.getInstance().setAllenamentoPers(esercizi);
         AllenamentoPersonaleController allenamentoPersonaleController = loader.getController();

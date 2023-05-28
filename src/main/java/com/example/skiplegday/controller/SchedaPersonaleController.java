@@ -1,5 +1,7 @@
 package com.example.skiplegday.controller;
 
+import com.example.skiplegday.model.RemoveSchedaService;
+import com.example.skiplegday.model.UtenteAttuale;
 import com.example.skiplegday.view.SceneSecondaryHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -36,12 +38,15 @@ public class SchedaPersonaleController {
 
     public void deleteSchedaAction(ActionEvent actionEvent) {
         //devo cancellare la scheda dal database  !!!!!!!!!!!!!!!!!!!
-
-        Parent schedaPersonale = deleteSchedaButton.getParent(); // Ottieni il nodo padre (schedaPersonale.fxml)
-        int row = GridPane.getRowIndex(schedaPersonale); // Ottieni l'indice di riga del nodo
-        int col = GridPane.getColumnIndex(schedaPersonale); // Ottieni l'indice di colonna del nodo
-        GridPane gridPane = (GridPane) schedaPersonale.getParent(); // Ottieni il nodo padre (GridPane)
-        removeAndShiftNodes(gridPane, row, col);
+        RemoveSchedaService removeSchedaService = new RemoveSchedaService();
+        removeSchedaService.setDati(UtenteAttuale.getInstance().getUsername(), labelSchedaPersonalizzata.getText());
+        removeSchedaService.setOnSucceeded(event -> {
+            Parent schedaPersonale = deleteSchedaButton.getParent(); // Ottieni il nodo padre (schedaPersonale.fxml)
+            int row = GridPane.getRowIndex(schedaPersonale); // Ottieni l'indice di riga del nodo
+            int col = GridPane.getColumnIndex(schedaPersonale); // Ottieni l'indice di colonna del nodo
+            GridPane gridPane = (GridPane) schedaPersonale.getParent(); // Ottieni il nodo padre (GridPane)
+            removeAndShiftNodes(gridPane, row, col);
+        });
     }
     public void removeAndShiftNodes(GridPane gridPane, int row, int column) {
         List<Node> children = new ArrayList<>(gridPane.getChildren());

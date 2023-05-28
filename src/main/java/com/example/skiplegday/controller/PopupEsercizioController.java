@@ -63,5 +63,6 @@ public class PopupEsercizioController {
             }
         }
         AllenamentoSaver.getInstance().addSerie(nomeEsercizio.getText(),serieList);
+        AllenamentoSaver.getInstance().stampa();
     }
 }

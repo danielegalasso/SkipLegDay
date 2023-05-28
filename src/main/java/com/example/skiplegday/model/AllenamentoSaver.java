@@ -22,13 +22,14 @@ public class AllenamentoSaver {
         allenamento.put(nomeEsercizio, serie);
     }
     public void loadAllenameto(String nomeAllenamento) throws SQLException {
+        System.out.println(allenamento);
+        /*
         AggiungiAllenamentoService aggiungiAllenamentoService = new AggiungiAllenamentoService();
         aggiungiAllenamentoService.setDati(UtenteAttuale.getInstance().getUsername(), nomeAllenamento, getData(true), allenamento);
         aggiungiAllenamentoService.restart();
         aggiungiAllenamentoService.setOnSucceeded(event -> {
             System.out.println("Aggiunto allenamento");
         });
-        /*
         Database.getInstance().aggiungiAllenamento(UtenteAttuale.getInstance().getUsername(), nomeAllenamento, getData(true), allenamento);
         //salva esterno, carico queste list nel database*/
     }
@@ -41,5 +42,8 @@ public class AllenamentoSaver {
             LocalDateTime currentDate = LocalDateTime.now();
             return currentDate.toString();
         }
+    }
+    public void stampa() {
+        System.out.println(allenamento);
     }
 }

@@ -271,19 +271,22 @@ public class Database{
         HashMap<String, String> descrizioni = (HashMap<String, String>) risultato.get(3);
          */
     }
-    public void addScheda(String username, String nome_scheda, ArrayList<String> esercizi) throws SQLException {
-
-        for (String esercizio: esercizi) {
-            System.out.println("ccc");
-            PreparedStatement ps = this.con.prepareStatement("INSERT INTO schedepersonalizzate(username, nome_scheda, nome_esercizi) VALUES(?,?,?);");
-            ps.setString(1, username);
-            ps.setString(2, nome_scheda);
-            ps.setString(3, esercizio);
-            ps.execute();
-            ps.close();
+    public boolean addScheda(String username, String nome_scheda, ArrayList<String> esercizi){
+        try{
+            for (String esercizio: esercizi) {
+                System.out.println("ccc");
+                PreparedStatement ps = this.con.prepareStatement("INSERT INTO schedepersonalizzate(username, nome_scheda, nome_esercizi) VALUES(?,?,?);");
+                ps.setString(1, username);
+                ps.setString(2, nome_scheda);
+                ps.setString(3, esercizio);
+                ps.execute();
+                ps.close();
+            }
+            return true;
+        }catch (SQLException e){
+            return false;
         }
     }
-
     public boolean removeScheda(String username, String nome_scheda) throws SQLException{
         if (this.con != null && !this.con.isClosed()) {
             String query = "DELETE FROM schedepersonalizzate WHERE username = ? AND nome_scheda = ?";

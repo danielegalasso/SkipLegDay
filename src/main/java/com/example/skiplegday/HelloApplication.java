@@ -28,38 +28,8 @@ public class HelloApplication extends Application {
         db.createConnection();
         SceneHandler.getInstance().init(stage);
         SceneHandler.getInstance().createLoginScene();
-
-
         //db.registerUser("domenico", "1234", "Dome", "Visci", "dsduiws@gmail.com", "03-02-2009","1.80");
 
         //db.closeConnection();
     }
-    //--------------------------------------
-    /*
-    public static void main(String[] args) {
-        launch();
-    }
-    public void creaCalendarioFunzioneDaCambiare(Stage primaryStage){
-        try {
-            BorderPane root = new BorderPane();
-            Scene scene = new Scene(root, 400, 400);
-            //scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-
-            DatePicker datePicker = new DatePicker(LocalDate.now());
-            DatePickerSkin datePickerSkin = new DatePickerSkin(datePicker);
-            Node popupContent = datePickerSkin.getPopupContent();
-
-            root.setCenter(popupContent);
-
-            primaryStage.setScene(scene);
-            primaryStage.show();
-
-            datePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
-                System.out.println("Data selezionata: " + newValue);
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }*/
-    //---------------------------------------
 }

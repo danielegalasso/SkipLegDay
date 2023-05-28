@@ -78,6 +78,15 @@ public class Database{
         }
          */
     }
+    public String getCss(String username) throws SQLException {
+        ArrayList<String> a = new ArrayList<>();
+        a.add(username);
+        PreparedStatement ps = prepareQuery("select css from Utenti where username = ?;",a);
+        ResultSet rs = ps.executeQuery();
+        rs.next();
+        return rs.getString(1);
+
+    }
 
     public double calcolaPesoSettimanaCorrente(String username, boolean SettimanaPrecedente) throws SQLException {
         double somma = 0.0;
@@ -166,8 +175,6 @@ public class Database{
         }
         return nomi_schede_string;
     }
-
-
     public boolean loginIn(String username, String password) throws SQLException {
         ArrayList<String> args = new ArrayList<>();
         args.add(username);
@@ -264,6 +271,37 @@ public class Database{
         HashMap<String, String> descrizioni = (HashMap<String, String>) risultato.get(3);
          */
     }
+    public void addScheda(String username, String nome_scheda, ArrayList<String> esercizi) throws SQLException {
+
+        for (String esercizio: esercizi) {
+            System.out.println("ccc");
+            PreparedStatement ps = this.con.prepareStatement("INSERT INTO schedepersonalizzate(username, nome_scheda, nome_esercizi) VALUES(?,?,?);");
+            ps.setString(1, username);
+            ps.setString(2, nome_scheda);
+            ps.setString(3, esercizio);
+            ps.execute();
+            ps.close();
+        }
+    }
+
+    public boolean removeScheda(String username, String nome_scheda) throws SQLException{
+        if (this.con != null && !this.con.isClosed()) {
+            String query = "DELETE FROM schedepersonalizzate WHERE username = ? AND nome_scheda = ?";
+            PreparedStatement pstmt = this.con.prepareStatement(query);
+            pstmt.setString(1, username);
+            pstmt.setString(2, nome_scheda);
+            int rowsAffected = pstmt.executeUpdate();
+            pstmt.close();
+
+            if (rowsAffected > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        return false;
+    }
 
     public boolean aggiungiAllenamento(String username, String scheda, String data, HashMap<String,ArrayList<Serie>> seriePerEsercizio){
         try {
@@ -325,7 +363,6 @@ public class Database{
             return false;
         }
     }
-
     public boolean eliminaAllenamento(String username, String data){
         try {
             // Elimina l'allenamento dalla tabella "allenamenti"
@@ -348,7 +385,6 @@ public class Database{
             return false;
         }
     }
-
     public ArrayList<Object> daDataAAllenamento(String username, String dataAllenamento) throws SQLException {
         String nomeScheda = "";
         HashMap<String, ArrayList<Serie>> seriePerEsercizio = new HashMap<>();
@@ -393,7 +429,6 @@ public class Database{
         results.add(seriePerEsercizio);
         return results;
     }
-
     public ArrayList<Object> daUtenteDateBilancia(String username) throws SQLException {
         ArrayList<String> temp = new ArrayList<>();
         temp.add(username);
@@ -454,4 +489,51 @@ public class Database{
         //1RM = peso sollevato / [1.0278 - (0.0278 x numero di ripetizioni)]
         return Math.round((s.getPeso() / (1.0278 - (0.0278 * s.getRipetizioni()))) * 10.0) / 10.0;
     }
+
+    public ArrayList<Object> ottieniSeriePerEsercizio(String username, String dataAllenamento) throws SQLException {
+        //funzione per statistiche dato un esercizio ed il giorno in cui si allena tira fuori tutti gli allenamenti e le corrispettive serie fatte in quel giorno
+        String nomeScheda = "";
+        HashMap<String, ArrayList<Serie>> seriePerEsercizio = new HashMap<>();
+
+        PreparedStatement stmt = con.prepareStatement("SELECT scheda FROM allenamenti WHERE username = ? AND data = ?");
+        stmt.setString(1, username);
+        stmt.setString(2, dataAllenamento);
+        ResultSet rsScheda = stmt.executeQuery();
+
+        if (rsScheda.next()) {
+            nomeScheda = rsScheda.getString("scheda");
+        }
+
+        PreparedStatement stmtSerie = con.prepareStatement("SELECT esercizio_nome, peso, ripetizioni, recuperoSecondi FROM serie WHERE allenamento_username = ? AND allenamento_data = ?");
+        stmtSerie.setString(1, username);
+        stmtSerie.setString(2, dataAllenamento);
+        ResultSet rsSerie = stmtSerie.executeQuery();
+
+        while (rsSerie.next()) {
+            String nomeEsercizio = rsSerie.getString("esercizio_nome");
+            double peso = rsSerie.getDouble("peso");
+            int ripetizioni = rsSerie.getInt("ripetizioni");
+            int recuperoSecondi = rsSerie.getInt("recuperoSecondi");
+
+            Serie serie = new Serie(peso, ripetizioni, recuperoSecondi);
+
+            if (seriePerEsercizio.containsKey(nomeEsercizio)) {
+                seriePerEsercizio.get(nomeEsercizio).add(serie);
+            } else {
+                ArrayList<Serie> serieList = new ArrayList<>();
+                serieList.add(serie);
+                seriePerEsercizio.put(nomeEsercizio, serieList);
+            }
+        }
+
+        stmt.close();
+        stmtSerie.close();
+
+
+        ArrayList<Object> results = new ArrayList<>();
+        results.add(nomeScheda);
+        results.add(seriePerEsercizio);
+        return results;
+    }
+
 }

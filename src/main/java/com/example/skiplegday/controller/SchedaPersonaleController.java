@@ -66,7 +66,7 @@ public class SchedaPersonaleController {
         return null;
     }
     public void setNameSchedaAction(MouseEvent mouseEvent) throws IOException {
-        if (mouseEvent.getClickCount() == 2) {
+        if (mouseEvent.getClickCount() == 2) {   //da caccaire non ha senso
             // Nascondi la label
             labelSchedaPersonalizzata.setVisible(false);
 

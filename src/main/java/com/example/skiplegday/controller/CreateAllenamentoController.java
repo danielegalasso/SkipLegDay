@@ -63,6 +63,8 @@ public class CreateAllenamentoController {
     public void initialize(){
         SceneSecondaryHandler.getInstance().setScrollPaneEserciziAdd(scrollPaneEsercizi);
         SceneSecondaryHandler.getInstance().setVBoxTuoAllenamento(vBoxTuoAllenamento);
+        SceneSecondaryHandler.getInstance().setFieldNameAllenamento(fieldCreateNameAllenamento);
+        //SceneSecondaryHandler.getInstance().caricaEserciziVbox();  decommentare !!!!!!!!
     }
     public void indietroAction(ActionEvent actionEvent) {
         SceneSecondaryHandler.getInstance().CreateLastScene();

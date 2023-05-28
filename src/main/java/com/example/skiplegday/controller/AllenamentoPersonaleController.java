@@ -11,28 +11,38 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class AllenamentoPersonaleController {
+    private String nomeAllenamento;
     @FXML
     private AnchorPane paneAllenamento;
     @FXML
     private AnchorPane paneListaEs;
     public void modificaAllenamentoAction(ActionEvent actionEvent) throws IOException {
+        //System.out.println(nomeScheda);
         SceneSecondaryHandler.getInstance().setLastScene();
         SceneSecondaryHandler.getInstance().createCreateAllenamentoScene();  //con questa funzione creo e modifico
+        SceneSecondaryHandler.getInstance().caricaEserciziVbox(nomeScheda);
+        SceneSecondaryHandler.getInstance().caricaNomeAllenamento(nomeScheda);
     }
     public void setPaneAllenamento(Node node){
         paneAllenamento.getChildren().add(node);
     }
     public void indietroAction(ActionEvent actionEvent) {
         SceneSecondaryHandler.getInstance().CreateLastScene();
+    }
+    private String nomeScheda;  //setto nomeScheda quando accedo alla scheda personalizzata
+    public void setNomeAllenamento(String schedaNome) {
+        this.nomeScheda = schedaNome;
     }
     /*
     private<T> T loadRootFromFXML(String resourceName) throws IOException {

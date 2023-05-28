@@ -1,22 +1,19 @@
 package com.example.skiplegday.controller;
 
 import com.example.skiplegday.model.AddSchedaService;
-import com.example.skiplegday.model.CheckSchedaGiaPresenteService;
-import com.example.skiplegday.model.InformazioniEsercizi;
+import com.example.skiplegday.model.CheckSchedaInDbService;
 import com.example.skiplegday.model.UtenteAttuale;
-import com.example.skiplegday.view.AllenamentoHandler;
+import com.example.skiplegday.view.CreateAllenamentoHandler;
 import com.example.skiplegday.view.ErrorMessage;
 import com.example.skiplegday.view.SceneSecondaryHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
-import java.util.List;
 
 public class CreateAllenamentoController {
     @FXML
@@ -32,14 +29,14 @@ public class CreateAllenamentoController {
         if(fieldCreateNameAllenamento.getText().equals("") || vBoxTuoAllenamento.getChildren().size() == 0){
             return;
         }
-        CheckSchedaGiaPresenteService checkSchedaGiaPresenteService = new CheckSchedaGiaPresenteService();
-        checkSchedaGiaPresenteService.setDati(UtenteAttuale.getInstance().getUsername(),fieldCreateNameAllenamento.getText());
-        checkSchedaGiaPresenteService.restart();
-        checkSchedaGiaPresenteService.setOnSucceeded(event ->{
-            if (checkSchedaGiaPresenteService.getValue()) {
+        CheckSchedaInDbService checkSchedaInDbService = new CheckSchedaInDbService();
+        checkSchedaInDbService.setDati(UtenteAttuale.getInstance().getUsername(),fieldCreateNameAllenamento.getText());
+        checkSchedaInDbService.restart();
+        checkSchedaInDbService.setOnSucceeded(event ->{
+            if (!checkSchedaInDbService.getValue()) { //se non esiste la scheda la aggiungo
                 AddSchedaService addSchedaService = new AddSchedaService();
                 //QUANDO INVECE MODIFICO DEVO CAPIRE DA DOVE PRENDERE IL NOME DELLA SCHEDA ALLENAMENTO VVVVV
-                addSchedaService.setDati(UtenteAttuale.getInstance().getUsername(),fieldCreateNameAllenamento.getText(), SceneSecondaryHandler.getInstance().getEserciziAggiuntiScheda());
+                addSchedaService.setDati(UtenteAttuale.getInstance().getUsername(),fieldCreateNameAllenamento.getText(), CreateAllenamentoHandler.getInstance().getEserciziAggiuntiScheda());
                 addSchedaService.restart();
                 addSchedaService.setOnSucceeded(event1 ->{
                     if (addSchedaService.getValue()) {
@@ -60,11 +57,16 @@ public class CreateAllenamentoController {
             }
         });
     }
-    public void initialize(){
+    public void initialize() throws IOException {
+        /*
         SceneSecondaryHandler.getInstance().setScrollPaneEserciziAdd(scrollPaneEsercizi);
         SceneSecondaryHandler.getInstance().setVBoxTuoAllenamento(vBoxTuoAllenamento);
         SceneSecondaryHandler.getInstance().setFieldNameAllenamento(fieldCreateNameAllenamento);
-        //SceneSecondaryHandler.getInstance().caricaEserciziVbox();  decommentare !!!!!!!!
+        //SceneSecondaryHandler.getInstance().caricaEserciziVbox();  decommentare !!!!!!!!*/
+        CreateAllenamentoHandler.getInstance().setScrollPaneEserciziAdd(scrollPaneEsercizi);
+        CreateAllenamentoHandler.getInstance().setVBoxTuoAllenamento(vBoxTuoAllenamento);
+        CreateAllenamentoHandler.getInstance().setFieldNameAllenamento(fieldCreateNameAllenamento);
+        CreateAllenamentoHandler.getInstance().caricaEserciziVbox(fieldCreateNameAllenamento.getPromptText());
     }
     public void indietroAction(ActionEvent actionEvent) {
         SceneSecondaryHandler.getInstance().CreateLastScene();

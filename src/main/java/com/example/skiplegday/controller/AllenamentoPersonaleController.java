@@ -1,9 +1,6 @@
 package com.example.skiplegday.controller;
 
-import com.example.skiplegday.view.DescrizioneEsercizio;
-import com.example.skiplegday.view.EsercizioHandler;
-import com.example.skiplegday.view.SceneHandler;
-import com.example.skiplegday.view.SceneSecondaryHandler;
+import com.example.skiplegday.view.*;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -30,9 +27,14 @@ public class AllenamentoPersonaleController {
     public void modificaAllenamentoAction(ActionEvent actionEvent) throws IOException {
         //System.out.println(nomeScheda);
         SceneSecondaryHandler.getInstance().setLastScene();
-        SceneSecondaryHandler.getInstance().createCreateAllenamentoScene();  //con questa funzione creo e modifico
+        SceneSecondaryHandler.getInstance().createCreateAllenamentoScene(nomeScheda);  //con questa funzione creo e modifico
+        //dentr createAlleamentoScene ho anche la funzione createManuale
+        /*
         SceneSecondaryHandler.getInstance().caricaEserciziVbox(nomeScheda);
-        SceneSecondaryHandler.getInstance().caricaNomeAllenamento(nomeScheda);
+        SceneSecondaryHandler.getInstance().caricaNomeAllenamento(nomeScheda);*/
+        //CreateAllenamentoHandler.getInstance().caricaEserciziVbox(nomeScheda);
+        //CreateAllenamentoHandler.getInstance().caricaNomeAllenamento(nomeScheda);
+
     }
     public void setPaneAllenamento(Node node){
         paneAllenamento.getChildren().add(node);
@@ -44,7 +46,11 @@ public class AllenamentoPersonaleController {
     public void setNomeAllenamento(String schedaNome) {
         this.nomeScheda = schedaNome;
     }
-    /*
+}
+
+
+
+/*
     private<T> T loadRootFromFXML(String resourceName) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(SceneHandler.class.getResource("/com/example/skiplegday/"+resourceName));
         return fxmlLoader.load();
@@ -84,4 +90,3 @@ public class AllenamentoPersonaleController {
         transition.play();
 
     }*/
-}

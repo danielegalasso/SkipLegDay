@@ -166,9 +166,7 @@ public class Database{
         temp.add(scheda);
         PreparedStatement ps = Database.getInstance().prepareQuery("select nome_esercizi from schedepersonalizzate where username=? and nome_scheda = ?;", temp);
         ArrayList<Object> nomi_schede = fromPrepStatementToArrayList(ps, 1);
-
         ArrayList<String> nomi_schede_string = new ArrayList<String>();
-
         for (Object obj : nomi_schede) {
             String str = (String) obj; // Casting dell'oggetto in una String
             nomi_schede_string.add(str);

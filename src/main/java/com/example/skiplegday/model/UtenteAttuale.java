@@ -13,20 +13,22 @@ public class UtenteAttuale {
     private String username;   // in caso poi accorpo tutti questi in una classe Utente
     private String nome;
     private String cognome;
-    private String email;
-    private String altezza;
+    private String sesso;
+    private String peso;
     private String dataNascita;
+    private String altezza;
     public String getUsername() {
         return username;
     }
     public void setUsername(String username) {
         this.username = username;
     }
-    public void setUtenteAttuale(String username, String nome, String cognome, String email, String altezza, String dataNascita) {
+    public void setUtenteAttuale(String username, String nome, String cognome, String sesso, String peso, String dataNascita,String altezza) {
         this.username = username;
         this.nome = nome;
         this.cognome = cognome;
-        this.email = email;
+        this.sesso = sesso;
+        this.peso = peso;
         this.altezza = altezza;
         this.dataNascita = dataNascita;
     }

@@ -34,7 +34,7 @@ public class LoginController {
         loginService.restart();
         loginService.setOnSucceeded( event -> {
             //vanno caricati gli esercizi e le schede (?)   THREAD
-            if((boolean) event.getSource().getValue() || true) {
+            if((boolean) event.getSource().getValue()) {
                 try {
                     UtenteAttuale.getInstance().setUsername(user);
                     SceneHandler.getInstance().createHomeScene();

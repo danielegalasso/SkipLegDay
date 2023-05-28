@@ -3,7 +3,7 @@ package com.example.skiplegday.model;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 
-public class CheckSchedaGiaPresenteService extends Service<Boolean> {
+public class CheckSchedaInDbService extends Service<Boolean> {
     private String utente;
     private String scheda;
     @Override

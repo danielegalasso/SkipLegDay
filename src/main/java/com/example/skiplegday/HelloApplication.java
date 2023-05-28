@@ -1,6 +1,8 @@
 package com.example.skiplegday;
+import com.example.skiplegday.model.AddSchedaService;
 import com.example.skiplegday.model.Database;
 import com.example.skiplegday.model.LettoreFile;
+import com.example.skiplegday.model.RegisterUserService;
 import com.example.skiplegday.view.PopupHandler;
 import com.example.skiplegday.view.SceneHandler;
 import javafx.application.Application;
@@ -28,7 +30,24 @@ public class HelloApplication extends Application {
         db.createConnection();
         SceneHandler.getInstance().init(stage);
         SceneHandler.getInstance().createLoginScene();
-        //db.registerUser("domenico", "1234", "Dome", "Visci", "dsduiws@gmail.com", "03-02-2009","1.80");
+        /*db.registerUser("domenico", "1234", "Dome", "Visci", "dsduiws@gmail.com", "03-02-2009","1.80");
+        RegisterUserService registerUserService = new RegisterUserService();
+        registerUserService.setDati("domenico", "1234", "Dome", "Visci", "M","80" ,"03-02-2009","180");
+        registerUserService.restart();
+        registerUserService.setOnSucceeded(event -> {
+            System.out.println("successo");
+        });*/
+        /*
+        AddSchedaService addSchedaService = new AddSchedaService();
+        ArrayList<String> esercizi = new ArrayList<>();
+        esercizi.add("panca piana bilanciere");
+        esercizi.add("alzate frontali");
+        esercizi.add("squat");
+        addSchedaService.setDati("domenico", "scheda majin bu", esercizi);
+        addSchedaService.restart();
+        addSchedaService.setOnSucceeded(event -> {
+            System.out.println("successo");
+        });*/
 
         //db.closeConnection();
     }

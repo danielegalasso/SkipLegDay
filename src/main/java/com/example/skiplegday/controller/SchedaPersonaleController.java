@@ -40,6 +40,7 @@ public class SchedaPersonaleController {
         //devo cancellare la scheda dal database  !!!!!!!!!!!!!!!!!!!
         RemoveSchedaService removeSchedaService = new RemoveSchedaService();
         removeSchedaService.setDati(UtenteAttuale.getInstance().getUsername(), labelSchedaPersonalizzata.getText());
+        removeSchedaService.start();
         removeSchedaService.setOnSucceeded(event -> {
             Parent schedaPersonale = deleteSchedaButton.getParent(); // Ottieni il nodo padre (schedaPersonale.fxml)
             int row = GridPane.getRowIndex(schedaPersonale); // Ottieni l'indice di riga del nodo

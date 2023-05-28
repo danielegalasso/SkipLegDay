@@ -3,15 +3,10 @@ package com.example.skiplegday.view;
 import com.example.skiplegday.controller.AllenamentoPersonaleController;
 import com.example.skiplegday.controller.SchedaPersonaleController;
 import com.example.skiplegday.model.*;
-import javafx.animation.TranslateTransition;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Bounds;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -20,7 +15,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -51,10 +45,10 @@ public class SceneSecondaryHandler {
         if(root == null) {
             root = loadRootFromFXML("schedePersonali.fxml");
             sceneMap.put("schedePersonali", root);
-            /*--------------------------------
+            //--------------------------------
             GetSchedeService getSchedeService = new GetSchedeService();  //devo salvarmi i dati in utente attuale!!!!!!!!!!!!!!!
             getSchedeService.setDati(UtenteAttuale.getInstance().getUsername());
-            getSchedeService.reset();
+            getSchedeService.restart();
             getSchedeService.setOnSucceeded(event -> {  //va fatto solo all'inizio?????? altrimenti sarebbe inefficiente
                 ArrayList<String> schede = getSchedeService.getValue();
                 for (int i = 0; i < schede.size(); i++) {
@@ -65,8 +59,7 @@ public class SceneSecondaryHandler {
                     }
                 }
             });
-            //----------------------------------*/
-            aggiungiSchedaPersonaleScene("chidi");
+            //----------------------------------
         }
         //Node node= (Node) loadRootFromFXML("schedePersonali.fxml");
         addAndCenter(root);
@@ -83,7 +76,7 @@ public class SceneSecondaryHandler {
         transition.play();*/
     }
     public void createStatisticheScene() throws IOException {
-        Node node = (Node) loadRootFromFXML("statistiche.fxml");
+        Node node = (Node) loadRootFromFXML("statistiche.fxml");  //cosi carico ogni volta un nuovo nodo, inefficiente
         StatisticheHandler.getInstance().loadCalendar();
         addAndCenter(node);
     }
@@ -149,7 +142,7 @@ public class SceneSecondaryHandler {
     }
     //MANUALE ESERCIZI--------------------------------------------(anche per aggiungere allenamenti)
     private void aggiungiManualeEsercizi(Node node) {
-        ArrayList<String> strings = InformazioniEsercizi.getInstance().getListaTuttiEsercizi();
+            ArrayList<String> strings = InformazioniEsercizi.getInstance().getListaTuttiEsercizi();
         TextFlow t = new TextFlow();
         for (String s: strings) {
             t.getChildren().add(new DescrizioneEsercizio(s));  //qua ci va DESCRIZIONEESERCIZIO !!!!
@@ -189,26 +182,17 @@ public class SceneSecondaryHandler {
     public void setScrollPane(ScrollPane scrollPane) {this.scrollPane = scrollPane;}
     public void clearAll() {
         sceneMap.clear();
+        setPosInitialGridPane();
     }
     //-
   //SCHEDA PERSONALE (allenamenti personali) --------------------------------------
-    /*
-    private List<String> mieiAllenamenti = new ArrayList<>();  //ste due funzioni ignoratele, devo provare una cosa
-    private String nameAllenamento(String nameAllenamento) {
-        int count = 0;
-        for (String s : mieiAllenamenti) {
-            if (s.startsWith(nameAllenamento)) {
-                count++;
-            }
-        }
-        if (count > 0) {
-            return nameAllenamento + (count);
-        }
-        return nameAllenamento;
-    }*/
     private int columnCount = 2;//gridPane.getColumnCount();
     private int rowIndex = 0;  //quando ricclicco su scheda personale le resetto, finche non prendo le cose da daniele
     private int columnIndex = 0;
+    private void setPosInitialGridPane() {
+        rowIndex = 0;
+        columnIndex = 0;
+    }
     public void aggiungiSchedaPersonaleScene(String nameExercise) throws IOException {
         /*
         nameExercise= nameAllenamento(nameExercise);
@@ -241,34 +225,18 @@ public class SceneSecondaryHandler {
     public void setGridPaneSchede(GridPane gridPane) {
         this.gridPane = gridPane;
     }
-
     //--------------------  CREA SCHEDA PERSONALIZZATA   (ALLENAMENTI PERSONALIZZATI)-----
-    private TextField fieldNameAllenamento;
+    /*private TextField fieldNameAllenamento;
     private ScrollPane scrollPaneEsercizi;
-    private VBox vBoxTuoAllenamento;
-    public void createCreateAllenamentoScene() throws IOException {
+    private VBox vBoxTuoAllenamento;  */
+    public void createCreateAllenamentoScene(String s) throws IOException {
         Node node = (Node) loadRootFromFXML("createAllenamento.fxml");
-        //ArrayList<String> strings = InformazioniEsercizi.getInstance().getListaTuttiEsercizi();  RIMETTERE DECOMMENTANDOLO!!!!!!!!!!!
-        ArrayList<String> strings = new ArrayList<>(); //mi serve come prova, poi lo elimino e tengo lo string di sopra
-        strings.add("panca piana manubri");strings.add("croci cavi");strings.add("squat");
-        VBox vb = new VBox();
-        for (String s: strings) {
-            Node node1 = (Node) loadRootFromFXML("esercizio.fxml");
-            EsercizioHandler.getInstance().setDescrizioneEsercizio(loadImage(s),new DescrizioneEsercizio(s));
-            EsercizioHandler.getInstance().setOnMouseClickedEvent(event -> {
-                try {
-                    addvBoxIfUnique(s);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            },"Aggiungi");
-            vb.getChildren().add(node1);
+        CreateAllenamentoHandler.getInstance().caricaManualeEsercizi();
+        if (!s.equals("")){
+            CreateAllenamentoHandler.getInstance().caricaNomeAllenamento(s);
         }
-        scrollPaneEsercizi.setContent(vb); //rimettere t
+        CreateAllenamentoHandler.getInstance().caricaEserciziVbox("tanto non serve questo parametro");
         addAndCenter(node);
-    }
-    public void caricaNomeAllenamento(String nomeScheda){
-        fieldNameAllenamento.setPromptText(nomeScheda);
     }
     //CODICE GIà PRESENTE NELLA CLASSE ALLENAMENTOHANDLER CREARE MEGA CLASSE AUSILIARIA CON FONT E TUTTI QUESTI METODI
     private static final String FONT_PATH = "/com/example/skiplegday/icon/";
@@ -276,100 +244,32 @@ public class SceneSecondaryHandler {
         Image img=new Image(getClass().getResource(FONT_PATH+nomeEsercizio+".png").openStream());
         return img;
     }
-    private void addvBoxIfUnique(String text) throws IOException {
-        System.out.println("addvBoxIfUnique");
-        boolean isUnique = true;
-        for (Node n: vBoxTuoAllenamento.getChildren()) {
-            if (n instanceof Parent) {  //nodoEsercizio:  image (0)  textFlow(1)   button(2
-                Parent parent = (Parent) n;
-                /*
-                String textField = ((TextFlow) parent.getChildrenUnmodifiable().get(1)).getChildren().get(0).toString();
-//textField: [Text[text="panca piana manubri", x=0.0, y=0.0, alignment=LEFT, origin=BASELINE, boundsType=LOGICAL, font=Font[name=System Regular, family=System, style=Re*/
-                TextFlow textFlow = (TextFlow) parent.getChildrenUnmodifiable().get(1);
-                Text textNode = (Text) textFlow.getChildren().get(0);
-                String textField = textNode.getText();
-                System.out.println("textField: "+textField);
-                if (textField.equals(text)) {
-                    isUnique = false;
-                    break;
-                }
-            }
-        }
-        System.out.println("isUnique: "+isUnique);
-        if (isUnique) {  //SE NON è PRESENTE CREO L'HOB CON ESERCIZIO E BUTTON RIMUOVI
-            Node node2 = (Node) loadRootFromFXML("esercizio.fxml");
-            EsercizioHandler.getInstance().setDescrizioneEsercizio(loadImage(text),new DescrizioneEsercizio(text));
-            EsercizioHandler.getInstance().setOnMouseClickedEvent(event -> {
-                vBoxTuoAllenamento.getChildren().remove(node2);
-            },"Rimuovi");
-            vBoxTuoAllenamento.getChildren().add(node2);
-        }
-    }
-    public ArrayList<String> getEserciziAggiuntiScheda(){
-        ObservableList<Node> children = vBoxTuoAllenamento.getChildren();
-        ArrayList<String> esercizi = new ArrayList<>();
-        for (Node n: children) {
-            if (n instanceof Parent) {  //nodoEsercizio:  image (0)  textFlow(1)   button(2
-                Parent parent = (Parent) n;
-                TextFlow textFlow = (TextFlow) parent.getChildrenUnmodifiable().get(1);
-                Text textNode = (Text) textFlow.getChildren().get(0); //sia DescrTExt che sercizio ereditano da Text
-                String textField = textNode.getText();
-                esercizi.add(textField);
-            }
-        }
-        return esercizi;
-    }
-    public void setScrollPaneEserciziAdd(ScrollPane scrollPaneEsercizi) {
-        this.scrollPaneEsercizi=scrollPaneEsercizi;
-    }
-    public void setVBoxTuoAllenamento(VBox vBoxTuoAllenamento) {
-        this.vBoxTuoAllenamento = vBoxTuoAllenamento;
-    }
-    public void setFieldNameAllenamento(TextField fieldCreateNameAllenamento) {
-        this.fieldNameAllenamento=fieldCreateNameAllenamento;
-    }
-    public void caricaEserciziVbox(String schedaNome) throws IOException {
-        GetEserciziSchedaService service = new GetEserciziSchedaService();
-        service.setDati(UtenteAttuale.getInstance().getUsername(),schedaNome);
-        service.setOnSucceeded(event -> {
-            ArrayList<String> esercizi = service.getValue();
-            vBoxTuoAllenamento.getChildren().clear(); //rimuovo ???
-            for (String s: esercizi) {
-                try {
-                    addvBoxIfUnique(s);
-                } catch (IOException ignoredEvent) {}
-            }
-        });
-    }
     //per accedere all'allenamento pers quando sono sulla label
     public void accediSchedaPersonalizzataScene(String schedaNome) throws IOException {  //meglio chiamarlo accedi allenamento
         setLastScene();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/skiplegday/allenamentoPersonale.fxml"));
         Node node=loader.load();
         //Node node = (Node) loadRootFromFXML("allenamentoPersonale.fxml");
-
         Node allenamento = (Node) loadRootFromFXML("allenamento.fxml");
         //tramite il NomeAllenamento faccio una query al database che mi restituisce la lista degli esercizi da cui è composto e le rispettive immagini
-        //List<String> esercizi = Database.getInstance().getEserciziScheda(UtenteAttuale.getInstance().getUsername(), schedaNome);
         ArrayList<String> esercizi = new ArrayList<>();
-        /*
         GetEserciziSchedaService getEserciziSchedaService = new GetEserciziSchedaService();
         getEserciziSchedaService.setDati(UtenteAttuale.getInstance().getUsername(),schedaNome);
+        getEserciziSchedaService.restart();
         getEserciziSchedaService.setOnSucceeded(event -> {
             esercizi.addAll(getEserciziSchedaService.getValue());
-        });*/
-        esercizi.add("panca piana manubri");esercizi.add("squat"); //eliminare questo rigo
-        esercizi.add(0, schedaNome);  //<-----------------------------------------NOME ALLENAMENTO
-        AllenamentoHandler.getInstance().setAllenamentoPers(esercizi);
-        AllenamentoPersonaleController allenamentoPersonaleController = loader.getController();
-        allenamentoPersonaleController.setPaneAllenamento(allenamento);
-        allenamentoPersonaleController.setNomeAllenamento(schedaNome);
-        addAndCenter(node);
+            //esercizi.add("panca piana manubri");esercizi.add("squat"); //eliminare questo rigo
+            esercizi.add(0, schedaNome);  //<-----------------------------------------NOME ALLENAMENTO
+            try {
+                AllenamentoHandler.getInstance().setAllenamentoPers(esercizi);
+                AllenamentoPersonaleController allenamentoPersonaleController = loader.getController();
+                allenamentoPersonaleController.setPaneAllenamento(allenamento);
+                allenamentoPersonaleController.setNomeAllenamento(schedaNome);
+                addAndCenter(node);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
-    /*
-    private AnchorPane paneAllenamento;
-    public void setAnchorPaneAllenamento(AnchorPane paneAllenamento) {
-        this.paneAllenamento=paneAllenamento;
-    }*/
     //----------------------------------------------------
 }

@@ -7,11 +7,15 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 public class PopupHandler {
     private static final PopupHandler instance = new PopupHandler();
     private PopupHandler() {}
@@ -19,6 +23,7 @@ public class PopupHandler {
     private VBox vBoxDatiEsercizi;
     private Text nomeEsercizio;
     private Text errorText;
+    private AnchorPane anchorPaneGraphRoot;
     private<T> T loadRootFromFXML(String resourceName) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(SceneHandler.class.getResource("/com/example/skiplegday/"+resourceName));
         return fxmlLoader.load();
@@ -54,6 +59,12 @@ public class PopupHandler {
         }
         return false;
     }
+    public void loadGraph() {
+        System.out.println("width: "+anchorPaneGraphRoot.getPrefWidth()+" height: "+anchorPaneGraphRoot.getPrefHeight());
+        GrafoStatisticheEsercizio grafoStatisticheEsercizio = new GrafoStatisticheEsercizio(anchorPaneGraphRoot.getPrefWidth(), anchorPaneGraphRoot.getPrefHeight());
+        //borderPaneGraphRoot.setCenter(grafoStatisticheEsercizio);
+        anchorPaneGraphRoot.getChildren().setAll(grafoStatisticheEsercizio);
+    }
     public void setErrorText(Text errorText) {
         this.errorText = errorText;
     }
@@ -65,4 +76,5 @@ public class PopupHandler {
     public boolean chekNotSave() {
         return !saved;
     }
+    public void setAnchorPaneGraphRoot(AnchorPane anchorPaneGraphRoot) {this.anchorPaneGraphRoot = anchorPaneGraphRoot;}
 }

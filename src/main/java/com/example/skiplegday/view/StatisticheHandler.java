@@ -47,7 +47,8 @@ public class StatisticheHandler {
         paneGrafoRadar.getChildren().setAll(new GrafoStatisticaRadar( categories, dataValues));
     }
     public void loadGrafo() {
-        paneGrafo.getChildren().setAll(new GrafoStatisticheEsercizio());
+        System.out.println("width: "+paneGrafo.getPrefWidth()+" height: "+paneGrafo.getPrefHeight());
+        paneGrafo.getChildren().setAll(new GrafoStatisticheEsercizio(paneGrafo.getPrefWidth(), paneGrafo.getPrefHeight()));
     }
     public void setGrafoRadarRoot(AnchorPane setGrafoRadarRoot) {
         this.paneGrafoRadar=setGrafoRadarRoot;

@@ -18,8 +18,9 @@ public class Popup extends Stage {  //è un normale stage su cui poi ci caricher
     //se la mettessi singleton, ogni volta che la richiamo dovrei fare setStage, ma se ne ha gia uno mi causa eccezione
     public Popup(Stage ownerStage, Scene scene) {
         this.setScene(scene);
-        this.setHeight(450);
+        this.setHeight(510);
         this.setWidth(300);
+        this.setResizable(false);
         SceneHandler.getInstance().loadFonts();            //facendo cosi aggiungo automaticamente stessi font e css delle altre scene
         //SceneHandler.getInstance().setCSSForScene(scene);
         PopupHandler.getInstance().setSaved(true); //appena la avvio posso chiuderla senza problemi

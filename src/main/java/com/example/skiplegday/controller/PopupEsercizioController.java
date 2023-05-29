@@ -10,6 +10,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
@@ -26,10 +28,14 @@ public class PopupEsercizioController {
     Button addDatiEsButton;
     @FXML
     Text textError;
+    @FXML
+    AnchorPane anchorPaneGraphRoot;
     public void initialize(){
         PopupHandler.getInstance().setvBoxDatiEsercizi(vBoxDatiEsercizi);
         PopupHandler.getInstance().setText(nomeEsercizio);
         PopupHandler.getInstance().setErrorText(textError);
+        PopupHandler.getInstance().setAnchorPaneGraphRoot(anchorPaneGraphRoot);
+        PopupHandler.getInstance().loadGraph();
     }
     public void addDatiEsAction(ActionEvent actionEvent) throws IOException {
         PopupHandler.getInstance().setSaved(false);   //ogni volta che aggiungo un esercizio devo salvare prima di uscire

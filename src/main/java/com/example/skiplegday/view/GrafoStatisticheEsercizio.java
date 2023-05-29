@@ -16,8 +16,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
 public class GrafoStatisticheEsercizio extends Pane {
-
-    public GrafoStatisticheEsercizio() {
+    public GrafoStatisticheEsercizio(Double width, Double height) {
         // Aggiunta dei dati alla serie
         ArrayList<Data> dataList = new ArrayList<>();
         dataList.add(new Data("2023-02-01", 100));
@@ -80,18 +79,18 @@ public class GrafoStatisticheEsercizio extends Pane {
                 LocalDate date = startDate.plusDays(object.longValue());
                 return date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
             }
-
             @Override
             public Number fromString(String string) {
                 LocalDate date = LocalDate.parse(string, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
                 return ChronoUnit.DAYS.between(startDate, date);
             }
         });
-
         ScrollPane root = new ScrollPane(lineChart);
         //root.setMinSize(lunghezza_panello, 600);
-        root.setMinSize(600, 440);
+        root.setMinSize(width-10, height-30);
+        root.setMaxSize(width-10, height-30);
         lineChart.setMinSize(lunghezza_panello, root.getMinHeight() - 20);
+        lineChart.setMaxSize(lunghezza_panello, root.getMinHeight() - 20);
         getChildren().add(root);
     }
 }

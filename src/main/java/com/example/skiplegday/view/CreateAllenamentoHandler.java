@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -23,9 +24,11 @@ public class CreateAllenamentoHandler {
     public static CreateAllenamentoHandler getInstance() {
         return instance;
     }
+    private Text scegliNomeText;
     private TextField fieldNameAllenamento;
     private ScrollPane scrollPaneEsercizi;
     private VBox vBoxTuoAllenamento;
+    private Button saveAllenamentoButton;
     public void caricaEserciziVbox(String schedaNome) throws IOException {  //se riesco a implementarlo non mi serve piu passare il nome della scheda come parametro
         GetEserciziSchedaService service = new GetEserciziSchedaService();
         //service.setDati(UtenteAttuale.getInstance().getUsername(),schedaNome);
@@ -117,6 +120,10 @@ public class CreateAllenamentoHandler {
     }
     public void setFieldNameAllenamento(TextField fieldCreateNameAllenamento) {this.fieldNameAllenamento=fieldCreateNameAllenamento;}
     public void caricaNomeAllenamento(String nomeScheda){fieldNameAllenamento.setPromptText(nomeScheda);}
+    public void setScegliNomeText(Text scegliNomeText) {this.scegliNomeText=scegliNomeText;}
+    public void caricaScegliNomeText(String message){scegliNomeText.setText(message);}
+    public void setSaveAllenamentoButton(Button saveAllenamentoButton) {this.saveAllenamentoButton=saveAllenamentoButton;}
+    public void setNomeButtonModifica(){saveAllenamentoButton.setText("Salva Modifica");}
     //TUTTI QUESTI METODI SONO RIPETUTI IN TUTTE LE CLASSI. FARE UNA CLASSE SETTINGS AD ASEMPIO PER RICHIAMARLI DA LI
     //SENZA RISCRIVERLI OGNI VOLTA
     private<T> T loadRootFromFXML(String resourceName) throws IOException {

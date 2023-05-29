@@ -1,8 +1,5 @@
 package com.example.skiplegday;
-import com.example.skiplegday.model.AddSchedaService;
-import com.example.skiplegday.model.Database;
-import com.example.skiplegday.model.LettoreFile;
-import com.example.skiplegday.model.RegisterUserService;
+import com.example.skiplegday.model.*;
 import com.example.skiplegday.view.PopupHandler;
 import com.example.skiplegday.view.SceneHandler;
 import javafx.application.Application;
@@ -48,7 +45,18 @@ public class HelloApplication extends Application {
         addSchedaService.setOnSucceeded(event -> {
             System.out.println("successo");
         });*/
-
+        /*
+        RemoveSchedaService removeSchedaService = new RemoveSchedaService();
+        removeSchedaService.setDati("domenico", "");
+        removeSchedaService.restart();
+        removeSchedaService.setOnSucceeded(event -> {
+            if (removeSchedaService.getValue()){
+                System.out.println("successo");
+            }
+            else{
+                System.out.println("fallimento");
+            }
+        });*/
         //db.closeConnection();
     }
 }

@@ -27,15 +27,14 @@ public class SchedaPersonaleController {
     ImageView imageSchedaPersonalizzata;
     @FXML
     Button deleteSchedaButton;
-    @FXML
-    TextField fieldSetNameScheda;
     public void setLabelSchedaPersonalizzata(String text) {
         labelSchedaPersonalizzata.setText(text);
     }
     public void accediSchedaPersonalizzata(MouseEvent mouseEvent) throws IOException {
-       //questa posso eliminarla, faccio tutto con la funzione on MOuseClicked
+        labelSchedaPersonalizzata.getText();
+        SceneSecondaryHandler.getInstance().setLastScene();
+        SceneSecondaryHandler.getInstance().accediSchedaPersonalizzataScene(labelSchedaPersonalizzata.getText());
     }
-
     public void deleteSchedaAction(ActionEvent actionEvent) {
         //devo cancellare la scheda dal database  !!!!!!!!!!!!!!!!!!!
         RemoveSchedaService removeSchedaService = new RemoveSchedaService();
@@ -65,37 +64,5 @@ public class SchedaPersonaleController {
             }
         }
         return null;
-    }
-    public void setNameSchedaAction(MouseEvent mouseEvent) throws IOException {
-        if (mouseEvent.getClickCount() == 2) {   //da caccaire non ha senso
-            // Nascondi la label
-            labelSchedaPersonalizzata.setVisible(false);
-
-            // Mostra il TextField e imposta il testo della label come testo iniziale del TextField
-            fieldSetNameScheda.setVisible(true);
-            fieldSetNameScheda.setText(labelSchedaPersonalizzata.getText());
-            fieldSetNameScheda.requestFocus();
-        }
-        else{
-            System.out.println("Accedi scheda personalizzata");
-            labelSchedaPersonalizzata.getText();
-            SceneSecondaryHandler.getInstance().accediSchedaPersonalizzataScene(labelSchedaPersonalizzata.getText());
-            //e co sto testo devo trova l'allenamento nel database dal model
-        }
-    }
-    @FXML
-    private void handleTextFieldKeyPressed(KeyEvent event) {
-        if (event.getCode() == KeyCode.ENTER) {
-            // Sostituisci il testo della label con il testo del TextField
-            labelSchedaPersonalizzata.setText(fieldSetNameScheda.getText());
-
-            // Nascondi il TextField e mostra di nuovo la label
-            fieldSetNameScheda.setVisible(false);
-            labelSchedaPersonalizzata.setVisible(true);
-        } else if (event.getCode() == KeyCode.ESCAPE) {
-            // Annulla la modifica e ripristina il testo originale della label
-            fieldSetNameScheda.setVisible(false);
-            labelSchedaPersonalizzata.setVisible(true);
-        }
     }
 }

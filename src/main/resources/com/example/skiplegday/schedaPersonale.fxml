@@ -2,14 +2,13 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="170.0" prefWidth="256.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.skiplegday.controller.SchedaPersonaleController">
    <children>
-      <Label fx:id="labelSchedaPersonalizzata" alignment="CENTER" contentDisplay="TOP" layoutY="-1.0" onDragDetected="#accediSchedaPersonalizzata" onMouseClicked="#setNameSchedaAction" prefHeight="170.0" prefWidth="200.0" text="Label" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="56.0" AnchorPane.topAnchor="1.0">
+      <Label fx:id="labelSchedaPersonalizzata" alignment="CENTER" contentDisplay="TOP" layoutY="-1.0" onDragDetected="#accediSchedaPersonalizzata" onMouseClicked="#accediSchedaPersonalizzata" prefHeight="170.0" prefWidth="200.0" text="Label" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="56.0" AnchorPane.topAnchor="1.0">
          <graphic>
             <ImageView fitHeight="128.0" fitWidth="142.0">
                <image>
@@ -19,6 +18,5 @@
          </graphic>
       </Label>
       <Button fx:id="deleteSchedaButton" layoutX="200.0" layoutY="14.0" mnemonicParsing="false" onAction="#deleteSchedaAction" text="delete" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="14.0" />
-      <TextField fx:id="fieldSetNameScheda" layoutX="25.0" layoutY="136.0" onKeyPressed="#handleTextFieldKeyPressed" onMouseClicked="#setNameSchedaAction" promptText="modifica nome" visible="false" />
    </children>
 </AnchorPane>

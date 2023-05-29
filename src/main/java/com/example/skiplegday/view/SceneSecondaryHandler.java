@@ -17,10 +17,7 @@ import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class SceneSecondaryHandler {
     private AnchorPane sceneRoot;
@@ -28,7 +25,7 @@ public class SceneSecondaryHandler {
     private ScrollPane scrollPane;
     private GridPane gridPane; //per le schedePersonali
     private HBox hBoxHome; //prova
-    private Node lastScene;
+    private LinkedList<Node> lastScene= new LinkedList<>();
     private Map<String,Parent> sceneMap= new HashMap<>();
     private static final SceneSecondaryHandler instance = new SceneSecondaryHandler();
     private SceneSecondaryHandler() {}
@@ -63,6 +60,7 @@ public class SceneSecondaryHandler {
         }
         //Node node= (Node) loadRootFromFXML("schedePersonali.fxml");
         addAndCenter(root);
+        setLastScene();
     }
     public void createSchedePredefiniteScene() throws IOException {
         Node node = (Node) loadRootFromFXML("schedeDefault.fxml");
@@ -165,12 +163,15 @@ public class SceneSecondaryHandler {
         AnchorPane.setRightAnchor(node, 10.0);*/
     }
     public void CreateLastScene() {
-        sceneRoot.getChildren().setAll(lastScene);
+        System.out.println(lastScene.size());
+        sceneRoot.getChildren().setAll(lastScene.getLast());
+        lastScene.removeLast();   //capire questa cosa ????
     }
     public void setLastScene() {
         // Ottieni il nodo FXML attualmente presente nel sceneRoot
         Node currentFXMLNode = sceneRoot.getChildren().get(0);
-        lastScene = currentFXMLNode;
+        //lastScene = currentFXMLNode;
+        lastScene.add(currentFXMLNode);
     }
     public void setHomeSceneRoot(AnchorPane sceneRoot) {
         this.sceneRoot = sceneRoot;
@@ -232,8 +233,10 @@ public class SceneSecondaryHandler {
     public void createCreateAllenamentoScene(String s) throws IOException {
         Node node = (Node) loadRootFromFXML("createAllenamento.fxml");
         CreateAllenamentoHandler.getInstance().caricaManualeEsercizi();
-        if (!s.equals("")){
+        if (!s.equals("")){ //se non è vuoto vuol dire che è stato chiamato dalla modifica
             CreateAllenamentoHandler.getInstance().caricaNomeAllenamento(s);
+            CreateAllenamentoHandler.getInstance().caricaScegliNomeText("Modifica nome allenamento (opzionale) ");
+            CreateAllenamentoHandler.getInstance().setNomeButtonModifica();
         }
         CreateAllenamentoHandler.getInstance().caricaEserciziVbox("tanto non serve questo parametro");
         addAndCenter(node);
@@ -246,7 +249,7 @@ public class SceneSecondaryHandler {
     }
     //per accedere all'allenamento pers quando sono sulla label
     public void accediSchedaPersonalizzataScene(String schedaNome) throws IOException {  //meglio chiamarlo accedi allenamento
-        setLastScene();
+        //setLastScene();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/skiplegday/allenamentoPersonale.fxml"));
         Node node=loader.load();
         //Node node = (Node) loadRootFromFXML("allenamentoPersonale.fxml");

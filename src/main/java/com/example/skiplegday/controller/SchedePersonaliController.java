@@ -1,5 +1,6 @@
 package com.example.skiplegday.controller;
 
+import com.example.skiplegday.view.GridPaneAllenamentiHandler;
 import com.example.skiplegday.view.SceneSecondaryHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,6 +21,7 @@ public class SchedePersonaliController {
         SceneSecondaryHandler.getInstance().createCreateAllenamentoScene("");
     }
     public void initialize(){
-        SceneSecondaryHandler.getInstance().setGridPaneSchede(gridPane);
+        //SceneSecondaryHandler.getInstance().setGridPaneSchede(gridPane);
+        GridPaneAllenamentiHandler.getInstance().setGridPaneSchede(gridPane);
     }
 }

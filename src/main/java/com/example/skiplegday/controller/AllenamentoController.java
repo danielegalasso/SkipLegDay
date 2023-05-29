@@ -41,7 +41,8 @@ public class AllenamentoController {
                 addSchedaService.setOnSucceeded(event1 ->{
                     if (addSchedaService.getValue()) {
                         try {
-                            SceneSecondaryHandler.getInstance().aggiungiSchedaPersonaleScene(idGruppoMuscolare.getText());
+                            //SceneSecondaryHandler.getInstance().aggiungiSchedaPersonaleScene(idGruppoMuscolare.getText());
+                            GridPaneAllenamentiHandler.getInstance().aggiungiSchedaPersonaleScene(idGruppoMuscolare.getText());
                             SceneSecondaryHandler.getInstance().createSchedePersonaliScene();
                         } catch (IOException ignoredEvent) {}
                     } else {

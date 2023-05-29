@@ -2,6 +2,7 @@ package com.example.skiplegday.controller;
 
 import com.example.skiplegday.model.RemoveSchedaService;
 import com.example.skiplegday.model.UtenteAttuale;
+import com.example.skiplegday.view.GridPaneAllenamentiHandler;
 import com.example.skiplegday.view.SceneSecondaryHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -53,7 +54,8 @@ public class SchedaPersonaleController {
         Node nodeToRemove = getNodeInGridPane(children, row, column);  // Ottieni il nodo da rimuovere
         children.remove(nodeToRemove);
         gridPane.getChildren().clear();
-        SceneSecondaryHandler.getInstance().repositionSchede(children);
+        //SceneSecondaryHandler.getInstance().repositionSchede(children);
+        GridPaneAllenamentiHandler.getInstance().repositionSchede(children);
     }
     public Node getNodeInGridPane(List<Node> children, int row, int column) {
         for (Node node : children) {

@@ -29,6 +29,6 @@
             </AnchorPane>
          </content>
       </ScrollPane>
-      <Button fx:id="aggiungiEsercizioButton" layoutX="504.0" layoutY="521.0" mnemonicParsing="false" onAction="#aggiungiEsercizioAction" text="aggiungi esercizio" AnchorPane.bottomAnchor="8.666666666666668" AnchorPane.rightAnchor="14.0" />
+      <Button fx:id="aggiungiEsercizioButton" layoutX="504.0" layoutY="521.0" mnemonicParsing="false" onAction="#aggiungiEsercizioAction" text="aggiungi  scheda" AnchorPane.bottomAnchor="8.666666666666668" AnchorPane.rightAnchor="14.0" />
    </children>
 </AnchorPane>

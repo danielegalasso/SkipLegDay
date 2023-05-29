@@ -23,20 +23,17 @@ import java.io.IOException;
 import java.util.*;
 
 public class SceneSecondaryHandler {
-    private AnchorPane sceneRoot;
-    private VBox vBox;  //vbox nelle schede di default
-    private ScrollPane scrollPane;
-    private GridPane gridPane; //per le schedePersonali
-    private HBox hBoxHome; //prova
-    private LinkedList<Node> lastScene= new LinkedList<>();
-    private Map<String,Parent> sceneMap= new HashMap<>();
     private static final SceneSecondaryHandler instance = new SceneSecondaryHandler();
     private SceneSecondaryHandler() {}
     public static SceneSecondaryHandler getInstance() {return instance;}
-    private<T> T loadRootFromFXML(String resourceName) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(SceneHandler.class.getResource("/com/example/skiplegday/"+resourceName));
-        return fxmlLoader.load();
-    }
+    private AnchorPane sceneRoot;
+
+    private VBox vBox;  //vbox nelle schede di default
+    private ScrollPane scrollPane;
+    private HBox hBoxHome; //prova mai implementato(?)
+    private LinkedList<Node> lastScene= new LinkedList<>();
+    private Map<String,Parent> sceneMap= new HashMap<>();
+
     //SCENE PRINICIPALI---------------------------------------------------
     public void createSchedePersonaliScene() throws IOException {
         Parent root = sceneMap.get("schedePersonali");
@@ -53,7 +50,7 @@ public class SceneSecondaryHandler {
                 ArrayList<String> schede = getSchedeService.getValue();
                 for (int i = 0; i < schede.size(); i++) {
                     try {
-                        aggiungiSchedaPersonaleScene(schede.get(i));
+                        GridPaneAllenamentiHandler.getInstance().aggiungiSchedaPersonaleScene(schede.get(i));
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -61,20 +58,12 @@ public class SceneSecondaryHandler {
             });
             //----------------------------------
         }
-        //Node node= (Node) loadRootFromFXML("schedePersonali.fxml");
         addAndCenter(root);
         setLastScene();
     }
     public void createSchedePredefiniteScene() throws IOException {
         Node node = (Node) loadRootFromFXML("schedeDefault.fxml");
         addAndCenter(node);
-        /*Node node1 = (Node) loadRootFromFXML("schedeDefault.fxml");
-        hBoxHome.getChildren().get(0).setDisable(true);
-        hBoxHome.getChildren().add(node1);
-        node1.setTranslateX(200);
-        TranslateTransition transition = new TranslateTransition(Duration.millis(200),node1);
-        transition.setByX(-200);
-        transition.play();*/
     }
     public void createStatisticheScene() throws IOException {
         Node node = (Node) loadRootFromFXML("statistiche.fxml");  //cosi carico ogni volta un nuovo nodo, inefficiente
@@ -156,94 +145,8 @@ public class SceneSecondaryHandler {
         //funzione che mi prende da database tutti gli allenamenti e me li popola
         addAndCenter(node);
     }
-    //METODI UTILI -----------------------------------------------------
-    private void addAndCenter(Node node){
-        sceneRoot.getChildren().setAll(node);
-        /*
-        AnchorPane.setTopAnchor(node,10.0);
-        AnchorPane.setBottomAnchor(node, 10.0);
-        AnchorPane.setLeftAnchor(node, 10.0);
-        AnchorPane.setRightAnchor(node, 10.0);*/
-    }
-    public void CreateLastScene() {
-        System.out.println(lastScene.size());
-        sceneRoot.getChildren().setAll(lastScene.getLast());
-        lastScene.removeLast();   //capire questa cosa ????
-    }
-    public void setLastScene() {
-        // Ottieni il nodo FXML attualmente presente nel sceneRoot
-        Node currentFXMLNode = sceneRoot.getChildren().get(0);
-        //lastScene = currentFXMLNode;
-        lastScene.add(currentFXMLNode);
-    }
-    public void setHomeSceneRoot(AnchorPane sceneRoot) {
-        this.sceneRoot = sceneRoot;
-    }
-    public void setHBoxHome(HBox hBoxHome) {
-        this.hBoxHome = hBoxHome;
-    }
-    public void setSchedeDefaultSceneRoot(VBox vBox) { this.vBox = vBox;}
-    public void setScrollPane(ScrollPane scrollPane) {this.scrollPane = scrollPane;}
-    public void clearAll() {
-        sceneMap.clear();
-        setPosInitialGridPane();
-    }
-    //-
-  //SCHEDA PERSONALE (allenamenti personali) --------------------------------------
-    private int columnCount = 2;//gridPane.getColumnCount();
-    private int rowIndex = 0;  //quando ricclicco su scheda personale le resetto, finche non prendo le cose da daniele
-    private int columnIndex = 0;
-    private void setPosInitialGridPane() {
-        rowIndex = 0;
-        columnIndex = 0;
-    }
-    public void aggiungiSchedaPersonaleScene(String nameExercise) throws IOException {
-        /*
-        nameExercise= nameAllenamento(nameExercise);
-        mieiAllenamenti.add(nameExercise);*/
-        //Node node = (Node) loadRootFromFXML("schedaPersonale.fxml"); non posso farla con questa funzione perche mi serve
-        //controller associato
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/skiplegday/schedaPersonale.fxml"));
-        Node node = loader.load();
-        SchedaPersonaleController controller = loader.getController();
-        controller.setLabelSchedaPersonalizzata(nameExercise);
-        addSchedaNextPositionGridPane(node);
-    }
-    private void addSchedaNextPositionGridPane(Node node) {
-        gridPane.add(node, columnIndex, rowIndex);
-        columnIndex++;
-        if (columnIndex >= columnCount) {
-            columnIndex = 0;
-            rowIndex++;
-        }
-    }
-    public void repositionSchede(List<Node> children){
-        columnCount = gridPane.getColumnCount();
-        rowIndex = 0;
-        columnIndex = 0;
-        for (Node node : children) {
-            // Riposiziona il nodo nel GridPane
-            addSchedaNextPositionGridPane(node);
-        }
-    }
-    public void setGridPaneSchede(GridPane gridPane) {
-        this.gridPane = gridPane;
-    }
-    public void setModificaNomeAllenamento(String nomeAllenamentoNuovo, String nomeAllenamentoVecchio) {
-        ObservableList<Node> children = gridPane.getChildren();
-        for (Node node : children) {
-            if (node instanceof AnchorPane) {
-                AnchorPane anchorPane = (AnchorPane) node;
-                if(((Label) anchorPane.getChildren().get(0)).getText().equals(nomeAllenamentoVecchio)) {
-                    ((Label) anchorPane.getChildren().get(0)).setText(nomeAllenamentoNuovo);
-                }
-            }
-        }
-    }
-    //--------------------  CREA SCHEDA PERSONALIZZATA   (ALLENAMENTI PERSONALIZZATI)-----
-    /*private TextField fieldNameAllenamento;
-    private ScrollPane scrollPaneEsercizi;
-    private VBox vBoxTuoAllenamento;  */
+
+    //CREA SCHEDA PERSONALIZZATA ------- (ALLENAMENTI PERSONALIZZATI)---
     public void createCreateAllenamentoScene(String s) throws IOException {
         Node node = (Node) loadRootFromFXML("createAllenamento.fxml");
         CreateAllenamentoHandler.getInstance().caricaManualeEsercizi();
@@ -254,12 +157,6 @@ public class SceneSecondaryHandler {
         }
         CreateAllenamentoHandler.getInstance().caricaEserciziVbox("tanto non serve questo parametro");
         addAndCenter(node);
-    }
-    //CODICE GIà PRESENTE NELLA CLASSE ALLENAMENTOHANDLER CREARE MEGA CLASSE AUSILIARIA CON FONT E TUTTI QUESTI METODI
-    private static final String FONT_PATH = "/com/example/skiplegday/icon/";
-    private Image loadImage(String nomeEsercizio) throws IOException {
-        Image img=new Image(getClass().getResource(FONT_PATH+nomeEsercizio+".png").openStream());
-        return img;
     }
     //per accedere all'allenamento pers quando sono sulla label
     public void accediSchedaPersonalizzataScene(String schedaNome) throws IOException {  //meglio chiamarlo accedi allenamento
@@ -288,5 +185,35 @@ public class SceneSecondaryHandler {
             }
         });
     }
-    //----------------------------------------------------
+    // METODI UTILI ----------------------------------------------------
+    private<T> T loadRootFromFXML(String resourceName) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(SceneHandler.class.getResource("/com/example/skiplegday/"+resourceName));
+        return fxmlLoader.load();
+    }
+    private void addAndCenter(Node node){
+        sceneRoot.getChildren().setAll(node);
+        /*
+        AnchorPane.setTopAnchor(node,10.0);
+        AnchorPane.setBottomAnchor(node, 10.0);
+        AnchorPane.setLeftAnchor(node, 10.0);
+        AnchorPane.setRightAnchor(node, 10.0);*/
+    }
+    public void CreateLastScene() {
+        sceneRoot.getChildren().setAll(lastScene.getLast());
+        lastScene.removeLast();
+    }
+    public void setLastScene() {   // Ottieni il nodo FXML attualmente presente nel sceneRoot
+        Node currentFXMLNode = sceneRoot.getChildren().get(0);
+        lastScene.add(currentFXMLNode);
+    }
+    public void setHomeSceneRoot(AnchorPane sceneRoot) {
+        this.sceneRoot = sceneRoot;
+    }
+    public void setHBoxHome(HBox hBoxHome) {this.hBoxHome = hBoxHome;} //è inutile?? mai implementata(?)
+    public void setSchedeDefaultSceneRoot(VBox vBox) { this.vBox = vBox;}
+    public void setScrollPane(ScrollPane scrollPane) {this.scrollPane = scrollPane;}
+    public void clearAll() {
+        sceneMap.clear();
+        GridPaneAllenamentiHandler.getInstance().setPosInitialGridPane();
+    }
 }

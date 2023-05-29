@@ -6,6 +6,7 @@ import com.example.skiplegday.model.RemoveSchedaService;
 import com.example.skiplegday.model.UtenteAttuale;
 import com.example.skiplegday.view.CreateAllenamentoHandler;
 import com.example.skiplegday.view.ErrorMessage;
+import com.example.skiplegday.view.GridPaneAllenamentiHandler;
 import com.example.skiplegday.view.SceneSecondaryHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -28,9 +29,10 @@ public class CreateAllenamentoController {
     ScrollPane scrollPaneEsercizi;
     @FXML
     Button saveAllenamentoButton;
+    private static final String PROMPT_TEXT = "inserisci nome";
     public void saveAllenamentoAction(ActionEvent actionEvent) throws IOException {
         //aggiungo nel database creo fxml con label e immagine avente come nome questo textField  !!!!!!!!!!!!!!!!!!
-        if (fieldCreateNameAllenamento.getPromptText().equals("")) { //se è vuoto non ho acceduto dal pulsante modifica ma da aggiungiAllenamento
+        if (fieldCreateNameAllenamento.getPromptText().equals(PROMPT_TEXT)) { //se è così non ho acceduto dal pulsante modifica ma da aggiungiAllenamento
             if(fieldCreateNameAllenamento.getText().equals("") || vBoxTuoAllenamento.getChildren().size() == 0){
                 return;
             }
@@ -46,7 +48,8 @@ public class CreateAllenamentoController {
                     addSchedaService.setOnSucceeded(event1 ->{
                         if (addSchedaService.getValue()) {
                             try {
-                                SceneSecondaryHandler.getInstance().aggiungiSchedaPersonaleScene(fieldCreateNameAllenamento.getText());
+                                //SceneSecondaryHandler.getInstance().aggiungiSchedaPersonaleScene(fieldCreateNameAllenamento.getText());
+                                GridPaneAllenamentiHandler.getInstance().aggiungiSchedaPersonaleScene(fieldCreateNameAllenamento.getText());
                                 SceneSecondaryHandler.getInstance().createSchedePersonaliScene();
                             } catch (IOException ignoredEvent) {}
                         } else {
@@ -77,7 +80,8 @@ public class CreateAllenamentoController {
                         //se ha cambiato nome allenamento devo cambiarlo dalla grafica, in quanto gli allenamenti vengono caricati
                         //dal database solo al login dell'utente per efficienza. altrimenti ad ogni cambiamento o piccola modifica
                         //dovrei fare ogni volta una query al database per aggiungere poi gli allenamenti al gridPane.
-                        SceneSecondaryHandler.getInstance().setModificaNomeAllenamento(nomeAllenamento,fieldCreateNameAllenamento.getPromptText());
+                        //SceneSecondaryHandler.getInstance().setModificaNomeAllenamento(nomeAllenamento,fieldCreateNameAllenamento.getPromptText());
+                        GridPaneAllenamentiHandler.getInstance().setModificaNomeAllenamento(nomeAllenamento,fieldCreateNameAllenamento.getPromptText());
                         //sul promptText ho il nome vecchio, sul text ho il nome nuovo
                     }
                     else{nomeAllenamento= fieldCreateNameAllenamento.getPromptText();}
@@ -102,11 +106,6 @@ public class CreateAllenamentoController {
         }
     }
     public void initialize() throws IOException {
-        /*
-        SceneSecondaryHandler.getInstance().setScrollPaneEserciziAdd(scrollPaneEsercizi);
-        SceneSecondaryHandler.getInstance().setVBoxTuoAllenamento(vBoxTuoAllenamento);
-        SceneSecondaryHandler.getInstance().setFieldNameAllenamento(fieldCreateNameAllenamento);
-        //SceneSecondaryHandler.getInstance().caricaEserciziVbox();  decommentare !!!!!!!!*/
         CreateAllenamentoHandler.getInstance().setScrollPaneEserciziAdd(scrollPaneEsercizi);
         CreateAllenamentoHandler.getInstance().setVBoxTuoAllenamento(vBoxTuoAllenamento);
         CreateAllenamentoHandler.getInstance().setFieldNameAllenamento(fieldCreateNameAllenamento);
@@ -114,8 +113,5 @@ public class CreateAllenamentoController {
         CreateAllenamentoHandler.getInstance().setScegliNomeText(scegliNomeText);
         CreateAllenamentoHandler.getInstance().setSaveAllenamentoButton(saveAllenamentoButton);
     }
-    public void indietroAction(ActionEvent actionEvent) {
-        SceneSecondaryHandler.getInstance().CreateLastScene();
-    }
-
+    public void indietroAction(ActionEvent actionEvent) {SceneSecondaryHandler.getInstance().CreateLastScene();}
 }

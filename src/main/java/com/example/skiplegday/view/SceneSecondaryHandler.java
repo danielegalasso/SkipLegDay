@@ -68,6 +68,8 @@ public class SceneSecondaryHandler {
     public void createStatisticheScene() throws IOException {
         Node node = (Node) loadRootFromFXML("statistiche.fxml");  //cosi carico ogni volta un nuovo nodo, inefficiente
         StatisticheHandler.getInstance().loadCalendar();
+        StatisticheHandler.getInstance().loadGrafoRadar();
+        StatisticheHandler.getInstance().loadGrafo();
         addAndCenter(node);
     }
     public void createEserciziScene() throws IOException {

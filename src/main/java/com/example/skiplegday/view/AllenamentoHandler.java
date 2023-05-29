@@ -27,8 +27,6 @@ public class AllenamentoHandler {
         for(int i=1;i<l.size();++i){
             Node node = (Node) loadRootFromFXML("esercizio.fxml");
             EsercizioHandler.getInstance().setEsercizio(loadImage(l.get(i)),new Esercizio(l.get(i)),false);
-            //HBox hBox = new HBox();
-            //hBox.getChildren().addAll(loadImage(l.get(i)),new Esercizio(l.get(i)),new EmptyPanel(),new Button("X"));
             vBoxListaEsercizi.getChildren().add(node);
         }
         importaButton.setVisible(false);
@@ -41,9 +39,6 @@ public class AllenamentoHandler {
         for(int i=1;i<l.size();++i){
             Node node = (Node) loadRootFromFXML("esercizio.fxml");
             EsercizioHandler.getInstance().setEsercizio(loadImage(l.get(i)),new Esercizio(l.get(i)),true);
-            //HBox hBox = new HBox();
-            //System.out.println();
-            //hBox.getChildren().addAll(loadImage(l.get(i)),new Text(l.get(i)));
             vBoxListaEsercizi.getChildren().add(node);
         }
         importaButton.setVisible(true);

@@ -71,8 +71,18 @@ public class CreateAllenamentoController {
             removeSchedaService.restart();
             removeSchedaService.setOnSucceeded(event ->{
                 if (removeSchedaService.getValue()) {
+                    String nomeAllenamento;
+                    if(!fieldCreateNameAllenamento.getText().equals("")) {
+                        nomeAllenamento= fieldCreateNameAllenamento.getText();
+                        //se ha cambiato nome allenamento devo cambiarlo dalla grafica, in quanto gli allenamenti vengono caricati
+                        //dal database solo al login dell'utente per efficienza. altrimenti ad ogni cambiamento o piccola modifica
+                        //dovrei fare ogni volta una query al database per aggiungere poi gli allenamenti al gridPane.
+                        SceneSecondaryHandler.getInstance().setModificaNomeAllenamento(nomeAllenamento,fieldCreateNameAllenamento.getPromptText());
+                        //sul promptText ho il nome vecchio, sul text ho il nome nuovo
+                    }
+                    else{nomeAllenamento= fieldCreateNameAllenamento.getPromptText();}
                     AddSchedaService addSchedaService = new AddSchedaService();
-                    addSchedaService.setDati(UtenteAttuale.getInstance().getUsername(),fieldCreateNameAllenamento.getPromptText(), CreateAllenamentoHandler.getInstance().getEserciziAggiuntiScheda());
+                    addSchedaService.setDati(UtenteAttuale.getInstance().getUsername(),nomeAllenamento, CreateAllenamentoHandler.getInstance().getEserciziAggiuntiScheda());
                     addSchedaService.restart();
                     addSchedaService.setOnSucceeded(event1 ->{
                         if (addSchedaService.getValue()) {

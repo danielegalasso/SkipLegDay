@@ -371,15 +371,25 @@ public class Database{
             PreparedStatement statementEliminaAllenamento = con.prepareStatement(queryEliminaAllenamento);
             statementEliminaAllenamento.setString(1, username);
             statementEliminaAllenamento.setString(2, data);
-            statementEliminaAllenamento.executeUpdate();
+            int rowsAffected = statementEliminaAllenamento.executeUpdate();
 
             // Elimina le serie associate all'allenamento dalla tabella "serie"
             String queryEliminaSerie = "DELETE FROM serie WHERE allenamento_username = ? AND allenamento_data = ?";
             PreparedStatement statementEliminaSerie = con.prepareStatement(queryEliminaSerie);
             statementEliminaSerie.setString(1, username);
             statementEliminaSerie.setString(2, data);
-            statementEliminaSerie.executeUpdate();
-            return true;
+            int rowsAffected1 = statementEliminaSerie.executeUpdate();
+
+            statementEliminaSerie.close();
+            statementEliminaAllenamento.close();
+
+            if (rowsAffected > 0 && rowsAffected1 > 0) {
+                return true;
+            } else {
+                return false;
+            }
+
+
         }
         catch (SQLException e) {
             e.printStackTrace();

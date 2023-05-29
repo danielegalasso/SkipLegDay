@@ -3,9 +3,12 @@ package com.example.skiplegday.view;
 import com.example.skiplegday.controller.AllenamentoPersonaleController;
 import com.example.skiplegday.controller.SchedaPersonaleController;
 import com.example.skiplegday.model.*;
+import javafx.beans.Observable;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
@@ -225,6 +228,17 @@ public class SceneSecondaryHandler {
     }
     public void setGridPaneSchede(GridPane gridPane) {
         this.gridPane = gridPane;
+    }
+    public void setModificaNomeAllenamento(String nomeAllenamentoNuovo, String nomeAllenamentoVecchio) {
+        ObservableList<Node> children = gridPane.getChildren();
+        for (Node node : children) {
+            if (node instanceof AnchorPane) {
+                AnchorPane anchorPane = (AnchorPane) node;
+                if(((Label) anchorPane.getChildren().get(0)).getText().equals(nomeAllenamentoVecchio)) {
+                    ((Label) anchorPane.getChildren().get(0)).setText(nomeAllenamentoNuovo);
+                }
+            }
+        }
     }
     //--------------------  CREA SCHEDA PERSONALIZZATA   (ALLENAMENTI PERSONALIZZATI)-----
     /*private TextField fieldNameAllenamento;

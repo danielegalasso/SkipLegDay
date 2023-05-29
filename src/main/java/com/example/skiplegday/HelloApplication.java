@@ -57,6 +57,18 @@ public class HelloApplication extends Application {
                 System.out.println("fallimento");
             }
         });*/
+        /*
+        EliminaAllenamentoService eliminaAllenamentoService = new EliminaAllenamentoService();
+        eliminaAllenamentoService.setDati("domenic2o", "2020-05-15");
+        eliminaAllenamentoService.restart();
+        eliminaAllenamentoService.setOnSucceeded(event -> {
+            if (eliminaAllenamentoService.getValue()){
+                System.out.println("successo");
+            }
+            else{
+                System.out.println("fallimento");
+            }
+        });*/
         //db.closeConnection();
     }
 }

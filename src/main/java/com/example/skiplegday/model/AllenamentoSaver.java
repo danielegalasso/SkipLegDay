@@ -1,5 +1,7 @@
 package com.example.skiplegday.model;
 
+import com.example.skiplegday.view.ErrorMessage;
+
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -23,6 +25,20 @@ public class AllenamentoSaver {
     }
     public void loadAllenameto(String nomeAllenamento) throws SQLException {
         System.out.println(allenamento);
+        EliminaAllenamentoService eliminaAllenamentoService = new EliminaAllenamentoService();
+        eliminaAllenamentoService.setDati(UtenteAttuale.getInstance().getUsername(), getData(true));
+        eliminaAllenamentoService.restart();
+        eliminaAllenamentoService.setOnSucceeded(event -> {
+            AggiungiAllenamentoService aggiungiAllenamentoService = new AggiungiAllenamentoService();
+            aggiungiAllenamentoService.setDati(UtenteAttuale.getInstance().getUsername(), nomeAllenamento, getData(true), allenamento);
+            aggiungiAllenamentoService.restart();
+            aggiungiAllenamentoService.setOnSucceeded(event1 -> {
+                if (!aggiungiAllenamentoService.getValue()){
+                    ErrorMessage.getInstance().showErrorMessage("Allenamento non aggiunto");
+                }
+            });
+        });
+
         /*
         AggiungiAllenamentoService aggiungiAllenamentoService = new AggiungiAllenamentoService();
         aggiungiAllenamentoService.setDati(UtenteAttuale.getInstance().getUsername(), nomeAllenamento, getData(true), allenamento);
@@ -32,6 +48,7 @@ public class AllenamentoSaver {
         });
         Database.getInstance().aggiungiAllenamento(UtenteAttuale.getInstance().getUsername(), nomeAllenamento, getData(true), allenamento);
         //salva esterno, carico queste list nel database*/
+
     }
     private String getData(boolean formatoCorto){
         if (formatoCorto){

@@ -1,5 +1,6 @@
 package com.example.skiplegday.view;
 
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.skin.DatePickerSkin;
@@ -9,6 +10,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -46,9 +48,12 @@ public class StatisticheHandler {
         double[] dataValues = {1.5, 1, 0.5, 1,1};
         paneGrafoRadar.getChildren().setAll(new GrafoStatisticaRadar( categories, dataValues));
     }
-    public void loadGrafo() {
+    public void loadGrafo() throws IOException {
+        /*
         System.out.println("width: "+paneGrafo.getPrefWidth()+" height: "+paneGrafo.getPrefHeight());
-        paneGrafo.getChildren().setAll(new GrafoStatisticheEsercizio(paneGrafo.getPrefWidth(), paneGrafo.getPrefHeight()));
+        paneGrafo.getChildren().setAll(new GrafoStatisticheEsercizio(paneGrafo.getPrefWidth(), paneGrafo.getPrefHeight()));*/
+        Node grafo = (Node) loadRootFromFXML("graficoGenerale.fxml");
+        paneGrafo.getChildren().setAll(grafo);
     }
     public void setGrafoRadarRoot(AnchorPane setGrafoRadarRoot) {
         this.paneGrafoRadar=setGrafoRadarRoot;
@@ -72,5 +77,9 @@ public class StatisticheHandler {
 
     public void setUpImage(ImageView upImage) {
         this.upImage=upImage;
+    }
+    private<T> T loadRootFromFXML(String resourceName) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(SceneHandler.class.getResource("/com/example/skiplegday/"+resourceName));
+        return fxmlLoader.load();
     }
 }

@@ -8,9 +8,12 @@ import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AllenamentoController {
     @FXML
@@ -32,11 +35,12 @@ public class AllenamentoController {
         CheckSchedaInDbService checkSchedaInDbService = new CheckSchedaInDbService();
         checkSchedaInDbService.setDati(UtenteAttuale.getInstance().getUsername(), idGruppoMuscolare.getText());
         checkSchedaInDbService.restart();
+        System.out.println(getEserciziAllenamentoDefault());
         checkSchedaInDbService.setOnSucceeded(event ->{
-            if (checkSchedaInDbService.getValue()) {
+            if (!checkSchedaInDbService.getValue()) {
                 AddSchedaService addSchedaService = new AddSchedaService();
                 //QUANDO INVECE MODIFICO DEVO CAPIRE DA DOVE PRENDERE IL NOME DELLA SCHEDA ALLENAMENTO VVVVV
-                addSchedaService.setDati(UtenteAttuale.getInstance().getUsername(),idGruppoMuscolare.getText(), CreateAllenamentoHandler.getInstance().getEserciziAggiuntiScheda());
+                addSchedaService.setDati(UtenteAttuale.getInstance().getUsername(),idGruppoMuscolare.getText(), getEserciziAllenamentoDefault());
                 addSchedaService.restart();
                 addSchedaService.setOnSucceeded(event1 ->{
                     if (addSchedaService.getValue()) {
@@ -62,5 +66,14 @@ public class AllenamentoController {
     }
     public void saveAllenamentoAction(ActionEvent actionEvent) throws SQLException {
         AllenamentoSaver.getInstance().loadAllenameto(idGruppoMuscolare.getText()); //in base al nome che gli metto come promp text
+    }
+    private ArrayList<String> getEserciziAllenamentoDefault(){
+        ArrayList<String> eserciziAllenamentoDefault = new ArrayList<>();
+        vBoxListaEsercizi.getChildren().forEach(node -> {
+            TextFlow textFlow = ((TextFlow) node.lookup("#esercizioTextFlow"));
+            String nomeEsercizio = ((Text) textFlow.getChildren().get(0)).getText();
+            eserciziAllenamentoDefault.add(nomeEsercizio);
+        });
+        return eserciziAllenamentoDefault;
     }
 }

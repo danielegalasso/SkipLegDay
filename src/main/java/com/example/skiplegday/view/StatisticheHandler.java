@@ -1,7 +1,10 @@
 package com.example.skiplegday.view;
 
+import com.example.skiplegday.model.UtenteAttuale;
+import com.example.skiplegday.model.daDataAAllenamentoService;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.skin.DatePickerSkin;
 import javafx.scene.image.Image;
@@ -11,6 +14,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -30,10 +34,43 @@ public class StatisticheHandler {
     }
     public void loadCalendar() {
         DatePicker datePicker = new DatePicker(LocalDate.now());
+        datePicker.setDayCellFactory(picker -> new DateCell() {
+            @Override
+            public void updateItem(LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
+                // Verifica le condizioni per colorare la cella
+                if (date != null) {
+                    DayOfWeek dayOfWeek = date.getDayOfWeek();
+                    if (dayOfWeek == DayOfWeek.SATURDAY || dayOfWeek == DayOfWeek.SUNDAY) {
+                        setStyle("-fx-background-color: green;");
+                    } else{
+                        setStyle("-fx-background-color: red;");
+                    }
+                }
+            }
+        });
         DatePickerSkin datePickerSkin = new DatePickerSkin(datePicker);
         Node popupContent = datePickerSkin.getPopupContent();
         datePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             System.out.println("Data selezionata: " + newValue);
+            daDataAAllenamentoService getAllenamento = new daDataAAllenamentoService();
+            getAllenamento.setDati(UtenteAttuale.getInstance().getUsername(), newValue.toString());  //IL PATTERN DELLA DATA VA BENE??
+            getAllenamento.restart();
+            getAllenamento.setOnSucceeded(event -> {
+                ArrayList<Object> esercizi = getAllenamento.getValue();
+                System.out.println("Esercizi: " + esercizi);
+                if (esercizi.get(0) == "") {
+                    ErrorMessage.getInstance().showErrorMessage("Non hai effettuato un allenamento in questa data");
+                } else {
+                    System.out.println("Allenamento trovato");
+                    try {
+                        SceneSecondaryHandler.getInstance().setLastScene();
+                        SceneSecondaryHandler.getInstance().accediSchedaPersonalizzataScene((String) esercizi.get(0)); //newValue.toString()
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            });
         });
         paneCalendar.setCenter(popupContent);
         System.out.println("Calendar loaded");

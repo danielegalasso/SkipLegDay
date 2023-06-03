@@ -559,4 +559,137 @@ public class Database{
         return results;
     }
 
+    public double getTotalPointsFromAnExercise(String username, String exercise) throws SQLException {
+        double somma = 0;
+        for (var elem: calcolaPunteggiUtenteXEsercizio(username, exercise)){
+            somma += Double.parseDouble(elem.get(1));
+
+        }
+        return somma;
+    }
+
+    public HashMap<String, Integer> getTrainingDaysByMuscleGroup(String username, boolean veroSegueMeseFalsoSegueTotale) throws SQLException {
+        HashMap<String, Integer> trainingDaysByMuscleGroup = new HashMap<>();
+        // Query per ottenere il numero di giorni di allenamento per ogni gruppo muscolare
+        String query = "";
+        if (veroSegueMeseFalsoSegueTotale) {
+
+            query = "select e.gruppoMuscolare, COUNT(DISTINCT a.data) AS trainingDays " +
+                    "from esercizi AS e, serie AS s, allenamenti AS a " +
+                    "where strftime('%Y-%m', a.data) = strftime('%Y-%m', 'now') AND e.nome = s.esercizio_nome AND s.allenamento_username = a.username AND a.username = ? AND s.allenamento_data = a.data " +
+                    "GROUP BY e.gruppoMuscolare";
+        }
+        else{
+            query = "select e.gruppoMuscolare, COUNT(DISTINCT a.data) AS trainingDays " +
+                    "from esercizi AS e, serie AS s, allenamenti AS a " +
+                    "where e.nome = s.esercizio_nome AND s.allenamento_username = a.username AND a.username = ? AND s.allenamento_data = a.data " +
+                    "GROUP BY e.gruppoMuscolare";
+        }
+
+        ArrayList<String> a = new ArrayList<>();
+        a.add(username);
+        PreparedStatement ps = prepareQuery(query, a);
+
+        // Esecuzione della query
+        ResultSet resultSet = ps.executeQuery();
+
+        // Elaborazione dei risultati
+        while (resultSet.next()) {
+            String muscleGroup = resultSet.getString("gruppoMuscolare");
+            int trainingDays = resultSet.getInt("trainingDays");
+            trainingDaysByMuscleGroup.put(muscleGroup, trainingDays);
+        }
+
+        // Chiusura delle risorse
+        resultSet.close();
+        ps.close();
+
+
+        return trainingDaysByMuscleGroup;
+    }
+    public int getTrainingDaysForUser(String username, boolean veroSegueMeseFalsoSegueTotale) throws SQLException {
+        //se veroSegueMeseFalsoSegueTotale è true calcola i giorni totali di allenamento di un utente in un mese altrimenti alcola quanti giorni si è allenato in totale
+        int trainingDays = 0;
+        String query = "";
+        if (veroSegueMeseFalsoSegueTotale) {
+            query = "SELECT COUNT(DISTINCT a.data) AS trainingDays " +
+                    "FROM allenamenti a " +
+                    "WHERE a.username = ? " +
+                    "AND strftime('%Y-%m', a.data) = strftime('%Y-%m', 'now')";
+        }
+        else{
+            query = "SELECT COUNT(DISTINCT a.data) AS trainingDays " +
+                    "FROM allenamenti a " +
+                    "WHERE a.username = ? ";
+        }
+
+        ArrayList<String> a = new ArrayList<>();
+        a.add(username);
+        PreparedStatement ps = prepareQuery(query, a);
+        ResultSet resultSet = ps.executeQuery();
+
+
+        // Lettura del risultato
+        if (resultSet.next()) {
+            trainingDays = resultSet.getInt("trainingDays");
+        }
+
+        // Chiusura delle risorse
+        resultSet.close();
+        ps.close();
+        return trainingDays;
+    }
+    public double getMaxWeightPerExercise(String username, String exercise) throws SQLException {
+        //se veroSegueMeseFalsoSegueTotale è true calcola i giorni totali di allenamento di un utente in un mese altrimenti alcola quanti giorni si è allenato in totale
+        double maxWeight = 0;
+
+        String query = "SELECT MAX(peso) AS maxWeight " +
+                "FROM serie s " +
+                "WHERE s.esercizio_nome = ? AND s.allenamento_username = ?";
+
+
+        ArrayList<String> a = new ArrayList<>();
+        a.add(exercise);
+        a.add(username);
+        PreparedStatement ps = prepareQuery(query, a);
+        ResultSet resultSet = ps.executeQuery();
+
+
+        // Lettura del risultato
+        if (resultSet.next()) {
+            maxWeight = resultSet.getDouble("maxWeight");
+        }
+
+        // Chiusura delle risorse
+        resultSet.close();
+        ps.close();
+        return maxWeight;
+    }
+    public double getMaxRepsPerExercise(String username, String exercise) throws SQLException {
+        //se veroSegueMeseFalsoSegueTotale è true calcola i giorni totali di allenamento di un utente in un mese altrimenti alcola quanti giorni si è allenato in totale
+        int maxReps = 0;
+
+        String query = "SELECT MAX(ripetizioni) AS maxReps " +
+                "FROM serie s " +
+                "WHERE s.esercizio_nome = ? AND s.allenamento_username = ?";
+
+
+        ArrayList<String> a = new ArrayList<>();
+        a.add(exercise);
+        a.add(username);
+        PreparedStatement ps = prepareQuery(query, a);
+        ResultSet resultSet = ps.executeQuery();
+
+
+        // Lettura del risultato
+        if (resultSet.next()) {
+            maxReps = resultSet.getInt("maxReps");
+        }
+
+        // Chiusura delle risorse
+        resultSet.close();
+        ps.close();
+        return maxReps;
+    }
+
 }

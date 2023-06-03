@@ -32,7 +32,6 @@ public class GrafoStatisticheEsercizio extends Pane {
 
         //Calcolo lunghezza pannello
         double intervallo_giorni = ChronoUnit.DAYS.between(firstDate, lastDate);
-        System.out.println(intervallo_giorni);
         double lunghezza_panello = intervallo_giorni*8;
 
         LocalDate startDate = firstDate.minusDays((long) (1*intervallo_giorni/20));

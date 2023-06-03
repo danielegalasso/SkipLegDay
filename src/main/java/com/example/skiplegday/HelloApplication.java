@@ -25,6 +25,8 @@ public class HelloApplication extends Application {
 
         Database db = Database.getInstance();
         db.createConnection();
+
+
         SceneHandler.getInstance().init(stage);
         SceneHandler.getInstance().createLoginScene();
         /*db.registerUser("domenico", "1234", "Dome", "Visci", "dsduiws@gmail.com", "03-02-2009","1.80");

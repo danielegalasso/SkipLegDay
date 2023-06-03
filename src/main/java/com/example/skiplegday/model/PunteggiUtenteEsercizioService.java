@@ -5,15 +5,16 @@ import javafx.concurrent.Task;
 
 import java.util.ArrayList;
 
-public class PunteggiUtenteEsercizioService extends Service<ArrayList<ArrayList<String>>> {
+public class PunteggiUtenteEsercizioService extends Service<DataResult> {
     String username;
     String nomeEsercizio;
     @Override
-    protected Task<ArrayList<ArrayList<String>>> createTask() {
-        return new Task<>() {
+    protected Task<DataResult> createTask() {
+        return new Task<DataResult>() {
             @Override
-            protected ArrayList<ArrayList<String>> call() throws Exception {
-                ArrayList<ArrayList<String>> res=Database.getInstance().calcolaPunteggiUtenteXEsercizio(username, nomeEsercizio);
+            protected DataResult call() throws Exception {
+                ArrayList<Data> r=Database.getInstance().calcolaPunteggiUtenteXEsercizio(username, nomeEsercizio);
+                DataResult res = new DataResult(r);
                 return res;
             }
         };

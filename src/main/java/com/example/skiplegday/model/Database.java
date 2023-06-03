@@ -449,14 +449,13 @@ public class Database{
 
         return results;
     }
-    public ArrayList<ArrayList<String>> calcolaPunteggiUtenteXEsercizio(String username, String nomeEsercizio) throws SQLException {
-        ArrayList<ArrayList<String>> punteggiUtente = new ArrayList<>();
+    public ArrayList<Data> calcolaPunteggiUtenteXEsercizio(String username, String nomeEsercizio) throws SQLException {
+        ArrayList<Data> punteggiUtente = new ArrayList<>();
         String query = "select peso, ripetizioni, allenamento_data from serie where allenamento_username = ? AND esercizio_nome = ?;";
         PreparedStatement stmt = con.prepareStatement(query);
         stmt.setString(1, username);
         stmt.setString(2, nomeEsercizio);
         ResultSet rs = stmt.executeQuery();
-        System.out.println("ciao");
         HashMap<String, ArrayList<Serie>> seriePerGiorno = new HashMap<>();
 
         while (rs.next()) {
@@ -488,9 +487,7 @@ public class Database{
                 double punteggioSerie = daSerieAPunteggio(serie);
                 punteggioGiorno += punteggioSerie;
             }
-            ArrayList<String> entry = new ArrayList<>();
-            entry.add(data);
-            entry.add(Double.toString(punteggioGiorno));
+            Data entry = new Data(data, punteggioGiorno);
 
             punteggiUtente.add(entry);
         }
@@ -562,7 +559,7 @@ public class Database{
     public double getTotalPointsFromAnExercise(String username, String exercise) throws SQLException {
         double somma = 0;
         for (var elem: calcolaPunteggiUtenteXEsercizio(username, exercise)){
-            somma += Double.parseDouble(elem.get(1));
+            somma += elem.punteggio();
 
         }
         return somma;

@@ -4,8 +4,8 @@ import javafx.scene.Cursor;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 
-class HoveredThresholdNode extends StackPane {
-    HoveredThresholdNode(String dateLabel) {
+public class HoveredThresholdNode extends StackPane {
+    public HoveredThresholdNode(String dateLabel) {
         setPrefSize(10, 10);
         final Label label = createDataThresholdLabel(dateLabel);
         setOnMouseEntered(event -> {

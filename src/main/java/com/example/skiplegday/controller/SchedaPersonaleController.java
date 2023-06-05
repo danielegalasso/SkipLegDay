@@ -8,30 +8,39 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class SchedaPersonaleController {
     @FXML
     Label labelSchedaPersonalizzata;
     @FXML
-    ImageView imageSchedaPersonalizzata;
+    ImageView imageSchedaPersonalizzata; //questa era per il vecchio fxml
+    @FXML
+    ImageView imageV;
     @FXML
     Button deleteSchedaButton;
     public void setLabelSchedaPersonalizzata(String text) {
         labelSchedaPersonalizzata.setText(text);
     }
-    public void accediSchedaPersonalizzata(MouseEvent mouseEvent) throws IOException {
+    public void accediSchedaPersonalizzata(ActionEvent actionEvent) throws IOException {
         labelSchedaPersonalizzata.getText();
         SceneSecondaryHandler.getInstance().setLastScene();
         SceneSecondaryHandler.getInstance().accediSchedaPersonalizzataScene(labelSchedaPersonalizzata.getText());
@@ -66,5 +75,31 @@ public class SchedaPersonaleController {
             }
         }
         return null;
+    }
+    public void setImageViewSchedaPersonalizzata(Image img) {
+        imageV.setImage(img);
+        imageV.setEffect(new DropShadow(5, Color.BLACK));
+        /*
+        // set a clip to apply rounded border to the original image.
+        Rectangle clip = new Rectangle(
+                //imageV.getImage().getWidth(), imageV.getImage().getHeight()
+                imageV.getFitWidth(), imageV.getFitHeight()
+        );
+        clip.setArcWidth(18);
+        clip.setArcHeight(18);
+        imageV.setClip(clip);
+
+        // snapshot the rounded image.
+        SnapshotParameters parameters = new SnapshotParameters();
+        parameters.setFill(Color.TRANSPARENT);
+        WritableImage image = imageV.snapshot(parameters, null);
+
+        // remove the rounding clip so that our effect can show through.
+        imageV.setClip(null);
+        // apply a shadow effect.
+        imageV.setEffect(new DropShadow(8, Color.BLACK));
+        // store the rounded image in the imageView.
+        imageV.setImage(image);
+        System.out.println(imageV.getFitWidth() + imageV.getFitHeight());*/
     }
 }

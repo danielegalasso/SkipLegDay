@@ -9,6 +9,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.TextFlow;
 
+import java.util.Random;
+
 public class EsercizioHandler {
     private static EsercizioHandler instance = new EsercizioHandler();
     private EsercizioHandler() {}
@@ -41,5 +43,4 @@ public class EsercizioHandler {
         removeEsercizio.setOnAction(eventHandler);
         removeEsercizio.setText(nameButton);
     }
-
 }

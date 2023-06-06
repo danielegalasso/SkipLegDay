@@ -11,11 +11,13 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
@@ -69,20 +71,21 @@ public class SceneSecondaryHandler {
         SchedeDefault1Controller controller = loader.getController();
         ArrayList<String> nomiSchedeDef = new ArrayList<>();
         nomiSchedeDef.add("PRINCIPIANTE");nomiSchedeDef.add("INTERMEDIO");nomiSchedeDef.add("AVANZATO");nomiSchedeDef.add("TOTAL BODY");nomiSchedeDef.add("CORPO LIBERO");nomiSchedeDef.add("RESISTENZA");
-        for(int i=0;i<3;++i){
-            for(int j=0;j<2;++j){
-                controller.addSchedaDefault(caricaSchedeDefault(nomiSchedeDef.get((i)*2+j)),i,j);
+        for(int i=0;i<2;++i){
+            for(int j=0;j<3;++j){
+                int linearizzato= (i)*3+j;
+                controller.addSchedaDefault(caricaSchedeDefault(nomiSchedeDef.get(linearizzato),linearizzato),i,j);
             }
         }
         addAndCenter(node);
     }
-    private Node caricaSchedeDefault(String nomeScheda) throws IOException {
+    private Node caricaSchedeDefault(String nomeScheda,int n) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/skiplegday/schedaPersonale.fxml"));
         Node node = loader.load();
         SchedaPersonaleController controller = loader.getController();
         controller.setLabelSchedaPersonalizzata(nomeScheda);
         controller.setSchedaDefault(); //cosi non mi fa modificare la scheda (rimuoverla)
-        controller.setImageViewSchedaPersonalizzata(new Image(getClass().getResource("/com/example/skiplegday/imageSchede/img6.jpg").toExternalForm())); //!!!!!!!!!!!! qua c'era random
+        controller.setImageViewSchedaPersonalizzata(new Image(getClass().getResource("/com/example/skiplegday/imageSchede/def"+n+".jpg").toExternalForm())); //!!!!!!!!!!!! qua c'era random
         return node;
     }
 
@@ -111,54 +114,24 @@ public class SceneSecondaryHandler {
     //SCHEDE DEFAULT---------------------------------------------
     public void createSchedaDefaultNameScene(String text)  throws IOException{
         Node node = (Node) loadRootFromFXML("vBoxEsercizi.fxml");
-        System.out.println("Scheda default: "+text +".txt");
         aggiungiSchedaPredefinita(text+".txt");
         //vBox.getChildren().add(setControllerAndLoadFromFXML("allenamento.fxml","principiante.txt"));
         addAndCenter(node);
     }
-    /*
-    public void createPrincipianteScene() throws IOException{
-        Node node = (Node) loadRootFromFXML("vBoxEsercizi.fxml");
-        aggiungiSchedaPredefinita("principiante.txt");
-        //vBox.getChildren().add(setControllerAndLoadFromFXML("allenamento.fxml","principiante.txt"));
-        addAndCenter(node);
-    }
-    public void createIntermedioScene() throws IOException {
-        Node node = (Node) loadRootFromFXML("vBoxEsercizi.fxml");
-        aggiungiSchedaPredefinita("intermedio.txt");
-        //vBox.getChildren().add(setControllerAndLoadFromFXML("allenamento.fxml","intermedio.txt"));
-        addAndCenter(node);
-    }
-    public void createAvanzatoScene(Stage mainStage) throws IOException {
-        Node node = (Node) loadRootFromFXML("vBoxEsercizi.fxml");
-        aggiungiSchedaPredefinita("AVANZATO.txt");
-        //vBox.getChildren().add(setControllerAndLoadFromFXML("allenamento.fxml","AVANZATO.txt"));
-        addAndCenter(node);
-    }
-    public void createCorpoLiberoScene() throws IOException {
-        Node node = (Node) loadRootFromFXML("vBoxEsercizi.fxml");
-        aggiungiSchedaPredefinita("schedaCorpoLibero.txt");
-        //vBox.getChildren().add(setControllerAndLoadFromFXML("allenamento.fxml","schedaCorpoLibero.txt"));
-        addAndCenter(node);
-    }
-    public void createTotalBodyScene() throws IOException {
-        Node node = (Node) loadRootFromFXML("vBoxEsercizi.fxml");
-        aggiungiSchedaPredefinita("total body.txt");
-        //vBox.getChildren().add(setControllerAndLoadFromFXML("allenamento.fxml","total body.txt"));
-        addAndCenter(node);
-    }
-    public void createResistenzaScene() throws IOException {
-        Node node = (Node) loadRootFromFXML("vBoxEsercizi.fxml");
-        aggiungiSchedaPredefinita("schedaResistenza.txt");
-        //vBox.getChildren().add(setControllerAndLoadFromFXML("allenamento.fxml","schedaResistenza.txt"));
-        addAndCenter(node);
-    } */
     private void aggiungiSchedaPredefinita(String schedaName) throws IOException {
         List<List<String>> l=LettoreFile.getInstance().leggiSchedaDefault("files/"+schedaName);
         for(int i=0;i<l.size();i++) {
             Node allenamento= (Node) loadRootFromFXML("allenamento.fxml");
+            //allenamento.setPrefHeight(600);
             AllenamentoHandler.getInstance().setAllenamentoPredef(l.get(i));
-            vBox.getChildren().add(allenamento);
+            //allenamento.setEffect(new DropShadow( 15, Color.DARKSLATEGREY));
+            ScrollPane scrollPane= new ScrollPane();
+            scrollPane.setEffect(new DropShadow( 15, Color.DARKSLATEGREY));
+            scrollPane.setMinHeight(300);
+            scrollPane.setMaxHeight(300);
+            scrollPane.setContent(allenamento);
+            // Applica uno stile personalizzato alla barra di scorrimento
+            vBox.getChildren().add(scrollPane);
         }
     }
     //MANUALE ESERCIZI--------------------------------------------(anche per aggiungere allenamenti)
@@ -195,7 +168,10 @@ public class SceneSecondaryHandler {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/skiplegday/allenamentoPersonale.fxml"));
         Node node=loader.load();
         //Node node = (Node) loadRootFromFXML("allenamentoPersonale.fxml");
-        Node allenamento = (Node) loadRootFromFXML("allenamento.fxml");
+        AnchorPane allenamento = (AnchorPane) loadRootFromFXML("allenamento.fxml");
+        allenamento.setPrefWidth(500);
+        allenamento.setPrefHeight(480);
+
         //tramite il NomeAllenamento faccio una query al database che mi restituisce la lista degli esercizi da cui è composto e le rispettive immagini
         ArrayList<String> esercizi = new ArrayList<>();
         GetEserciziSchedaService getEserciziSchedaService = new GetEserciziSchedaService();

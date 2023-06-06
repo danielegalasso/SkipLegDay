@@ -8,6 +8,6 @@ public class SchedeDefault1Controller {
     @FXML
     GridPane gridPaneDefault;
     public void addSchedaDefault(Node node,int i,int j) {
-        gridPaneDefault.add(node,i,j);
+        gridPaneDefault.add(node,j,i);  //l'add del gridPane è column,row
     }
 }

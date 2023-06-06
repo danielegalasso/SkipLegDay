@@ -1,5 +1,6 @@
 package com.example.skiplegday.controller;
 
+import com.example.skiplegday.view.PopupHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BubbleChart;
@@ -34,6 +35,7 @@ public class kgRepRecController {
     }
     public void removeAction(ActionEvent actionEvent) {
         ((VBox)((Pane) removeButton.getParent()).getParent()).getChildren().remove(removeButton.getParent());
+        PopupHandler.getInstance().setSaved(false); //ogni volta che elimino un esercizio devo salvare prima di uscire
         //con il getParent del bottone ottengo il pane che contiene il bottone, con il getParent di questo ottengo il VBox che contiene il pane
     }
 }

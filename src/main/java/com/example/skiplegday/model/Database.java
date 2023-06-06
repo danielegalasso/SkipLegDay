@@ -106,13 +106,11 @@ public class Database{
         }
         return somma;
     }
-    public HashMap<String, Double> calcolaPesoGruppiMuscolariSettimanaCorrente(String username) throws SQLException {
+    public HashMap<String, Double> calcolaPesoGruppiMuscolariSettimanaCorrente() throws SQLException {
         ArrayList<String> gruppiMuscolari = (ArrayList<String>) prendiHashListaeserciziNomigruppiDescrizioni().get(2);
         HashMap<String, Double> pesoGruppiMuscolari = new HashMap<>();
-        String query = "SELECT e.gruppoMuscolare, SUM(s.peso * s.ripetizioni) AS peso_totale FROM serie AS s, esercizi AS e WHERE allenamento_username = ? AND s.esercizio_nome = e.nome GROUP BY e.gruppoMuscolare;";
-        ArrayList<String> params = new ArrayList<>();
-        params.add(UtenteAttuale.getInstance().getUsername());
-        PreparedStatement stmt = prepareQuery(query, params);
+        String query = "SELECT e.gruppoMuscolare, SUM(s.peso * s.ripetizioni) AS peso_totale FROM serie AS s, esercizi AS e WHERE allenamento_username = 'marco' AND s.esercizio_nome = e.nome AND strftime('%Y-%W', s.allenamento_data) = strftime('%Y-%W', 'now') GROUP BY e.gruppoMuscolare;";
+        PreparedStatement stmt = con.prepareStatement(query);
         ResultSet rs = stmt.executeQuery();
 
         while (rs.next()) {

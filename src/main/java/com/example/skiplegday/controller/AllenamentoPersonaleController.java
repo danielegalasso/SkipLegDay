@@ -8,9 +8,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
@@ -21,9 +24,11 @@ import java.util.ArrayList;
 public class AllenamentoPersonaleController {
     private String nomeAllenamento;
     @FXML
-    private AnchorPane paneAllenamento;
+    private BorderPane paneAllenamento;  //prima era AnchorPane
     @FXML
     private AnchorPane paneListaEs;
+    @FXML
+    private TextArea textAreaTutorial;
     public void modificaAllenamentoAction(ActionEvent actionEvent) throws IOException {
         //System.out.println(nomeScheda);
         SceneSecondaryHandler.getInstance().setLastScene();
@@ -37,7 +42,7 @@ public class AllenamentoPersonaleController {
 
     }
     public void setPaneAllenamento(Node node){
-        paneAllenamento.getChildren().add(node);
+        paneAllenamento.setCenter(node);
     }
     public void indietroAction(ActionEvent actionEvent) {
         SceneSecondaryHandler.getInstance().CreateLastScene();
@@ -45,6 +50,24 @@ public class AllenamentoPersonaleController {
     private String nomeScheda;  //setto nomeScheda quando accedo alla scheda personalizzata
     public void setNomeAllenamento(String schedaNome) {
         this.nomeScheda = schedaNome;
+    }
+
+    public void openTutorial(MouseEvent mouseEvent) {
+        double start = textAreaTutorial.getTranslateX() == 0 ? 0 : 157+6;
+        double end = textAreaTutorial.getTranslateX() == 0 ? 157+6 : 0;
+
+        TranslateTransition transition = new TranslateTransition(Duration.millis(300), textAreaTutorial);
+        transition.setFromX(start);
+        transition.setToX(end);
+        transition.play();
+    }
+    public void initialize(){   //in modo che appena carico la schermata non si vede il tutorial
+        double start = textAreaTutorial.getTranslateX() == 0 ? 0 : 157+6;
+        double end = textAreaTutorial.getTranslateX() == 0 ? 157+6 : 0;
+        TranslateTransition transition = new TranslateTransition(Duration.millis(1), textAreaTutorial);
+        transition.setFromX(start);
+        transition.setToX(end);
+        transition.play();
     }
 }
 

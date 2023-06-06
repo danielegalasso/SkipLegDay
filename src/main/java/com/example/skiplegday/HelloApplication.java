@@ -25,7 +25,7 @@ public class HelloApplication extends Application {
 
         Database db = Database.getInstance();
         db.createConnection();
-
+        System.out.println("siuum");
 
         SceneHandler.getInstance().init(stage);
         SceneHandler.getInstance().createLoginScene();

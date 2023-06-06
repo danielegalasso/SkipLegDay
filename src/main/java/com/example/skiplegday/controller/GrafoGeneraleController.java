@@ -1,9 +1,6 @@
 package com.example.skiplegday.controller;
 
-import com.example.skiplegday.model.DataResult;
-import com.example.skiplegday.model.Data;
-import com.example.skiplegday.model.PunteggiUtenteEsercizioService;
-import com.example.skiplegday.model.UtenteAttuale;
+import com.example.skiplegday.model.*;
 import com.example.skiplegday.view.HoveredThresholdNode;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -59,10 +56,11 @@ public class GrafoGeneraleController {
 
     @FXML
     void initialize() {
-        data = FXCollections.observableArrayList(
-                "Apple", "Banana", "Orange", "Grapes", "Strawberry", "Watermelon", "Apple", "Banana", "Orange", "Grapes", "Strawberry", "Watermelon", "Apple", "Banana", "Orange", "Grapes", "Strawberry", "Watermelon");
 
+        ArrayList<String> strings = InformazioniEsercizi.getInstance().getListaTuttiEsercizi();
+        data = FXCollections.observableArrayList(strings);
         listViewEsercizi.setItems(data);
+
         listViewEsercizi.setVisible(false);
         es.textProperty().addListener((observable, oldValue, newValue) -> {
             // Filtra la lista in base al testo inserito nella barra di ricerca
@@ -149,7 +147,7 @@ public class GrafoGeneraleController {
 
     public void clicSuListView(MouseEvent mouseEvent) {
         String selectedChoice = listViewEsercizi.getSelectionModel().getSelectedItem();
-        System.out.println("Selected choice: " + selectedChoice);
+        nomeEsercizio = selectedChoice;
         listViewEsercizi.setVisible(false);
         es.setText(selectedChoice);
     }

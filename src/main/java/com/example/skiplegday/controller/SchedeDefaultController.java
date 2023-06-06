@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class SchedeDefaultController {
+    /*
     public void principianteSceneAction(MouseEvent mouseEvent) throws IOException {
         SceneSecondaryHandler.getInstance().createPrincipianteScene();
     }
@@ -30,4 +31,5 @@ public class SchedeDefaultController {
     public void resistenzaSceneAction(MouseEvent mouseEvent) throws IOException {
         SceneSecondaryHandler.getInstance().createResistenzaScene();
     }
+    */
 }

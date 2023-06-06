@@ -37,13 +37,19 @@ public class SchedaPersonaleController {
     ImageView imageV;
     @FXML
     Button deleteSchedaButton;
+    boolean modalitàDefault=false;
     public void setLabelSchedaPersonalizzata(String text) {
         labelSchedaPersonalizzata.setText(text);
     }
     public void accediSchedaPersonalizzata(ActionEvent actionEvent) throws IOException {
-        labelSchedaPersonalizzata.getText();
-        SceneSecondaryHandler.getInstance().setLastScene();
-        SceneSecondaryHandler.getInstance().accediSchedaPersonalizzataScene(labelSchedaPersonalizzata.getText());
+        if (modalitàDefault){
+            SceneSecondaryHandler.getInstance().createSchedaDefaultNameScene(labelSchedaPersonalizzata.getText());
+        }
+        else {
+            labelSchedaPersonalizzata.getText();
+            SceneSecondaryHandler.getInstance().setLastScene();
+            SceneSecondaryHandler.getInstance().accediSchedaPersonalizzataScene(labelSchedaPersonalizzata.getText());
+        }
     }
     public void deleteSchedaAction(ActionEvent actionEvent) {
         //devo cancellare la scheda dal database  !!!!!!!!!!!!!!!!!!!
@@ -101,5 +107,10 @@ public class SchedaPersonaleController {
         // store the rounded image in the imageView.
         imageV.setImage(image);
         System.out.println(imageV.getFitWidth() + imageV.getFitHeight());*/
+    }
+
+    public void setSchedaDefault() {
+        modalitàDefault=true;
+        deleteSchedaButton.setVisible(false);
     }
 }

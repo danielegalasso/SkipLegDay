@@ -43,7 +43,7 @@ public class PopupEsercizioController {
     }
     public void salvaProgressiAction(ActionEvent actionEvent) {
         if (PopupHandler.getInstance().chekValueNull()){
-            PopupHandler.getInstance().showErrorText();
+            PopupHandler.getInstance().showErrorText("Inserire tutti i campi");
             return;
         }
         PopupHandler.getInstance().hideErrorText();  //se sono qua è andato tutti a buon fine, tolgo l'errorText

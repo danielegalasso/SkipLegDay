@@ -6,8 +6,8 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -81,7 +81,15 @@ public class AllenamentoController {
         scrollPaneAllen.heightProperty().addListener((observable, oldValue, newValue) -> vBoxListaEsercizi.setPrefHeight(newValue.doubleValue()-10));
     }
     public void saveAllenamentoAction(ActionEvent actionEvent) throws SQLException {
-        AllenamentoSaver.getInstance().loadAllenameto(idGruppoMuscolare.getText()); //in base al nome che gli metto come promp text
+        int res = ConfirmationAlert.showConfirmationAlert("Vuoi salvare i tuoi progressi?","Salva",true);
+
+        if (res==1){
+            System.out.println("salvato");
+            AllenamentoSaver.getInstance().loadAllenameto(idGruppoMuscolare.getText()); //in base al nome che gli metto come promp text
+        }
+        else{
+            System.out.println("non salvato");
+        }
     }
     private ArrayList<String> getEserciziAllenamentoDefault(){
         ArrayList<String> eserciziAllenamentoDefault = new ArrayList<>();

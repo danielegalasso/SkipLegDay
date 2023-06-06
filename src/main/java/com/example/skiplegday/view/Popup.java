@@ -33,8 +33,7 @@ public class Popup extends Stage {  //è un normale stage su cui poi ci caricher
             System.out.println("Popup closed");
             if(PopupHandler.getInstance().chekNotSave()){
                 e.consume();  //consumo l'evento, in modo tale che la finestra non viene chiusa
-                //PopupHandler.getInstance().setErrorText("ci sono modifiche non salvate");
-                PopupHandler.getInstance().showErrorText();
+                PopupHandler.getInstance().showErrorText("modifiche non salvate");
             }
         });
     }

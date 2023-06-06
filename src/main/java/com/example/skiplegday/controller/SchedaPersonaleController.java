@@ -2,6 +2,7 @@ package com.example.skiplegday.controller;
 
 import com.example.skiplegday.model.RemoveSchedaService;
 import com.example.skiplegday.model.UtenteAttuale;
+import com.example.skiplegday.view.ConfirmationAlert;
 import com.example.skiplegday.view.GridPaneAllenamentiHandler;
 import com.example.skiplegday.view.SceneSecondaryHandler;
 import javafx.event.ActionEvent;
@@ -53,6 +54,8 @@ public class SchedaPersonaleController {
     }
     public void deleteSchedaAction(ActionEvent actionEvent) {
         //devo cancellare la scheda dal database  !!!!!!!!!!!!!!!!!!!
+        int res = ConfirmationAlert.showConfirmationAlert("Sei sicuro di voler eliminare la scheda?","Elimina",false);
+        if (res != 1) return;
         RemoveSchedaService removeSchedaService = new RemoveSchedaService();
         removeSchedaService.setDati(UtenteAttuale.getInstance().getUsername(), labelSchedaPersonalizzata.getText());
         removeSchedaService.start();

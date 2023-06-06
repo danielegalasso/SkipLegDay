@@ -40,8 +40,8 @@ public class PopupHandler {
     public void setText(Text nomeEsercizio) { //per ottenere riferimento al nome dell'esercizio del controller
         this.nomeEsercizio = nomeEsercizio;
     }
-    public void showErrorText(){
-        errorText.setText("Inserire tutti i campi");
+    public void showErrorText(String text){
+        errorText.setText(text);
         errorText.setVisible(true);
     }
     public boolean chekValueNull() {

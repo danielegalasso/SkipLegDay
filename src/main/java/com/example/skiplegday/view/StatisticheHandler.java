@@ -1,5 +1,7 @@
 package com.example.skiplegday.view;
 
+import com.example.skiplegday.model.CalcolaPesoGruppiMuscolariService;
+import com.example.skiplegday.model.GetSchedeService;
 import com.example.skiplegday.model.UtenteAttuale;
 import com.example.skiplegday.model.daDataAAllenamentoService;
 import javafx.fxml.FXMLLoader;
@@ -17,6 +19,8 @@ import java.io.IOException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class StatisticheHandler {
     private BorderPane paneCalendar;
@@ -77,13 +81,26 @@ public class StatisticheHandler {
     }
     public void loadGrafoRadar() {
         ArrayList<String> categories = new ArrayList<>();
-        categories.add("Categoria 1");
-        categories.add("Categoria 2");
-        categories.add("Categoria 3");
-        categories.add("Categoria 4");
-        categories.add("Categoria 5");
-        double[] dataValues = {1.5, 1, 0.5, 1,1};
-        paneGrafoRadar.getChildren().setAll(new GrafoStatisticaRadar( categories, dataValues));
+        ArrayList<Double> dataValues = new ArrayList<>();
+        //----
+
+        CalcolaPesoGruppiMuscolariService getHash = new CalcolaPesoGruppiMuscolariService();  //devo salvarmi i dati in utente attuale!!!!!!!!!!!!!!!
+        getHash.setDati(UtenteAttuale.getInstance().getUsername());
+        getHash.restart();
+        getHash.setOnSucceeded(event -> {  //va fatto solo all'inizio?????? altrimenti sarebbe inefficiente
+            HashMap<String, Double> pesoGruppiMuscolari = getHash.getValue();
+            for (Map.Entry<String, Double> entry : pesoGruppiMuscolari.entrySet()) {
+                String gruppoMuscolare = entry.getKey();
+                double peso = entry.getValue();
+                System.out.println("aaaaaaaaaaaaaaaaaaa" + gruppoMuscolare + peso);
+                categories.add(gruppoMuscolare);
+                dataValues.add(peso);
+                paneGrafoRadar.getChildren().setAll(new GrafoStatisticaRadar( categories, dataValues));
+
+            }
+        });
+
+
     }
     public void loadGrafo() throws IOException {
         /*

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
+
+
+<AnchorPane fx:id="chooseThemePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="150.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Circle fx:id="yellowTheme" fill="#f0e56c" layoutX="20.0" layoutY="20.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="orangeTheme" fill="#f5a623" layoutX="72.5" layoutY="20.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="darkTheme" fill="#333333" layoutX="125.0" layoutY="85.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="lightTheme" fill="#e6e6e6" layoutX="72.5" layoutY="85.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="greenTheme" fill="#26a46d" layoutX="20.0" layoutY="85.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="blueTheme" fill="#124f99" layoutX="125.0" layoutY="53.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="purpleTheme" fill="#5d3a7f" layoutX="72.5" layoutY="53.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="pinkTheme" fill="#ffdbe3" layoutX="20.0" layoutY="53.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="redTheme" fill="#d70000" layoutX="125.0" layoutY="20.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
+   </children>
+</AnchorPane>

@@ -1,0 +1,6 @@
+Panca Inclinata;Petto
+<!DOCTYPE html>
+<body>
+	<p>Questa è panca inclinata su su s u alza stu pisu</p>
+</body>
+</html>

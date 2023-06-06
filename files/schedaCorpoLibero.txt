@@ -1,0 +1,2 @@
+Corpo Libero Giorno1;Piegamenti Mani Alte;Piegamenti Piedi Alti;Trazioni;Plank Laterale;Pistol Squat;
+Corpo Libero Giorno2;Piegamenti Piedi Alti Una Mano;Plank;Trazioni;

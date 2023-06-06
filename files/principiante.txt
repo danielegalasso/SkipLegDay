@@ -1,0 +1,2 @@
+Principiante Giorno 1;Chest Press;Alzate Laterali;Curl Manubri Alternato;Curl Seduto;Push Down;Crunch;
+Principiante Giorno 2;Abductor Machine;Polpacci Bilanciere;Pec FLy;Lat Machine;Push Down;Crunch;

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="555.0" prefWidth="780.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.skiplegday.controller.StatisticheController">
+   <content>
+      <VBox prefHeight="649.0" prefWidth="763.0">
+         <children>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Text layoutX="353.0" layoutY="138.0" strokeType="OUTSIDE" strokeWidth="0.0" text="chili sollevati" />
+                  <Text fx:id="textChiliSollevati" layoutX="377.0" layoutY="88.0" strokeType="OUTSIDE" strokeWidth="0.0" text="170" />
+                  <Text fx:id="textPercentualeProgresso" layoutX="657.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                  <ImageView fx:id="upImage" fitHeight="44.0" fitWidth="41.0" layoutX="425.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="downImage" fitHeight="44.0" fitWidth="41.0" layoutX="484.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </AnchorPane>
+            <BorderPane fx:id="setCalendarRoot" prefHeight="200.0" prefWidth="200.0" />
+            <AnchorPane fx:id="setGrafoRadarRoot" prefHeight="200.0" prefWidth="200.0" />
+            <AnchorPane fx:id="setGrafoRoot" prefHeight="400.0" prefWidth="763.0" />
+         </children>
+      </VBox>
+   </content>
+</ScrollPane>

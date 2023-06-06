@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="830.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.skiplegday.controller.CreateAllenamentoController">
+   <children>
+      <Text fx:id="scegliNomeText" layoutX="9.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Scegli un nome per il tuo allenamento" AnchorPane.leftAnchor="9.0" AnchorPane.topAnchor="25.05078125" />
+      <TextField fx:id="fieldCreateNameAllenamento" layoutX="228.0" layoutY="20.0" prefHeight="25.0" prefWidth="169.0" promptText="inserisci nome" AnchorPane.leftAnchor="228.0" AnchorPane.topAnchor="20.0" />
+      <Text layoutX="4.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Clicca sul + per aggiungere un esercizio" />
+      <ScrollPane fx:id="scrollPaneEsercizi" layoutX="4.0" layoutY="81.0" prefHeight="433.0" prefWidth="390.0" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="86.0" />
+      <Text layoutX="397.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Il tuo allenamento:" />
+      <ScrollPane layoutX="386.0" layoutY="97.0" prefHeight="433.0" prefWidth="429.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="86.0">
+         <content>
+            <VBox fx:id="vBoxTuoAllenamento" prefHeight="426.0" prefWidth="414.0" />
+         </content>
+      </ScrollPane>
+      <Button fx:id="saveAllenamentoButton" layoutX="704.0" layoutY="526.0" mnemonicParsing="false" onAction="#saveAllenamentoAction" text="salva allenamento" AnchorPane.bottomAnchor="8.666666666666668" AnchorPane.rightAnchor="14.666666666666629" />
+      <Button fx:id="indietroButton" layoutX="777.0" layoutY="14.0" mnemonicParsing="false" onAction="#indietroAction" text="indietro" AnchorPane.rightAnchor="15.666666666666664" AnchorPane.topAnchor="14.0" />
+   </children>
+</AnchorPane>

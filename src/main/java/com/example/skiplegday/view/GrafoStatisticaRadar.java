@@ -1,5 +1,6 @@
 package com.example.skiplegday.view;
 
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -8,27 +9,23 @@ import javafx.scene.shape.Polygon;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-
+import javafx.event.EventHandler;
+import javafx.scene.input.MouseEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
+import javafx.scene.text.Text;
+
 
 public class GrafoStatisticaRadar extends Pane {
-    public GrafoStatisticaRadar(ArrayList<String> categories, double[] dataValues) {
-        /*
-        Group root = new Group();
-        ArrayList<String> categories = new ArrayList<>();
-        categories.add("Categoria 1");
-        categories.add("Categoria 2");
-        categories.add("Categoria 3");
-        categories.add("Categoria 4");
-        categories.add("Categoria 5");
-        double[] dataValues = {1.5, 1, 0.5, 1,1}; // Valori dei punti dei dati per ogni categoria
-        createRadarChart(root, categories, dataValues);
-        Scene scene = new Scene(root, 500, 500);
-        primaryStage.setTitle("Grafico Radar");
-        primaryStage.setScene(scene);
-        primaryStage.show();
-         */
+    private Text weightText;
+
+    public GrafoStatisticaRadar(ArrayList<String> categories, ArrayList<Double> dataValues) {
+        weightText = new Text();
+        weightText.setFont(Font.font("Arial", FontWeight.BOLD, 12));
+        weightText.setFill(Color.BLUE);
+        getChildren().add(weightText);
+
+        ArrayList<Double> inputData = dataValues;
         dataValues = normalizeDataValues(dataValues);
         int numCategories = categories.size();
         int centerX = 250;
@@ -43,12 +40,13 @@ public class GrafoStatisticaRadar extends Pane {
         Arrays.fill(dataValues2, 5);
 
         ArrayList<double[]> val = new ArrayList<>();
-        val.add(dataValues);
+        val.add(dataValues.stream().mapToDouble(Double::doubleValue).toArray());
         val.add(dataValues0);
         val.add(dataValues1);
         val.add(dataValues2);
-        //linne per bellezza
-        for (double[] v: val) {
+
+        //linee per bellezza
+        for (double[] v : val) {
             Polygon polygon1 = new Polygon();
             for (int i = 0; i < numCategories; i++) {
                 double angle = 2 * Math.PI * i / numCategories;
@@ -85,21 +83,53 @@ public class GrafoStatisticaRadar extends Pane {
         }
 
         // Creazione dei punti dei dati
-        for (int i = 0; i < numCategories; i++) {
+        /*for (int i = 0; i < numCategories; i++) {
             double angle = 2 * Math.PI * i / numCategories;
-            double value = dataValues[i];
+            double value = dataValues.get(i);
             double pointX = centerX + value / 5.0 * radius * Math.sin(angle);
             double pointY = centerY - value / 5.0 * radius * Math.cos(angle);
 
             Circle circle = new Circle(pointX, pointY, 5, Color.RED);
             getChildren().add(circle);
+        }*/
+
+        for (int i = 0; i < numCategories; i++) {
+            double angle = 2 * Math.PI * i / numCategories;
+            double value = dataValues.get(i);
+            double pointX = centerX + value / 5.0 * radius * Math.sin(angle);
+            double pointY = centerY - value / 5.0 * radius * Math.cos(angle);
+
+            Circle circle = new Circle(pointX, pointY, 5, Color.RED);
+            getChildren().add(circle);
+
+            // Aggiungi il listener per il movimento del mouse
+            final int index = i;
+            ArrayList<Double> finalDataValues = inputData;
+            circle.setOnMouseEntered(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    String weight = String.format("%.1f", finalDataValues.get(index)) + " kg";
+                    weightText.setText(weight);
+
+                    // Posiziona il testo sopra il punto del cerchio
+                    weightText.relocate(pointX + 10, pointY - 10);
+                    weightText.setVisible(true);
+                }
+            });
+
+            circle.setOnMouseExited(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    weightText.setVisible(false);
+                }
+            });
         }
 
         // Creazione del poligono
         Polygon polygon = new Polygon();
         for (int i = 0; i < numCategories; i++) {
             double angle = 2 * Math.PI * i / numCategories;
-            double value = dataValues[i];
+            double value = dataValues.get(i);
             double pointX = centerX + value / 5.0 * radius * Math.sin(angle);
             double pointY = centerY - value / 5.0 * radius * Math.cos(angle);
 
@@ -108,17 +138,20 @@ public class GrafoStatisticaRadar extends Pane {
         polygon.setFill(Color.RED.deriveColor(1, 1, 1, 0.5));
         getChildren().add(polygon);
     }
-    private double[] normalizeDataValues(double[] array){
+    private ArrayList<Double> normalizeDataValues(ArrayList<Double> array){
         // Trova il massimo valore nell'array
-        double max = Arrays.stream(array).max().getAsDouble();
+        double max = array.stream()
+                .mapToDouble(Double::doubleValue)
+                .max()
+                .orElse(Double.MIN_VALUE);
 
         // Calcola il fattore di scala per la proporzione
         double scaleFactor = 5.0 / max;
 
         // Applica la trasformazione proporzionale agli elementi dell'array7
-        double[] d = new double[array.length];
-        for (int i = 0; i < array.length; i++) {
-            d[i] = array[i] * scaleFactor;
+        ArrayList<Double> d = new ArrayList<>();
+        for (Double elem: array) {
+            d.add(elem * scaleFactor);
         }
         return d;
 

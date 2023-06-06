@@ -1,9 +1,6 @@
 package com.example.skiplegday.controller;
 
-import com.example.skiplegday.model.DataResult;
-import com.example.skiplegday.model.Data;
-import com.example.skiplegday.model.PunteggiUtenteEsercizioService;
-import com.example.skiplegday.model.UtenteAttuale;
+import com.example.skiplegday.model.*;
 import com.example.skiplegday.view.HoveredThresholdNode;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,6 +9,8 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.chart.*;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.util.StringConverter;
 
 import java.time.LocalDate;
@@ -29,8 +28,7 @@ public class GrafoGeneraleController {
 
     @FXML
     private TextField es;
-    @FXML
-    private MenuButton menuButton;
+
 
     @FXML
     private LineChart<Number, Number> lineChart;
@@ -41,6 +39,10 @@ public class GrafoGeneraleController {
     @FXML
     NumberAxis yAxis;
 
+    @FXML
+    ListView<String> listViewEsercizi;
+
+    private ObservableList<String> data;
     private String username = UtenteAttuale.getInstance().getUsername(); //DOMENICO
     private String nomeEsercizio = "panca piana";
     private final PunteggiUtenteEsercizioService service = new PunteggiUtenteEsercizioService();
@@ -54,17 +56,17 @@ public class GrafoGeneraleController {
 
     @FXML
     void initialize() {
-        ListView<MenuItem> listView = new ListView<>();
-        listView.getItems().addAll(new MenuItem("Item 1"),new MenuItem("Item 1"),new MenuItem("Item 1"),new MenuItem("Item 1"));
 
-        // Imposta l'altezza massima desiderata per la ListView
-        listView.setMaxHeight(200);
+        ArrayList<String> strings = InformazioniEsercizi.getInstance().getListaTuttiEsercizi();
+        data = FXCollections.observableArrayList(strings);
+        listViewEsercizi.setItems(data);
 
-        // Crea il CustomMenuItem e assegna la ListView come contenuto
-        CustomMenuItem customMenuItem = new CustomMenuItem(listView);
+        listViewEsercizi.setVisible(false);
+        es.textProperty().addListener((observable, oldValue, newValue) -> {
+            // Filtra la lista in base al testo inserito nella barra di ricerca
+            filterList(newValue);
+        });
 
-        // Aggiungi il CustomMenuItem al MenuButton
-        menuButton.getItems().add(customMenuItem);
 
         service.setDati(username, nomeEsercizio); //username DOMENICO
         service.start();
@@ -140,5 +142,34 @@ public class GrafoGeneraleController {
             }
         });
         service.setOnFailed(event -> {System.err.println(event.getSource().getException().getMessage());});
+    }
+
+
+    public void clicSuListView(MouseEvent mouseEvent) {
+        String selectedChoice = listViewEsercizi.getSelectionModel().getSelectedItem();
+        nomeEsercizio = selectedChoice;
+        listViewEsercizi.setVisible(false);
+        es.setText(selectedChoice);
+    }
+
+    public void keyReleasedSearchBox(KeyEvent keyEvent) {
+        // Nascondi la VBox se il testo è vuoto
+        if (es.getText().isEmpty()) {
+            listViewEsercizi.setVisible(false);
+        } else {
+            listViewEsercizi.setVisible(true);
+        }
+    }
+
+    private void filterList(String searchText) {
+        ObservableList<String> filteredList = FXCollections.observableArrayList();
+
+        for (String item : data) {
+            if (item.toLowerCase().contains(searchText.toLowerCase())) {
+                filteredList.add(item);
+            }
+        }
+
+        listViewEsercizi.setItems(filteredList);
     }
 }

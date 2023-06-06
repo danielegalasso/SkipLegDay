@@ -29,48 +29,7 @@ public class HelloApplication extends Application {
 
         SceneHandler.getInstance().init(stage);
         SceneHandler.getInstance().createLoginScene();
-        /*db.registerUser("domenico", "1234", "Dome", "Visci", "dsduiws@gmail.com", "03-02-2009","1.80");
-        RegisterUserService registerUserService = new RegisterUserService();
-        registerUserService.setDati("domenico", "1234", "Dome", "Visci", "M","80" ,"03-02-2009","180");
-        registerUserService.restart();
-        registerUserService.setOnSucceeded(event -> {
-            System.out.println("successo");
-        });*/
-        /*
-        AddSchedaService addSchedaService = new AddSchedaService();
-        ArrayList<String> esercizi = new ArrayList<>();
-        esercizi.add("panca piana bilanciere");
-        esercizi.add("alzate frontali");
-        esercizi.add("squat");
-        addSchedaService.setDati("domenico", "scheda majin bu", esercizi);
-        addSchedaService.restart();
-        addSchedaService.setOnSucceeded(event -> {
-            System.out.println("successo");
-        });*/
-        /*
-        RemoveSchedaService removeSchedaService = new RemoveSchedaService();
-        removeSchedaService.setDati("domenico", "");
-        removeSchedaService.restart();
-        removeSchedaService.setOnSucceeded(event -> {
-            if (removeSchedaService.getValue()){
-                System.out.println("successo");
-            }
-            else{
-                System.out.println("fallimento");
-            }
-        });*/
-        /*
-        EliminaAllenamentoService eliminaAllenamentoService = new EliminaAllenamentoService();
-        eliminaAllenamentoService.setDati("domenic2o", "2020-05-15");
-        eliminaAllenamentoService.restart();
-        eliminaAllenamentoService.setOnSucceeded(event -> {
-            if (eliminaAllenamentoService.getValue()){
-                System.out.println("successo");
-            }
-            else{
-                System.out.println("fallimento");
-            }
-        });*/
+
         //db.closeConnection();
     }
 }

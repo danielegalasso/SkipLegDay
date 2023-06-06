@@ -2,6 +2,7 @@ package com.example.skiplegday.view;
 
 import com.example.skiplegday.controller.AllenamentoPersonaleController;
 import com.example.skiplegday.controller.SchedaPersonaleController;
+import com.example.skiplegday.controller.SchedeDefault1Controller;
 import com.example.skiplegday.model.*;
 import javafx.beans.Observable;
 import javafx.collections.ObservableList;
@@ -62,9 +63,29 @@ public class SceneSecondaryHandler {
         setLastScene();
     }
     public void createSchedePredefiniteScene() throws IOException {
-        Node node = (Node) loadRootFromFXML("schedeDefault.fxml");
+        //Node node = (Node) loadRootFromFXML("schedeDefault.fxml");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/skiplegday/schedeDefault1.fxml"));
+        Node node = loader.load();
+        SchedeDefault1Controller controller = loader.getController();
+        ArrayList<String> nomiSchedeDef = new ArrayList<>();
+        nomiSchedeDef.add("PRINCIPIANTE");nomiSchedeDef.add("INTERMEDIO");nomiSchedeDef.add("AVANZATO");nomiSchedeDef.add("TOTAL BODY");nomiSchedeDef.add("CORPO LIBERO");nomiSchedeDef.add("RESISTENZA");
+        for(int i=0;i<3;++i){
+            for(int j=0;j<2;++j){
+                controller.addSchedaDefault(caricaSchedeDefault(nomiSchedeDef.get((i)*2+j)),i,j);
+            }
+        }
         addAndCenter(node);
     }
+    private Node caricaSchedeDefault(String nomeScheda) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/skiplegday/schedaPersonale.fxml"));
+        Node node = loader.load();
+        SchedaPersonaleController controller = loader.getController();
+        controller.setLabelSchedaPersonalizzata(nomeScheda);
+        controller.setSchedaDefault(); //cosi non mi fa modificare la scheda (rimuoverla)
+        controller.setImageViewSchedaPersonalizzata(new Image(getClass().getResource("/com/example/skiplegday/imageSchede/img6.jpg").toExternalForm())); //!!!!!!!!!!!! qua c'era random
+        return node;
+    }
+
     public void createStatisticheScene() throws IOException {
         Node node = (Node) loadRootFromFXML("statistiche.fxml");  //cosi carico ogni volta un nuovo nodo, inefficiente
         StatisticheHandler.getInstance().loadCalendar();
@@ -88,22 +109,30 @@ public class SceneSecondaryHandler {
         addAndCenter(node);
     }
     //SCHEDE DEFAULT---------------------------------------------
+    public void createSchedaDefaultNameScene(String text)  throws IOException{
+        Node node = (Node) loadRootFromFXML("vBoxEsercizi.fxml");
+        System.out.println("Scheda default: "+text +".txt");
+        aggiungiSchedaPredefinita(text+".txt");
+        //vBox.getChildren().add(setControllerAndLoadFromFXML("allenamento.fxml","principiante.txt"));
+        addAndCenter(node);
+    }
+    /*
     public void createPrincipianteScene() throws IOException{
         Node node = (Node) loadRootFromFXML("vBoxEsercizi.fxml");
-        aggiungiSchedaPredefinita("schedaPrincipiante.txt");
-        //vBox.getChildren().add(setControllerAndLoadFromFXML("allenamento.fxml","schedaPrincipiante.txt"));
+        aggiungiSchedaPredefinita("principiante.txt");
+        //vBox.getChildren().add(setControllerAndLoadFromFXML("allenamento.fxml","principiante.txt"));
         addAndCenter(node);
     }
     public void createIntermedioScene() throws IOException {
         Node node = (Node) loadRootFromFXML("vBoxEsercizi.fxml");
-        aggiungiSchedaPredefinita("schedaIntermedio.txt");
-        //vBox.getChildren().add(setControllerAndLoadFromFXML("allenamento.fxml","schedaIntermedio.txt"));
+        aggiungiSchedaPredefinita("intermedio.txt");
+        //vBox.getChildren().add(setControllerAndLoadFromFXML("allenamento.fxml","intermedio.txt"));
         addAndCenter(node);
     }
     public void createAvanzatoScene(Stage mainStage) throws IOException {
         Node node = (Node) loadRootFromFXML("vBoxEsercizi.fxml");
-        aggiungiSchedaPredefinita("schedaAvanzato.txt");
-        //vBox.getChildren().add(setControllerAndLoadFromFXML("allenamento.fxml","schedaAvanzato.txt"));
+        aggiungiSchedaPredefinita("AVANZATO.txt");
+        //vBox.getChildren().add(setControllerAndLoadFromFXML("allenamento.fxml","AVANZATO.txt"));
         addAndCenter(node);
     }
     public void createCorpoLiberoScene() throws IOException {
@@ -114,8 +143,8 @@ public class SceneSecondaryHandler {
     }
     public void createTotalBodyScene() throws IOException {
         Node node = (Node) loadRootFromFXML("vBoxEsercizi.fxml");
-        aggiungiSchedaPredefinita("schedaTotalBody.txt");
-        //vBox.getChildren().add(setControllerAndLoadFromFXML("allenamento.fxml","schedaTotalBody.txt"));
+        aggiungiSchedaPredefinita("total body.txt");
+        //vBox.getChildren().add(setControllerAndLoadFromFXML("allenamento.fxml","total body.txt"));
         addAndCenter(node);
     }
     public void createResistenzaScene() throws IOException {
@@ -123,7 +152,7 @@ public class SceneSecondaryHandler {
         aggiungiSchedaPredefinita("schedaResistenza.txt");
         //vBox.getChildren().add(setControllerAndLoadFromFXML("allenamento.fxml","schedaResistenza.txt"));
         addAndCenter(node);
-    }
+    } */
     private void aggiungiSchedaPredefinita(String schedaName) throws IOException {
         List<List<String>> l=LettoreFile.getInstance().leggiSchedaDefault("files/"+schedaName);
         for(int i=0;i<l.size();i++) {

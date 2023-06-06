@@ -1,3 +1,0 @@
-Petto-Bicipiti;Panca Piana Bilanciere;Chest Press;Croci Cavi;Curl Manubri;Concentrato Manubri;
-Gambe-Spalle;Squat;Leg Curl;Abductor Machine;Calf Machine;Alzate Laterali;Alzate Frontali;
-Dorso-Tricipiti;Rematore Singolo Cavi;Lat Machine;Pulley;Push Down;Pull Over Alzato;

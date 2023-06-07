@@ -1,15 +1,13 @@
 package com.example.skiplegday.view;
 
 import com.example.skiplegday.model.CalcolaPesoGruppiMuscolariService;
-import com.example.skiplegday.model.GetSchedeService;
 import com.example.skiplegday.model.UtenteAttuale;
-import com.example.skiplegday.model.daDataAAllenamentoService;
+import com.example.skiplegday.model.DaDataAAllenamentoService;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.skin.DatePickerSkin;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -57,7 +55,7 @@ public class StatisticheHandler {
         Node popupContent = datePickerSkin.getPopupContent();
         datePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             System.out.println("Data selezionata: " + newValue);
-            daDataAAllenamentoService getAllenamento = new daDataAAllenamentoService();
+            DaDataAAllenamentoService getAllenamento = new DaDataAAllenamentoService();
             getAllenamento.setDati(UtenteAttuale.getInstance().getUsername(), newValue.toString());  //IL PATTERN DELLA DATA VA BENE??
             getAllenamento.restart();
             getAllenamento.setOnSucceeded(event -> {

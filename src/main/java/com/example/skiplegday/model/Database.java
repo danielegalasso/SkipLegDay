@@ -10,7 +10,7 @@ public class Database{
     private static Database instance = new Database();
     private Database(){}
     public static Database getInstance() {return instance;}
-    private prendiHashService prendiHashService = new prendiHashService();
+    private PrendiHashService prendiHashService = new PrendiHashService();
 
     private Connection con = null;
 

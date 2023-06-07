@@ -1,6 +1,9 @@
 package com.example.skiplegday.view;
 
 import com.example.skiplegday.model.Data;
+import com.example.skiplegday.model.DataResult;
+import com.example.skiplegday.model.PunteggiUtenteEsercizioService;
+import com.example.skiplegday.model.UtenteAttuale;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
@@ -16,8 +19,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
 public class GrafoStatisticheEsercizio extends Pane {
-    public GrafoStatisticheEsercizio(Double width, Double height) {
-        // Aggiunta dei dati alla serie
+    public GrafoStatisticheEsercizio(String nomeEs,Double width, Double height) {
         ArrayList<Data> dataList = new ArrayList<>();
         dataList.add(new Data("2023-02-01", 100));
         dataList.add(new Data("2023-03-06", 170));

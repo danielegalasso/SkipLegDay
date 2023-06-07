@@ -54,8 +54,8 @@ public class SchedaPersonaleController {
     }
     public void deleteSchedaAction(ActionEvent actionEvent) {
         //devo cancellare la scheda dal database  !!!!!!!!!!!!!!!!!!!
-        int res = ConfirmationAlert.showConfirmationAlert("Sei sicuro di voler eliminare la scheda?","Elimina",false);
-        if (res != 1) return;
+        int res = ConfirmationAlert.showConfirmationAlert("Sei sicuro di voler eliminare la scheda?","Esci","Elimina");
+        if (res !=0) return;
         RemoveSchedaService removeSchedaService = new RemoveSchedaService();
         removeSchedaService.setDati(UtenteAttuale.getInstance().getUsername(), labelSchedaPersonalizzata.getText());
         removeSchedaService.start();

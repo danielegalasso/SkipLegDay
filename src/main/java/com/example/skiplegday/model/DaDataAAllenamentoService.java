@@ -5,7 +5,7 @@ import javafx.concurrent.Task;
 
 import java.util.ArrayList;
 
-public class daDataAAllenamentoService extends Service<ArrayList<Object>> {
+public class DaDataAAllenamentoService extends Service<ArrayList<Object>> {
     private String username;
     private String dataAllenamento;
     @Override

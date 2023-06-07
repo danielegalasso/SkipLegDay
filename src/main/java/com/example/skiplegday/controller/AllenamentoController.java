@@ -81,7 +81,7 @@ public class AllenamentoController {
         scrollPaneAllen.heightProperty().addListener((observable, oldValue, newValue) -> vBoxListaEsercizi.setPrefHeight(newValue.doubleValue()-10));
     }
     public void saveAllenamentoAction(ActionEvent actionEvent) throws SQLException {
-        int res = ConfirmationAlert.showConfirmationAlert("Vuoi salvare i tuoi progressi?","Salva",true);
+        int res = ConfirmationAlert.showConfirmationAlert("Vuoi salvare i tuoi progressi?","Salva","Annulla");
 
         if (res==1){
             System.out.println("salvato");

@@ -20,7 +20,7 @@
             </AnchorPane>
          </children>
       </HBox>
-      <ScrollPane layoutY="50.0" prefHeight="190.0" prefWidth="320.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <ScrollPane layoutY="50.0" prefHeight="190.0" prefWidth="320.0">
          <content>
             <VBox fx:id="vBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="183.0" prefWidth="305.0" spacing="20.0">
                <padding>

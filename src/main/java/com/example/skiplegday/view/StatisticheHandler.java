@@ -60,14 +60,15 @@ public class StatisticheHandler {
             getAllenamento.restart();
             getAllenamento.setOnSucceeded(event -> {
                 ArrayList<Object> esercizi = getAllenamento.getValue();
-                System.out.println("Esercizi: " + esercizi);
+                //System.out.println("Esercizi: " + esercizi);
                 if (esercizi.get(0) == "") {
                     ErrorMessage.getInstance().showErrorMessage("Non hai effettuato un allenamento in questa data");
                 } else {
-                    System.out.println("Allenamento trovato");
+                    //System.out.println("Allenamento trovato");
                     try {
                         SceneSecondaryHandler.getInstance().setLastScene();
-                        SceneSecondaryHandler.getInstance().accediSchedaPersonalizzataScene((String) esercizi.get(0)); //newValue.toString()
+                        SceneSecondaryHandler.getInstance().createAllenamentoCalendarioScene(esercizi);
+                        //SceneSecondaryHandler.getInstance().accediSchedaPersonalizzataScene((String) esercizi.get(0)); //newValue.toString()
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }

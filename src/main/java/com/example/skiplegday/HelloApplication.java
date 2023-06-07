@@ -78,7 +78,14 @@ public class HelloApplication extends Application {
         serie.add(new Serie(80, 4,30));
         serie.add(new Serie(100, 2,90));
         seriePerEsercizio.put("croci", serie);
-        aggiungiAllenamentoService.setDati("domenico", "scheda majin bu", "2023-06-04", seriePerEsercizio);
+        seriePerEsercizio.put("panca piana bilanciere", serie);
+        seriePerEsercizio.put("alzate frontali", serie);
+        seriePerEsercizio.put("squat", serie);
+        serie.add(new Serie(100, 2,90));
+        seriePerEsercizio.put("stacchi da terra", serie);
+        seriePerEsercizio.put("curl manubri", serie);
+        seriePerEsercizio.put("curl bilanciere", serie);
+        aggiungiAllenamentoService.setDati("domenico", "scheda majin bu", "2023-06-05", seriePerEsercizio);
         aggiungiAllenamentoService.restart();
         aggiungiAllenamentoService.setOnSucceeded(event -> {
             if (aggiungiAllenamentoService.getValue()){

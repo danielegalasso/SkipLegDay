@@ -4,6 +4,7 @@ import com.example.skiplegday.controller.*;
 import com.example.skiplegday.model.*;
 import javafx.beans.Observable;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -107,10 +108,13 @@ public class SceneSecondaryHandler {
         simulateTabPress();
     }
     public void createEserciziScene() throws IOException {
-        Node node= (Node) loadRootFromFXML("manualeEsercizi.fxml"); //non voglio far caricare sempre un nuovo nodo
-        //LO CAMBIERO
-        aggiungiManualeEsercizi(node);
-        addAndCenter(node);   //MOMENTANEO, POI MI SETTO LE COSE DA DANIELE, E LE CARICO
+        Parent root = sceneMap.get("manualeEsercizi");
+        if(root == null) {
+            root = loadRootFromFXML("manualeEsercizi.fxml");
+            sceneMap.put("manualeEsercizi", root);
+        }//altrimenti pensa caricare ogni volta tutti gli esercizi, cosi lo faccio solo una volta
+        aggiungiManualeEsercizi(root);
+        addAndCenter(root);
         sceneRoot.requestFocus();
         simulateTabPress();
     }
@@ -154,7 +158,7 @@ public class SceneSecondaryHandler {
     }
     //MANUALE ESERCIZI--------------------------------------------(anche per aggiungere allenamenti)
     private void aggiungiManualeEsercizi(Node node) {
-            ArrayList<String> strings = InformazioniEsercizi.getInstance().getListaTuttiEsercizi();
+        ArrayList<String> strings = InformazioniEsercizi.getInstance().getListaTuttiEsercizi();
         TextFlow t = new TextFlow();
         for (String s: strings) {
             t.getChildren().add(new DescrizioneEsercizio(s));  //qua ci va DESCRIZIONEESERCIZIO !!!!
@@ -184,6 +188,7 @@ public class SceneSecondaryHandler {
         addAndCenter(node);
         ShortCut.addSaveShortCut(node);
         sceneRoot.requestFocus();
+        simulateTabPress();
         simulateTabPress();
     }
     //per accedere all'allenamento pers quando sono sulla label
@@ -217,6 +222,47 @@ public class SceneSecondaryHandler {
         });
         sceneRoot.requestFocus();
         simulateTabPress();
+    }
+
+    public void createAllenamentoCalendarioScene(ArrayList<Object> esercizi) throws IOException {
+        HashMap<String, ArrayList<Serie>> eserciziSerie = (HashMap<String, ArrayList<Serie>>) esercizi.get(1); //in 0 c'è nomeScheda
+        ArrayList<String> keysNomiEs = new ArrayList<>(eserciziSerie.keySet());
+        //System.out.println("chiavi " + keysNomiEs);
+
+        GridPane pane = new GridPane();
+        pane.setPrefWidth(700);
+        pane.setPrefHeight(460);
+        ScrollPane scrollPane = new ScrollPane(pane);
+        scrollPane.setPrefWidth(800);
+        scrollPane.setPrefHeight(550);
+        pane.setHgap(10);
+        pane.setVgap(10);
+
+        int colonna = 0;
+        int riga = 0;
+
+        for (int i = 0; i < keysNomiEs.size(); i++) {
+            String nomeEs = keysNomiEs.get(i);
+            ArrayList<Serie> serie = eserciziSerie.get(nomeEs);
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/skiplegday/allenamentoCalendario.fxml"));
+            Node allenamento = loader.load();
+            AllenamentoCalendarioController c = loader.getController();
+            c.setNomeEsercizioText(nomeEs);
+            c.setImageEsercizio(loadImage("croci cavi")); //mettere nomeEs !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            for (Serie s : serie) {
+                Text t = new Text(s.toString());
+                c.addSerie(t);
+            }
+            pane.add(allenamento, colonna, riga);
+
+            colonna++;
+            if (colonna >= 2) {
+                colonna = 0;
+                riga++;
+            }
+        }
+        addAndCenter(scrollPane);
     }
     // METODI UTILI ----------------------------------------------------
     private<T> T loadRootFromFXML(String resourceName) throws IOException {
@@ -254,9 +300,13 @@ public class SceneSecondaryHandler {
     }
     private void simulateTabPress(){
         Robot robot = new Robot();
-
         // Simula la pressione del tasto Tab
         robot.keyPress(KeyCode.TAB);
         robot.keyRelease(KeyCode.TAB);
+    }
+    private static final String FONT_PATH = "/com/example/skiplegday/icon/";
+    private Image loadImage(String nomeEsercizio) throws IOException {
+        Image img=new Image(getClass().getResource(FONT_PATH+nomeEsercizio+".png").openStream());
+        return img;
     }
 }

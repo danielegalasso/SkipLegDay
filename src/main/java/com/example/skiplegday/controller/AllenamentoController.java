@@ -68,17 +68,6 @@ public class AllenamentoController {
     }
     public void initialize(){
         AllenamentoHandler.getInstance().setAllenamento(idGruppoMuscolare,vBoxListaEsercizi,importaButton,saveAllenamentoButton);
-
-        //metodo per ridimensionare automaticamente il vBoxListaEsercizi in base alle dimensioni dello scrollPaneAllen, in quanto
-        //lo stesso fxml cambia le dimensioni in base a dove viene caricato
-        vBoxListaEsercizi.prefWidthProperty().bind(scrollPaneAllen.widthProperty());
-        vBoxListaEsercizi.prefHeightProperty().bind(scrollPaneAllen.heightProperty());
-        // Aggiungi un ChangeListener per ricalcolare le dimensioni del VBox quando lo ScrollPane viene ridimensionato
-        scrollPaneAllen.widthProperty().addListener((observable, oldValue, newValue) -> {   //ho fatto replaced with lambda expression per averle piu compatte
-            vBoxListaEsercizi.setMinWidth(newValue.doubleValue()-25);
-            vBoxListaEsercizi.setMaxWidth(newValue.doubleValue()-25);
-        });
-        scrollPaneAllen.heightProperty().addListener((observable, oldValue, newValue) -> vBoxListaEsercizi.setPrefHeight(newValue.doubleValue()-10));
     }
     public void saveAllenamentoAction(ActionEvent actionEvent) throws SQLException {
         int res = ConfirmationAlert.showConfirmationAlert("Vuoi salvare i tuoi progressi?","Salva","Annulla");

@@ -33,16 +33,9 @@ public class AllenamentoPersonaleController {
         //System.out.println(nomeScheda);
         SceneSecondaryHandler.getInstance().setLastScene();
         SceneSecondaryHandler.getInstance().createCreateAllenamentoScene(nomeScheda);  //con questa funzione creo e modifico
-        //dentr createAlleamentoScene ho anche la funzione createManuale
-        /*
-        SceneSecondaryHandler.getInstance().caricaEserciziVbox(nomeScheda);
-        SceneSecondaryHandler.getInstance().caricaNomeAllenamento(nomeScheda);*/
-        //CreateAllenamentoHandler.getInstance().caricaEserciziVbox(nomeScheda);
-        //CreateAllenamentoHandler.getInstance().caricaNomeAllenamento(nomeScheda);
-
     }
     public void setPaneAllenamento(Node node){
-        paneAllenamento.setCenter(node);
+        paneAllenamento.setLeft(node);
     }
     public void indietroAction(ActionEvent actionEvent) {
         SceneSecondaryHandler.getInstance().CreateLastScene();

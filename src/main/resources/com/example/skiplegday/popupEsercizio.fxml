@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="510.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.skiplegday.controller.PopupEsercizioController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="510.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.skiplegday.controller.PopupEsercizioController">
    <children>
       <Text fx:id="nomeEsercizio" layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.05078125" />
       <Button fx:id="addDatiEsButton" layoutX="214.0" layoutY="45.0" mnemonicParsing="false" onAction="#addDatiEsAction" prefHeight="25.0" prefWidth="34.0" text="+" />
@@ -17,6 +20,13 @@
       </ScrollPane>
       <Button fx:id="salvaProgressiButton" layoutX="234.0" layoutY="219.0" mnemonicParsing="false" onAction="#salvaProgressiAction" prefHeight="25.0" prefWidth="51.0" text="salva" />
       <Text fx:id="textError" layoutX="150.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" visible="false" />
-      <AnchorPane fx:id="anchorPaneGraphRoot" layoutX="-10.0" layoutY="255.0" prefHeight="251.0" prefWidth="300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="255.0" />
+      <LineChart fx:id="lineChart" layoutX="-7.0" layoutY="257.0" prefHeight="262.0" prefWidth="307.0">
+        <xAxis>
+          <NumberAxis fx:id="AX" label="Data" side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis fx:id="AY" label="Punteggio" side="LEFT" />
+        </yAxis>
+      </LineChart>
    </children>
 </AnchorPane>

@@ -38,7 +38,6 @@ public class GrafoGeneraleController {
     private String username = UtenteAttuale.getInstance().getUsername(); //DOMENICO
     private String nomeEsercizio = "panca piana";
     private final PunteggiUtenteEsercizioService service = new PunteggiUtenteEsercizioService();
-
     @FXML
     void process(ActionEvent ignoredEvent) {
         nomeEsercizio = es.getText();

@@ -1,21 +1,29 @@
 package com.example.skiplegday.controller;
 
-import com.example.skiplegday.model.Serie;
-import com.example.skiplegday.model.AllenamentoSaver;
+import com.example.skiplegday.model.*;
+import com.example.skiplegday.view.HoveredThresholdNode;
 import com.example.skiplegday.view.PopupHandler;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.util.StringConverter;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,15 +36,31 @@ public class PopupEsercizioController {
     Button addDatiEsButton;
     @FXML
     Text textError;
+
+
     @FXML
-    AnchorPane anchorPaneGraphRoot;
-    public void initialize(){
+    private LineChart<Number, Number> lineChart;
+    @FXML
+    NumberAxis AX;
+    @FXML
+    NumberAxis AY;
+
+    private ObservableList<String> data;
+    private String username = UtenteAttuale.getInstance().getUsername(); //DOMENICO
+    private final PunteggiUtenteEsercizioService service = new PunteggiUtenteEsercizioService();
+
+    public void initialize() throws IOException {
         PopupHandler.getInstance().setvBoxDatiEsercizi(vBoxDatiEsercizi);
         PopupHandler.getInstance().setText(nomeEsercizio);
         PopupHandler.getInstance().setErrorText(textError);
-        PopupHandler.getInstance().setAnchorPaneGraphRoot(anchorPaneGraphRoot);
-        PopupHandler.getInstance().loadGraph();
+        PopupHandler.getInstance().setGraph(lineChart, AX, AY);
+
+
+
     }
+
+
+
     public void addDatiEsAction(ActionEvent actionEvent) throws IOException {
         PopupHandler.getInstance().setSaved(false);   //ogni volta che aggiungo un esercizio devo salvare prima di uscire
         PopupHandler.getInstance().addDatiEsercizio();

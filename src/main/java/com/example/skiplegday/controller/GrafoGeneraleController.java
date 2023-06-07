@@ -19,26 +19,18 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
 public class GrafoGeneraleController {
-
     @FXML
     private DatePicker startDate;
-
     @FXML
     private DatePicker endDate;
-
     @FXML
     private TextField es;
-
-
     @FXML
     private LineChart<Number, Number> lineChart;
-
     @FXML
     NumberAxis xAxis;
-
     @FXML
     NumberAxis yAxis;
-
     @FXML
     ListView<String> listViewEsercizi;
 
@@ -56,7 +48,6 @@ public class GrafoGeneraleController {
 
     @FXML
     void initialize() {
-
         ArrayList<String> strings = InformazioniEsercizi.getInstance().getListaTuttiEsercizi();
         data = FXCollections.observableArrayList(strings);
         listViewEsercizi.setItems(data);
@@ -66,8 +57,6 @@ public class GrafoGeneraleController {
             // Filtra la lista in base al testo inserito nella barra di ricerca
             filterList(newValue);
         });
-
-
         service.setDati(username, nomeEsercizio); //username DOMENICO
         service.start();
         service.setOnSucceeded(event ->  {
@@ -143,7 +132,6 @@ public class GrafoGeneraleController {
         });
         service.setOnFailed(event -> {System.err.println(event.getSource().getException().getMessage());});
     }
-
 
     public void clicSuListView(MouseEvent mouseEvent) {
         String selectedChoice = listViewEsercizi.getSelectionModel().getSelectedItem();

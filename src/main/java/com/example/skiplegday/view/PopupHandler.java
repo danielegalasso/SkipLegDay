@@ -61,7 +61,7 @@ public class PopupHandler {
     }
     public void loadGraph() {
         System.out.println("width: "+anchorPaneGraphRoot.getPrefWidth()+" height: "+anchorPaneGraphRoot.getPrefHeight());
-        GrafoStatisticheEsercizio grafoStatisticheEsercizio = new GrafoStatisticheEsercizio(anchorPaneGraphRoot.getPrefWidth(), anchorPaneGraphRoot.getPrefHeight());
+        GrafoStatisticheEsercizio grafoStatisticheEsercizio = new GrafoStatisticheEsercizio(nomeEsercizio.getText(),anchorPaneGraphRoot.getPrefWidth(), anchorPaneGraphRoot.getPrefHeight());
         //borderPaneGraphRoot.setCenter(grafoStatisticheEsercizio);
         anchorPaneGraphRoot.getChildren().setAll(grafoStatisticheEsercizio);
     }
@@ -77,4 +77,5 @@ public class PopupHandler {
         return !saved;
     }
     public void setAnchorPaneGraphRoot(AnchorPane anchorPaneGraphRoot) {this.anchorPaneGraphRoot = anchorPaneGraphRoot;}
+
 }

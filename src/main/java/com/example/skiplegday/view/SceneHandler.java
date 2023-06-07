@@ -1,10 +1,14 @@
 package com.example.skiplegday.view;
 
+import com.example.skiplegday.controller.ShortCut;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.text.Font;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -57,6 +61,9 @@ public class SceneHandler {
     public void createHomeScene(){
         try {
             scene.setRoot(loadRootFromFXML("home.fxml"));
+            //-----------------------------------
+            // Creazione della combinazione di tasti per l'evento "Esci"
+            ShortCut.addExitShortCut(scene);
             stage.setWidth(1000);
             stage.setHeight(700);
             setCentre();

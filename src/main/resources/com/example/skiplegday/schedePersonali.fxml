@@ -8,7 +8,15 @@
 <?import javafx.scene.layout.RowConstraints?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="820.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.skiplegday.controller.SchedePersonaliController">
-   <children>
+    <!-- store controller as userData property -->
+    <userData>
+        <fx:reference source="controller" />
+    </userData>
+    <properties>
+        <!-- store controller at key "foo" in properties map -->
+        <foo><fx:reference source="controller" /></foo>
+    </properties>
+    <children>
       <ScrollPane hmin="50.0" layoutY="62.0" prefHeight="511.0" prefWidth="630.0" AnchorPane.bottomAnchor="34.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <content>
             <AnchorPane prefHeight="918.0" prefWidth="803.0">

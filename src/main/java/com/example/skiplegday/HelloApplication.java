@@ -70,7 +70,32 @@ public class HelloApplication extends Application {
             else{
                 System.out.println("fallimento");
             }
-        });*/
+        });
+        AggiungiAllenamentoService aggiungiAllenamentoService = new AggiungiAllenamentoService();
+        HashMap<String, ArrayList<Serie>> seriePerEsercizio = new HashMap<>();
+        ArrayList<Serie> serie = new ArrayList<>();
+        serie.add(new Serie(50, 10,30));
+        serie.add(new Serie(80, 4,30));
+        serie.add(new Serie(100, 2,90));
+        seriePerEsercizio.put("croci", serie);
+        aggiungiAllenamentoService.setDati("domenico", "scheda majin bu", "2023-06-04", seriePerEsercizio);
+        aggiungiAllenamentoService.restart();
+        aggiungiAllenamentoService.setOnSucceeded(event -> {
+            if (aggiungiAllenamentoService.getValue()){
+                System.out.println("successo");
+            }
+            else{
+                System.out.println("fallimento");
+            }
+        });
+        DaDataAAllenamentoService daDataAAllenamentoService = new DaDataAAllenamentoService();
+        daDataAAllenamentoService.setDati("domenico", "2023-06-04");
+        daDataAAllenamentoService.restart();
+        daDataAAllenamentoService.setOnSucceeded(event -> {
+            System.out.println(daDataAAllenamentoService.getValue());
+        });
+        PunteggiUtenteEsercizioService punteggiUtenteEsercizioService = new PunteggiUtenteEsercizioService();
+        punteggiUtenteEsercizioService.setDati("domenico", "panca piana bilanciere");*/
         //db.closeConnection();
     }
 }

@@ -6,42 +6,42 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.DialogPane;
 
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class ConfirmationAlert {
-    public static int showConfirmationAlert(String contentText,String buttonName,boolean buttonEvidenziato){
+    public static int showConfirmationAlert(String contentText,String buttonName,String buttonName1) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Conferma");
         alert.setHeaderText(null);
         alert.setContentText(contentText);
-        String buttonYES,buttonCLOSE;
-        if (buttonEvidenziato) {
+        String buttonYES, buttonCLOSE;
+        /*
+        if (firstParamEvidenziato) {
             buttonYES = buttonName;
-            buttonCLOSE = "Esci";
+            buttonCLOSE = buttonName1;
         }
         else{
-            buttonYES = "Esci";
+            buttonYES = buttonName1;
             buttonCLOSE = buttonName;
-        }
+        }*/
         // Creazione dei pulsanti personalizzati
-        ButtonType esciButton = new ButtonType(buttonCLOSE, ButtonBar.ButtonData.CANCEL_CLOSE);
-        ButtonType salvaButton = new ButtonType(buttonYES, ButtonBar.ButtonData.YES);
+        ButtonType buttonClose = new ButtonType(buttonName1, ButtonBar.ButtonData.CANCEL_CLOSE);
+        ButtonType buttonYes = new ButtonType(buttonName, ButtonBar.ButtonData.YES);
 
         // Personalizzazione del DialogPane per aggiungere un'icona
         //dialogPane.setGraphic(new ImageView(new Image(getClass().getResource("/com/examl.png"))));
 
         // Aggiunta dei pulsanti al DialogPane
         DialogPane dialogPane = alert.getDialogPane();
-        dialogPane.getButtonTypes().setAll(esciButton, salvaButton);
+        dialogPane.getButtonTypes().setAll(buttonClose, buttonYes);
 
         Optional<ButtonType> result = alert.showAndWait();
 
         /*ad esempio nel caso rimuoviScheda non posso mettere il button per rimuovere la scheda in evidenza, quindi imposto
         il button per rimuovere la scheda come buttonClose, non evidenziato, e non di default da premere,però in questo caso
         la scheda verrà eliminata se premo il buttonClose e non il buttonYEs, quindi entrambi i valori restituiti dai
-        button dipendono dal parametro booleano */
+        button dipendono dal parametro booleano
         if (result.isPresent()) {  //doppio if in quando il button che inserisco può andare sia in buttonYES che CLOSe
-            if (buttonEvidenziato){
+            if (firstParamEvidenziato){
                 if (result.get() == esciButton) {
                     return 0;
                 } else if (result.get() == salvaButton) {
@@ -54,6 +54,14 @@ public class ConfirmationAlert {
                 } else if (result.get() == salvaButton) {
                     return 0;
                 }
+            }
+        }
+        return -1;*/
+        if (result.isPresent()) {
+            if (result.get() == buttonClose) {
+                return 0;
+            } else if (result.get() == buttonYes) {
+                return 1;
             }
         }
         return -1;

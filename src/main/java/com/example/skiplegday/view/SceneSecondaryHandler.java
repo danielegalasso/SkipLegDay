@@ -1,8 +1,6 @@
 package com.example.skiplegday.view;
 
-import com.example.skiplegday.controller.AllenamentoPersonaleController;
-import com.example.skiplegday.controller.SchedaPersonaleController;
-import com.example.skiplegday.controller.SchedeDefault1Controller;
+import com.example.skiplegday.controller.*;
 import com.example.skiplegday.model.*;
 import javafx.beans.Observable;
 import javafx.collections.ObservableList;
@@ -13,11 +11,15 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.robot.Robot;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
@@ -62,7 +64,10 @@ public class SceneSecondaryHandler {
             //----------------------------------
         }
         addAndCenter(root);
+        ShortCut.addNewSchedeShortCut(root);
+        sceneRoot.requestFocus();
         setLastScene();
+        simulateTabPress();
     }
     public void createSchedePredefiniteScene() throws IOException {
         //Node node = (Node) loadRootFromFXML("schedeDefault.fxml");
@@ -78,6 +83,9 @@ public class SceneSecondaryHandler {
             }
         }
         addAndCenter(node);
+        sceneRoot.requestFocus();
+        //setLastScene(); + pulsante indietroo
+        simulateTabPress();
     }
     private Node caricaSchedeDefault(String nomeScheda,int n) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/skiplegday/schedaPersonale.fxml"));
@@ -95,21 +103,29 @@ public class SceneSecondaryHandler {
         StatisticheHandler.getInstance().loadGrafoRadar();
         StatisticheHandler.getInstance().loadGrafo();
         addAndCenter(node);
+        sceneRoot.requestFocus();
+        simulateTabPress();
     }
     public void createEserciziScene() throws IOException {
         Node node= (Node) loadRootFromFXML("manualeEsercizi.fxml"); //non voglio far caricare sempre un nuovo nodo
         //LO CAMBIERO
         aggiungiManualeEsercizi(node);
         addAndCenter(node);   //MOMENTANEO, POI MI SETTO LE COSE DA DANIELE, E LE CARICO
+        sceneRoot.requestFocus();
+        simulateTabPress();
     }
     //FARE OBIETTIVI
     public void createDatiPersonaliScene() throws IOException {
         Node node = (Node) loadRootFromFXML("datiPersonali.fxml");
         addAndCenter(node);
+        sceneRoot.requestFocus();
+        simulateTabPress();
     }
     public void createValutaciScene() throws IOException {
         Node node = (Node) loadRootFromFXML("recensione.fxml");
         addAndCenter(node);
+        sceneRoot.requestFocus();
+        simulateTabPress();
     }
     //SCHEDE DEFAULT---------------------------------------------
     public void createSchedaDefaultNameScene(String text)  throws IOException{
@@ -133,6 +149,8 @@ public class SceneSecondaryHandler {
             // Applica uno stile personalizzato alla barra di scorrimento
             vBox.getChildren().add(scrollPane);
         }
+        sceneRoot.requestFocus();
+        simulateTabPress();
     }
     //MANUALE ESERCIZI--------------------------------------------(anche per aggiungere allenamenti)
     private void aggiungiManualeEsercizi(Node node) {
@@ -148,6 +166,9 @@ public class SceneSecondaryHandler {
         Node node = (Node) loadRootFromFXML("descrizioneEsercizio.fxml");  //quando aggiungo l'fxml si attiva in automatico il controller associato che fa tutto
         //funzione che mi prende da database tutti gli allenamenti e me li popola
         addAndCenter(node);
+
+        sceneRoot.requestFocus();
+        simulateTabPress();
     }
 
     //CREA SCHEDA PERSONALIZZATA ------- (ALLENAMENTI PERSONALIZZATI)---
@@ -161,6 +182,9 @@ public class SceneSecondaryHandler {
         }
         CreateAllenamentoHandler.getInstance().caricaEserciziVbox("tanto non serve questo parametro");
         addAndCenter(node);
+        ShortCut.addSaveShortCut(node);
+        sceneRoot.requestFocus();
+        simulateTabPress();
     }
     //per accedere all'allenamento pers quando sono sulla label
     public void accediSchedaPersonalizzataScene(String schedaNome) throws IOException {  //meglio chiamarlo accedi allenamento
@@ -191,6 +215,8 @@ public class SceneSecondaryHandler {
                 throw new RuntimeException(e);
             }
         });
+        sceneRoot.requestFocus();
+        simulateTabPress();
     }
     // METODI UTILI ----------------------------------------------------
     private<T> T loadRootFromFXML(String resourceName) throws IOException {
@@ -208,6 +234,9 @@ public class SceneSecondaryHandler {
     public void CreateLastScene() {
         sceneRoot.getChildren().setAll(lastScene.getLast());
         lastScene.removeLast();
+
+        sceneRoot.requestFocus();
+        simulateTabPress();
     }
     public void setLastScene() {   // Ottieni il nodo FXML attualmente presente nel sceneRoot
         Node currentFXMLNode = sceneRoot.getChildren().get(0);
@@ -222,5 +251,12 @@ public class SceneSecondaryHandler {
     public void clearAll() {
         sceneMap.clear();
         GridPaneAllenamentiHandler.getInstance().setPosInitialGridPane();
+    }
+    private void simulateTabPress(){
+        Robot robot = new Robot();
+
+        // Simula la pressione del tasto Tab
+        robot.keyPress(KeyCode.TAB);
+        robot.keyRelease(KeyCode.TAB);
     }
 }

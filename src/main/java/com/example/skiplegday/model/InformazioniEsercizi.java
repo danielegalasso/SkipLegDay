@@ -14,7 +14,7 @@ public class InformazioniEsercizi {
     private HashMap<String, ArrayList<String>> gruppoMuscolareEsercizi = new HashMap<>();
     private HashMap<String, String> descrizioni = new HashMap<>(); //esercizi-descrizione
     public void caricaEsercizi() throws SQLException {
-        prendiHashService infServ = new prendiHashService();
+        PrendiHashService infServ = new PrendiHashService();
         infServ.restart();
         infServ.setOnSucceeded(event -> {
             ArrayList<Object> risultato = infServ.getValue();

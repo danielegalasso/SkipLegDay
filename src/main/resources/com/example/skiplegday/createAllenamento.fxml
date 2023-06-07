@@ -8,6 +8,14 @@
 <?import javafx.scene.text.Text?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="830.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.skiplegday.controller.CreateAllenamentoController">
+   <!-- store controller as userData property -->
+   <userData>
+      <fx:reference source="controller" />
+   </userData>
+   <properties>
+      <!-- store controller at key "foo" in properties map -->
+      <foo><fx:reference source="controller" /></foo>
+   </properties>
    <children>
       <Text fx:id="scegliNomeText" layoutX="9.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Scegli un nome per il tuo allenamento" AnchorPane.leftAnchor="9.0" AnchorPane.topAnchor="25.05078125" />
       <TextField fx:id="fieldCreateNameAllenamento" layoutX="228.0" layoutY="20.0" prefHeight="25.0" prefWidth="169.0" promptText="inserisci nome" AnchorPane.leftAnchor="228.0" AnchorPane.topAnchor="20.0" />

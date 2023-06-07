@@ -7,6 +7,7 @@ import com.example.skiplegday.model.UtenteAttuale;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Worker;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -49,9 +50,10 @@ public class PopupHandler {
         vBoxDatiEsercizi.getChildren().add(loadRootFromFXML("kgRepRec.fxml"));
     }
     public void setGraph(LineChart<Number, Number> lineChart, NumberAxis AX, NumberAxis AY){
+
         System.out.println(username + this.nomeEsercizio.getText());
         service.setDati(username, "panca piana"); //username DOMENICO
-        service.start();
+        service.restart();
         service.setOnSucceeded(event ->  {
             //System.out.println("i");
             AX.setLabel("Giorno");

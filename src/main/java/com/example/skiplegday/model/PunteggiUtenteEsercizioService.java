@@ -17,10 +17,18 @@ public class PunteggiUtenteEsercizioService extends Service<DataResult> {
                 DataResult res = new DataResult(r);
                 return res;
             }
+
         };
+
     }
     public void setDati(String username, String nomeEsercizio) {
         this.username = username;
         this.nomeEsercizio = nomeEsercizio;
+    }
+
+    public void stopService() {
+        if (getState() == State.RUNNING) {
+            cancel();
+        }
     }
 }

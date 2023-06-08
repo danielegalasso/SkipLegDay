@@ -90,7 +90,7 @@ public class StatisticheHandler {
                             //SceneSecondaryHandler.getInstance().setLastScene();
                             //SceneSecondaryHandler.getInstance().accediSchedaPersonalizzataScene((String) esercizi.get(0)); //newValue.toString()
                         } catch (IOException e) {
-                            throw new RuntimeException(e);
+                            ErrorMessage.getInstance().showErrorMessage("Errore durante il caricamento della scheda personalizzata");
                         }
                     }
                 });
@@ -98,16 +98,8 @@ public class StatisticheHandler {
             paneCalendar.setCenter(popupContent);
             System.out.println("Calendar loaded");
 
-
         });
-        service.setOnFailed(event -> {System.err.println(event.getSource().getException().getMessage());});
-
-
-
-
-
-
-
+        service.setOnFailed(event -> {ErrorMessage.getInstance().showErrorMessage("Errore durante il caricamento del calendario");});
 
     }
     public void loadGrafoRadar() {

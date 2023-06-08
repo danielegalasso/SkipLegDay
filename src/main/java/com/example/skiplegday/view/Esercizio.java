@@ -43,7 +43,7 @@ public class Esercizio extends Text{  //la classe esercizio non è altro che un 
                 PopupHandler.getInstance().setNomeEsercizio(this.getText()); //passo il nome dell'esercizio alla classe singleton che gestisce le finestre popup
                 Popup popup= new Popup(mainStage, scene);
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                ErrorMessage.getInstance().showErrorMessage("Errore nel caricamento dell'esercizio");
             }
         });
         setOnMouseEntered(new EventHandler<MouseEvent>() {

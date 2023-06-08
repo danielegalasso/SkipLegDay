@@ -15,7 +15,7 @@ public class DescrizioneEsercizio extends Text {
                 SceneSecondaryHandler.getInstance().setLastScene();
                 SceneSecondaryHandler.getInstance().createDescrizioneEsercizioScene();
             } catch (Exception e) {
-                throw new RuntimeException(e);
+                ErrorMessage.getInstance().showErrorMessage("Errore nel caricamento della descrizione dell'esercizio");
             }
         });
         setOnMouseEntered(new EventHandler<MouseEvent>() {

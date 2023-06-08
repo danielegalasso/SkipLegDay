@@ -53,7 +53,9 @@ public class AllenamentoController {
                             //SceneSecondaryHandler.getInstance().aggiungiSchedaPersonaleScene(idGruppoMuscolare.getText());
                             GridPaneAllenamentiHandler.getInstance().aggiungiSchedaPersonaleScene(idGruppoMuscolare.getText());
                             SceneSecondaryHandler.getInstance().createSchedePersonaliScene();
-                        } catch (IOException ignoredEvent) {}
+                        } catch (IOException e) {
+                            ErrorMessage.getInstance().showErrorMessage("Errore durante il caricamento della pagina");
+                        }
                     } else {
                         System.out.println("Scheda non aggiunta");
                     }

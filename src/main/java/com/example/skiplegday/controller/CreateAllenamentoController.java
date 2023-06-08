@@ -36,11 +36,15 @@ public class CreateAllenamentoController {
     AnchorPane infoPane;
     @FXML
     ImageView infoIcon;
+    @FXML
+    Text errorText;
     private static final String PROMPT_TEXT = "inserisci nome";
     public void saveAllenamentoAction(ActionEvent actionEvent) throws IOException {
         //aggiungo nel database creo fxml con label e immagine avente come nome questo textField  !!!!!!!!!!!!!!!!!!
         if (fieldCreateNameAllenamento.getPromptText().equals(PROMPT_TEXT)) { //se è così non ho acceduto dal pulsante modifica ma da aggiungiAllenamento
             if(fieldCreateNameAllenamento.getText().equals("") || vBoxTuoAllenamento.getChildren().size() == 0){
+                errorText.setText("Inserisci nome e almeno un esercizio");
+                errorText.setVisible(true);
                 return;
             }
             CheckSchedaInDbService checkSchedaInDbService = new CheckSchedaInDbService();
@@ -58,7 +62,9 @@ public class CreateAllenamentoController {
                                 //SceneSecondaryHandler.getInstance().aggiungiSchedaPersonaleScene(fieldCreateNameAllenamento.getText());
                                 GridPaneAllenamentiHandler.getInstance().aggiungiSchedaPersonaleScene(fieldCreateNameAllenamento.getText());
                                 SceneSecondaryHandler.getInstance().createSchedePersonaliScene();
-                            } catch (IOException ignoredEvent) {}
+                            } catch (IOException e) {
+                                ErrorMessage.getInstance().showErrorMessage("Errore durante l'aggiunta della scheda");
+                            }
                         } else {
                             System.out.println("Scheda non aggiunta");
                         }
@@ -100,7 +106,9 @@ public class CreateAllenamentoController {
                             try {
                                 //SceneSecondaryHandler.getInstance().aggiungiSchedaPersonaleScene(fieldCreateNameAllenamento.getText());
                                 SceneSecondaryHandler.getInstance().createSchedePersonaliScene();
-                            } catch (IOException ignoredEvent) {}
+                            } catch (IOException e) {
+                                ErrorMessage.getInstance().showErrorMessage("Errore durante l'aggiunta della scheda");
+                            }
                         } else {
                             System.out.println("Scheda non aggiunta");
                         }

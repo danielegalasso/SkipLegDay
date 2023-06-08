@@ -1,6 +1,7 @@
 package com.example.skiplegday.controller;
 
 import com.example.skiplegday.view.ConfirmationAlert;
+import com.example.skiplegday.view.ErrorMessage;
 import com.example.skiplegday.view.SceneSecondaryHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -15,11 +16,7 @@ import java.io.IOException;
 public class ShortCut {
     public static void addSaveShortCut(Node scene){
         CreateAllenamentoController myController = (CreateAllenamentoController) scene.getProperties().get("foo");
-        /*per fare questo ho dovuto inserire nell'fxml gli elementi <userData> <properties>
-        <userData> nel file FXML consente di memorizzare un oggetto arbitrario come dati utente associati a un nodo o a
-        un'interfaccia utente.<fx:reference> per fare riferimento a un altro elemento nell'albero del file FXML. il riferimento
-        source="controller" indica che sto memorizzando il controller dell'interfaccia utente come dati utente per l'elemento
-        <AnchorPane>. In questo modo,posso accedere al controller da altre par
+        /*per fare questo ho dovuto inserire nell'fxml <properties> 
 
          L'elemento <properties> nel file FXML consente di memorizzare coppie chiave-valore come proprietà associate a
          un nodo o a un'interfaccia utente.ti del tuo codice durante l'esecuzione dell'applicazione.Le proprietà sono
@@ -34,7 +31,7 @@ public class ShortCut {
                 try {
                     myController.saveAllenamentoAction(null);
                 } catch (IOException e) {
-                    throw new RuntimeException(e);
+                    ErrorMessage.getInstance().showErrorMessage("Errore nel salvataggio dell'allenamento");
                 }
                 event.consume(); // Consuma l'evento per evitare che venga gestito da altri componenti
             }
@@ -62,7 +59,7 @@ public class ShortCut {
                     SceneSecondaryHandler.getInstance().setLastScene();
                     SceneSecondaryHandler.getInstance().createCreateAllenamentoScene(""); //non lo chiamo dalla modifica ""
                 } catch (IOException e) {
-                    throw new RuntimeException(e);
+                    ErrorMessage.getInstance().showErrorMessage("Errore nel caricamento della scheda");
                 }
                 event.consume(); // Consuma l'evento per evitare che venga gestito da altri componenti
             }

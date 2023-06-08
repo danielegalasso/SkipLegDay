@@ -58,7 +58,7 @@ public class SceneSecondaryHandler {
                     try {
                         GridPaneAllenamentiHandler.getInstance().aggiungiSchedaPersonaleScene(schede.get(i));
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        ErrorMessage.getInstance().showErrorMessage("Errore nel caricamento delle schede personali");
                     }
                 }
             });
@@ -217,7 +217,7 @@ public class SceneSecondaryHandler {
                 allenamentoPersonaleController.setNomeAllenamento(schedaNome);
                 addAndCenter(node);
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                ErrorMessage.getInstance().showErrorMessage("Errore durante il caricamento dell'allenamento");
             }
         });
         sceneRoot.requestFocus();

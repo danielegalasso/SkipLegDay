@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
 
 public class AllenamentoSaver {
     //public void aggiungiAllenamento(String username, String scheda, String data, HashMap<String, ArrayList<Serie>> seriePerEsercizio)
@@ -24,6 +25,10 @@ public class AllenamentoSaver {
         allenamento.put(nomeEsercizio, serie);
     }
     public void loadAllenameto(String nomeAllenamento) throws SQLException {
+        if (!checkAllenamentoValido()) {
+            ErrorMessage.getInstance().showErrorMessage("Nessun esercizio inserito");
+            return;
+        }
         System.out.println(allenamento);
         EliminaAllenamentoService eliminaAllenamentoService = new EliminaAllenamentoService();
         eliminaAllenamentoService.setDati(UtenteAttuale.getInstance().getUsername(), getData(true));
@@ -38,17 +43,17 @@ public class AllenamentoSaver {
                 }
             });
         });
-
-        /*
-        AggiungiAllenamentoService aggiungiAllenamentoService = new AggiungiAllenamentoService();
-        aggiungiAllenamentoService.setDati(UtenteAttuale.getInstance().getUsername(), nomeAllenamento, getData(true), allenamento);
-        aggiungiAllenamentoService.restart();
-        aggiungiAllenamentoService.setOnSucceeded(event -> {
-            System.out.println("Aggiunto allenamento");
-        });
-        Database.getInstance().aggiungiAllenamento(UtenteAttuale.getInstance().getUsername(), nomeAllenamento, getData(true), allenamento);
-        //salva esterno, carico queste list nel database*/
-
+    }
+    private boolean checkAllenamentoValido(){
+        boolean nessunEsercizio = true;
+        Set<String> keys = allenamento.keySet();
+        for (String key : keys) {
+            if (allenamento.get(key).size() != 0) {
+                nessunEsercizio = false;
+                break;
+            }
+        }
+        return !nessunEsercizio;
     }
     private String getData(boolean formatoCorto){
         if (formatoCorto){

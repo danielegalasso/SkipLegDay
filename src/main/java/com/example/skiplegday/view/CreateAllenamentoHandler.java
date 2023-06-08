@@ -45,7 +45,9 @@ public class CreateAllenamentoHandler {
             for (String s: esercizi) {
                 try {
                     addvBoxIfUnique(s);
-                } catch (IOException ignoredEvent) {}
+                } catch (IOException e) {
+                    ErrorMessage.getInstance().showErrorMessage("Errore caricamento esercizi");
+                }
             }
         });
     }
@@ -62,7 +64,7 @@ public class CreateAllenamentoHandler {
                 try {
                     addvBoxIfUnique(s);
                 } catch (IOException e) {
-                    throw new RuntimeException(e);
+                    ErrorMessage.getInstance().showErrorMessage("Errore caricamento esercizi");
                 }
             },"Aggiungi");
             vb.getChildren().add(node1);

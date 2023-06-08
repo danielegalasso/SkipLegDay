@@ -55,7 +55,8 @@ public class SceneHandler {
             stage.setHeight(380);
             setCentre();
             stage.setResizable(false);
-        } catch (IOException ignored) {
+        } catch (IOException e) {
+            ErrorMessage.getInstance().showErrorMessage("Errore durante il caricamento della schermata di login");
         }
     }
     public void createHomeScene(){
@@ -70,7 +71,8 @@ public class SceneHandler {
             stage.setResizable(false);
             SceneSecondaryHandler.getInstance().createSchedePersonaliScene();
 
-        } catch (IOException ignored) {
+        } catch (IOException e) {
+            ErrorMessage.getInstance().showErrorMessage("Errore durante il caricamento della schermata home");
         }
     }
     public void createRegistraScene() {
@@ -80,7 +82,8 @@ public class SceneHandler {
             stage.setHeight(500);
             setCentre();
             stage.setResizable(false);
-        } catch (IOException ignored) {
+        } catch (IOException e) {
+            ErrorMessage.getInstance().showErrorMessage("Errore durante il caricamento della schermata di registrazione");
         }
     }
     private void setCentre() {

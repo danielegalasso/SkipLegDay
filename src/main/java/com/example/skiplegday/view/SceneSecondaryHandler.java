@@ -58,7 +58,8 @@ public class SceneSecondaryHandler {
                     try {
                         GridPaneAllenamentiHandler.getInstance().aggiungiSchedaPersonaleScene(schede.get(i));
                     } catch (IOException e) {
-                        ErrorMessage.getInstance().showErrorMessage("Errore nel caricamento delle schede personali");
+                        e.printStackTrace();
+                        //ErrorMessage.getInstance().showErrorMessage("Errore nel caricamento delle schede personali");
                     }
                 }
             });

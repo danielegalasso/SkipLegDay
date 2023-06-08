@@ -7,6 +7,7 @@ import com.example.skiplegday.view.GridPaneAllenamentiHandler;
 import com.example.skiplegday.view.SceneSecondaryHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.SnapshotParameters;
@@ -20,7 +21,7 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
@@ -38,6 +39,8 @@ public class SchedaPersonaleController {
     ImageView imageV;
     @FXML
     Button deleteSchedaButton;
+    @FXML
+    AnchorPane paneCard;
     boolean modalitàDefault=false;
     public void setLabelSchedaPersonalizzata(String text) {
         labelSchedaPersonalizzata.setText(text);
@@ -88,32 +91,45 @@ public class SchedaPersonaleController {
     public void setImageViewSchedaPersonalizzata(Image img) {
         imageV.setImage(img);
         imageV.setEffect(new DropShadow(5, Color.BLACK));
-        /*
-        // set a clip to apply rounded border to the original image.
-        Rectangle clip = new Rectangle(
-                //imageV.getImage().getWidth(), imageV.getImage().getHeight()
-                imageV.getFitWidth(), imageV.getFitHeight()
-        );
-        clip.setArcWidth(18);
-        clip.setArcHeight(18);
-        imageV.setClip(clip);
 
-        // snapshot the rounded image.
-        SnapshotParameters parameters = new SnapshotParameters();
-        parameters.setFill(Color.TRANSPARENT);
-        WritableImage image = imageV.snapshot(parameters, null);
 
-        // remove the rounding clip so that our effect can show through.
-        imageV.setClip(null);
-        // apply a shadow effect.
-        imageV.setEffect(new DropShadow(8, Color.BLACK));
-        // store the rounded image in the imageView.
-        imageV.setImage(image);
-        System.out.println(imageV.getFitWidth() + imageV.getFitHeight());*/
+        Color imageColor = getAverageColor(imageV);
+        paneCard.setStyle("-fx-background-color: " + toHexCode(imageColor) + ";");
+        //paneCard.setOpacity(0.5);
     }
-
     public void setSchedaDefault() {
         modalitàDefault=true;
         deleteSchedaButton.setVisible(false);
+    }
+    private Color getAverageColor(ImageView img) {
+        Image image = img.getImage();
+        int width = (int) image.getWidth();
+        int height = (int) image.getHeight();
+        double totalRed = 0;
+        double totalGreen = 0;
+        double totalBlue = 0;
+        int totalPixels = width * height;
+        // Ottenere il PixelReader associato all'immagine
+        javafx.scene.image.PixelReader pixelReader = image.getPixelReader();
+        // Calcolare la somma dei valori RGB di tutti i pixel
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                javafx.scene.paint.Color pixelColor = pixelReader.getColor(x, y);
+                totalRed += pixelColor.getRed();
+                totalGreen += pixelColor.getGreen();
+                totalBlue += pixelColor.getBlue();
+            }
+        }
+        // Calcolare i valori medi di RGB
+        double averageRed = totalRed / totalPixels;
+        double averageGreen = totalGreen / totalPixels;
+        double averageBlue = totalBlue / totalPixels;
+        return new Color(averageRed, averageGreen, averageBlue, 1.0);
+    }
+    private String toHexCode(Color color) {
+        return String.format("#%02X%02X%02X",
+                (int) (color.getRed() * 255),
+                (int) (color.getGreen() * 255),
+                (int) (color.getBlue() * 255));
     }
 }

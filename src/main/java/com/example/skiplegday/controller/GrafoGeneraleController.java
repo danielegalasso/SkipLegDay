@@ -35,12 +35,17 @@ public class GrafoGeneraleController {
     ListView<String> listViewEsercizi;
 
     private ObservableList<String> data;
-    private String username = UtenteAttuale.getInstance().getUsername(); //DOMENICO
+    private String username = UtenteAttuale.getInstance().getUsername();
     private String nomeEsercizio = "panca piana";
+
+    private LocalDate firstDate;
+    private LocalDate lastDate;
+
     private final PunteggiUtenteEsercizioService service = new PunteggiUtenteEsercizioService();
     @FXML
     void process(ActionEvent ignoredEvent) {
         nomeEsercizio = es.getText();
+        System.out.println("Bottone Send cliccato    " + username+ nomeEsercizio);
         service.setDati(username, nomeEsercizio);
         service.restart();
     }
@@ -50,7 +55,6 @@ public class GrafoGeneraleController {
         ArrayList<String> strings = InformazioniEsercizi.getInstance().getListaTuttiEsercizi();
         data = FXCollections.observableArrayList(strings);
         listViewEsercizi.setItems(data);
-
         listViewEsercizi.setVisible(false);
         es.textProperty().addListener((observable, oldValue, newValue) -> {
             // Filtra la lista in base al testo inserito nella barra di ricerca
@@ -63,52 +67,74 @@ public class GrafoGeneraleController {
             xAxis.setLabel("Giorno");
             yAxis.setLabel("Punteggio");
 
-            String nomeEsercizio;
+            String nomeEsercizio = "panca piana";
             String formattedStartDate;
             String formattedEndDate;
-            if(startDate.getValue() == null || endDate.getValue() == null){
-                formattedEndDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            if(startDate.getValue() == null){
+                startDate.setValue(LocalDate.now().minusMonths(3));
                 formattedStartDate = LocalDate.now().minusMonths(3).format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-            }
-            else{
+            } else{
                 formattedStartDate = startDate.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")); //start DATEPICKER
+            }
+            if (endDate.getValue() == null){
+                endDate.setValue(LocalDate.now());
+                formattedEndDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            } else{
                 formattedEndDate = endDate.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));     //end DATEPICKER
             }
+
+            if (es.getText() == "") {
+                es.setText(nomeEsercizio); ////!!!!!
+            }
+
+
             if(event.getSource().getValue() instanceof DataResult result) {
-                //System.out.println("a");
                 XYChart.Series<Number, Number> dataSeries = new XYChart.Series<>(); // definisco i dati come data e punteggio (nota: la data non è una stringa
                 // poiché poi faccio la conversione, faccio questo perché voglio poter avere
                 // la distanza che decido io nell'asse x, e lo faccio mediante le coordinate
 
-                LocalDate firstDate = LocalDate.parse(formattedStartDate);  //start DATEPICKER LocalDate
-                LocalDate lastDate = LocalDate.parse(formattedEndDate);  //end DATEPICKER LocalDate
+                firstDate = LocalDate.parse(formattedStartDate);  //start DATEPICKER LocalDate
+                lastDate = LocalDate.parse(formattedEndDate);  //end DATEPICKER LocalDate
 
                 double intervallo_giorni = ChronoUnit.DAYS.between(firstDate, lastDate);
                 ObservableList<XYChart.Data<Number, Number>> data = FXCollections.observableArrayList(); //è una lista di date e punteggi
-                double min = Double.MAX_VALUE; // mi trovo il minimo di quel range perché anche se la prima data in cui ho un dato dista vari giorni voglio che inizia dopo un giorno l'asse x
-                for (Data d : result.allElements()) {
-                    if (d.date().compareTo(formattedStartDate) >= 0 && d.date().compareTo(formattedEndDate) <= 0){
-                        LocalDate for_date = LocalDate.parse(d.date(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-                        long days = ChronoUnit.DAYS.between(firstDate, for_date);
-                        if (days < min) {
-                            min = days;
+
+                long maxInterval = 0;
+                if (intervallo_giorni > 0) {
+
+
+                    maxInterval = Long.MIN_VALUE;
+                    for (Data d : result.allElements()) {
+                        if (d.date().compareTo(formattedStartDate) >= 0 && d.date().compareTo(formattedEndDate) <= 0) {
+                            LocalDate for_date = LocalDate.parse(d.date(), DateTimeFormatter.ofPattern("yyyy-MM-dd")); //la data dell'allenamento reso dal for
+                            long days = ChronoUnit.DAYS.between(firstDate, for_date);
+                            if (days > maxInterval) {
+                                maxInterval = days;
+                            }
+
                         }
                     }
-                }
-                int slide_giorni = (int) (intervallo_giorni/25);
-                for (Data d : result.allElements()) {
-                    if (d.date().compareTo(formattedStartDate) >= 0 && d.date().compareTo(formattedEndDate) <= 0) {
-                        LocalDate for_date = LocalDate.parse(d.date(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-                        long days = ChronoUnit.DAYS.between(firstDate, for_date);
-                        //System.out.println(days);
-                        XYChart.Data<Number, Number> dataPoint = new XYChart.Data<>(days-min +slide_giorni, d.punteggio());
-                        data.add(dataPoint);
-                        // Personalizzazione dell'etichetta del punto con la data
-                        String dateLabel = for_date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-                        dataPoint.setNode(new HoveredThresholdNode(dateLabel));
+
+
+                    for (Data d : result.allElements()) {
+                        if (d.date().compareTo(formattedStartDate) >= 0 && d.date().compareTo(formattedEndDate) <= 0) {
+                            LocalDate for_date = LocalDate.parse(d.date(), DateTimeFormatter.ofPattern("yyyy-MM-dd")); //la data dell'allenamento reso dal for
+                            long days = ChronoUnit.DAYS.between(firstDate, for_date);
+                            XYChart.Data<Number, Number> dataPoint = new XYChart.Data<>(days, d.punteggio());
+
+
+                            data.add(dataPoint);
+                            // Personalizzazione dell'etichetta del punto con la data
+                            String dateLabel = for_date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                            dataPoint.setNode(new HoveredThresholdNode(dateLabel));
+                        }
                     }
+                    dataSeries.setData(data);
                 }
-                dataSeries.setData(data);
+
+
+                System.out.println(maxInterval);
+                lineChart.setPrefWidth(Math.max(750, 100*(maxInterval/30)));
                 lineChart.getData().clear();
                 lineChart.getData().add(dataSeries);
                 lineChart.setLegendVisible(false);
@@ -117,14 +143,13 @@ public class GrafoGeneraleController {
                     @Override
                     public String toString(Number object) {
                         long days = object.longValue();
-                        LocalDate date = firstDate.plusDays((long) (days+2 - slide_giorni));
+                        LocalDate date = firstDate.plusDays(days);
                         return date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
                     }
                     @Override
                     public Number fromString(String string) {
                         LocalDate date = LocalDate.parse(string, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-                        long days = ChronoUnit.DAYS.between(firstDate, date);
-                        return days;
+                        return ChronoUnit.DAYS.between(firstDate, date);
                     }
                 });
             }

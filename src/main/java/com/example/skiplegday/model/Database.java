@@ -130,6 +130,24 @@ public class Database{
 
         return pesoGruppiMuscolari;
     }
+
+    public ArrayList<String> getDatesOfTrainings(String username) throws SQLException {
+        ArrayList<String> dates = new ArrayList<>();
+        String query = "SELECT data FROM allenamenti WHERE username = ?";
+        ArrayList<String> temp = new ArrayList<>();
+        temp.add(username);
+        PreparedStatement stmt = prepareQuery(query, temp);
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {
+            String date = rs.getString("data");
+            dates.add(date);
+        }
+        rs.close();
+        stmt.close();
+        return dates;
+    }
+
+
     public boolean registerUser(String username, String password, String nome, String cognome, String sesso, String peso, String dataNascita, String altezza) throws SQLException {
         if (this.con != null && !this.con.isClosed()) {
             PreparedStatement stmt = this.con.prepareStatement("INSERT INTO utenti (username, password, nome, cognome, sesso, peso, dataNascita, altezza) VALUES(?, ?, ?, ?, ?, ?, ?, ?);");

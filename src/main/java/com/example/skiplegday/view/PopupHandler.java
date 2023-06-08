@@ -8,6 +8,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Worker;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -36,11 +37,13 @@ public class PopupHandler {
     private VBox vBoxDatiEsercizi;
     public Text nomeEsercizio;
     private Text errorText;
+    private LineChart<Number, Number> lineChart;
+    private NumberAxis AX;
+    @FXML
+    private NumberAxis AY;
 
     private String username = UtenteAttuale.getInstance().getUsername(); //DOMENICO
     private final PunteggiUtenteEsercizioService service = new PunteggiUtenteEsercizioService();
-
-
 
     private<T> T loadRootFromFXML(String resourceName) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(SceneHandler.class.getResource("/com/example/skiplegday/"+resourceName));
@@ -49,29 +52,23 @@ public class PopupHandler {
     public void addDatiEsercizio() throws IOException {
         vBoxDatiEsercizi.getChildren().add(loadRootFromFXML("kgRepRec.fxml"));
     }
-    public void setGraph(LineChart<Number, Number> lineChart, NumberAxis AX, NumberAxis AY){
-
+    public void loadGraph() {
         System.out.println(username + this.nomeEsercizio.getText());
-        service.setDati(username, "panca piana"); //username DOMENICO
+        service.setDati(username, nomeEsercizio.getText()); //username DOMENICO
         service.restart();
         service.setOnSucceeded(event ->  {
-            //System.out.println("i");
             AX.setLabel("Giorno");
             AY.setLabel("Punteggio");
 
             String formattedStartDate;
             String formattedEndDate;
-
             formattedEndDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
             formattedStartDate = LocalDate.now().minusMonths(3).format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
-
             if(event.getSource().getValue() instanceof DataResult result) {
-                //System.out.println("a");
                 XYChart.Series<Number, Number> dataSeries = new XYChart.Series<>(); // definisco i dati come data e punteggio (nota: la data non è una stringa
                 // poiché poi faccio la conversione, faccio questo perché voglio poter avere
                 // la distanza che decido io nell'asse x, e lo faccio mediante le coordinate
-
                 LocalDate firstDate = LocalDate.parse(formattedStartDate);  //start DATEPICKER LocalDate
                 LocalDate lastDate = LocalDate.parse(formattedEndDate);  //end DATEPICKER LocalDate
 
@@ -121,16 +118,23 @@ public class PopupHandler {
                 });
             }
         });
-        service.setOnFailed(event -> {System.err.println(event.getSource().getException().getMessage());});
+        service.setOnFailed(event -> {ErrorMessage.getInstance().showErrorMessage("Errore nel caricamento dei dati");});
     }
     public void setNomeEsercizio(String nomeEsercizio) {
         this.nomeEsercizio.setText(nomeEsercizio);
+        //una volta che setto il nome esercizio posso caricare il grafico
+        loadGraph();
     }
     public void setvBoxDatiEsercizi(VBox vBoxDatiEsercizi) { //mi carico il vBox dal controller col metodo initialize, in modo che posso gestirmi tutto da questa classe
         this.vBoxDatiEsercizi = vBoxDatiEsercizi;
     }
     public void setText(Text nomeEsercizio) { //per ottenere riferimento al nome dell'esercizio del controller
         this.nomeEsercizio = nomeEsercizio;
+    }
+    public void setGraph(LineChart<Number, Number> lineChart, NumberAxis AX, NumberAxis AY) {
+        this.lineChart = lineChart;
+        this.AX = AX;
+        this.AY = AY;
     }
     public void showErrorText(String text){
         errorText.setText(text);

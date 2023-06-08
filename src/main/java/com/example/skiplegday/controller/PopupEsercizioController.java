@@ -36,31 +36,24 @@ public class PopupEsercizioController {
     Button addDatiEsButton;
     @FXML
     Text textError;
-
-
     @FXML
     private LineChart<Number, Number> lineChart;
     @FXML
     NumberAxis AX;
     @FXML
     NumberAxis AY;
-
+    /*
     private ObservableList<String> data;
     private String username = UtenteAttuale.getInstance().getUsername(); //DOMENICO
-    private final PunteggiUtenteEsercizioService service = new PunteggiUtenteEsercizioService();
+    private final PunteggiUtenteEsercizioService service = new PunteggiUtenteEsercizioService();*/
 
     public void initialize() throws IOException {
         PopupHandler.getInstance().setvBoxDatiEsercizi(vBoxDatiEsercizi);
         PopupHandler.getInstance().setText(nomeEsercizio);
         PopupHandler.getInstance().setErrorText(textError);
         PopupHandler.getInstance().setGraph(lineChart, AX, AY);
-
-
-
+        //PopupHandler.getInstance().setGraph(lineChart, AX, AY,nomeEsercizio.getText());
     }
-
-
-
     public void addDatiEsAction(ActionEvent actionEvent) throws IOException {
         PopupHandler.getInstance().setSaved(false);   //ogni volta che aggiungo un esercizio devo salvare prima di uscire
         PopupHandler.getInstance().addDatiEsercizio();

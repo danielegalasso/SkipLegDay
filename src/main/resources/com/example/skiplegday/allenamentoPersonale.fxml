@@ -18,13 +18,10 @@
             <AnchorPane prefHeight="29.0" prefWidth="638.0" />
             <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#openTutorial" prefHeight="20.0" prefWidth="20.0">
                <children>
-                  <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="4.0" layoutY="3.0" onMouseClicked="#openTutorial" AnchorPane.bottomAnchor="0.33333333333333215" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.3333333333333357">
+                  <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="-3.0" layoutY="3.0" onMouseClicked="#openTutorial" AnchorPane.bottomAnchor="0.33" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.3333333333333357">
                      <image>
-                        <Image url="@icon/icongenerali/5349749_faq_faqs_help_info_information_icon.png" />
+                        <Image url="@icon/icongenerali/info.png" />
                      </image>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
                   </ImageView>
                </children>
                <cursor>

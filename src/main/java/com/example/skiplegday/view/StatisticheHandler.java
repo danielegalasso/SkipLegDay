@@ -86,7 +86,9 @@ public class StatisticheHandler {
                         System.out.println("Allenamento trovato");
                         try {
                             SceneSecondaryHandler.getInstance().setLastScene();
-                            SceneSecondaryHandler.getInstance().accediSchedaPersonalizzataScene((String) esercizi.get(0)); //newValue.toString()
+                            SceneSecondaryHandler.getInstance().createAllenamentoCalendarioScene(esercizi);
+                            //SceneSecondaryHandler.getInstance().setLastScene();
+                            //SceneSecondaryHandler.getInstance().accediSchedaPersonalizzataScene((String) esercizi.get(0)); //newValue.toString()
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }

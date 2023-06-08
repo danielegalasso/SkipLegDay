@@ -35,9 +35,6 @@ public class LettoreFile {
                     if (checkGrassetto(word)) {
                         toGrassetto(word);
                     }
-                    else if(checkLink(word)){
-                        toLink(word);
-                    }
                     else if (checkColore(word)) {
                         toColore(word);
                     }
@@ -53,14 +50,6 @@ public class LettoreFile {
             e.printStackTrace();
         }
         return textFlow;
-    }
-
-    private void toLink(String word) {
-        Hyperlink link = new Hyperlink(word.substring(1, word.length() - 1));
-        link.setOnAction(event -> {
-            double y = getYPositionOfLineContainingText(textFlow, "La creatività");
-        });
-        textFlow.getChildren().add(link);
     }
     private double getYPositionOfLineContainingText(TextFlow textFlow, String searchText) {
         double y = -1;
@@ -117,27 +106,4 @@ public class LettoreFile {
         }
         return result;
     }
-    public String[] leggiFile(String percorso) {
-        //ritorna in elemento 0 = nomeesercizio
-        //           elemento 1 = GruppoMuscolare
-        //           elemento 2 = tesoHTML
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(percorso), StandardCharsets.UTF_8))) {
-            String primaRiga = br.readLine();
-            StringBuilder testoBuilder = new StringBuilder();
-            String line;
-            while ((line = br.readLine()) != null) {
-                testoBuilder.append(line);
-                testoBuilder.append(System.lineSeparator());
-            }
-            String[] elementi = primaRiga.split(";");
-            String testoCompleto = testoBuilder.toString();
-            String[] res = new String[] {elementi[0], elementi[1], testoCompleto};
-            return res;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-
 }

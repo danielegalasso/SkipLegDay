@@ -1,23 +1,23 @@
 package com.example.skiplegday.controller;
 
-import com.example.skiplegday.model.AddSchedaService;
-import com.example.skiplegday.model.CheckSchedaInDbService;
-import com.example.skiplegday.model.RemoveSchedaService;
-import com.example.skiplegday.model.UtenteAttuale;
-import com.example.skiplegday.view.CreateAllenamentoHandler;
-import com.example.skiplegday.view.ErrorMessage;
-import com.example.skiplegday.view.GridPaneAllenamentiHandler;
-import com.example.skiplegday.view.SceneSecondaryHandler;
+import com.example.skiplegday.model.*;
+import com.example.skiplegday.view.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 
 import java.io.IOException;
 
@@ -32,6 +32,10 @@ public class CreateAllenamentoController {
     ScrollPane scrollPaneEsercizi;
     @FXML
     Button saveAllenamentoButton;
+    @FXML
+    AnchorPane infoPane;
+    @FXML
+    ImageView infoIcon;
     private static final String PROMPT_TEXT = "inserisci nome";
     public void saveAllenamentoAction(ActionEvent actionEvent) throws IOException {
         //aggiungo nel database creo fxml con label e immagine avente come nome questo textField  !!!!!!!!!!!!!!!!!!
@@ -115,6 +119,8 @@ public class CreateAllenamentoController {
         CreateAllenamentoHandler.getInstance().caricaEserciziVbox(fieldCreateNameAllenamento.getPromptText());
         CreateAllenamentoHandler.getInstance().setScegliNomeText(scegliNomeText);
         CreateAllenamentoHandler.getInstance().setSaveAllenamentoButton(saveAllenamentoButton);
+
+        InfoTooltip.agganciaTooltip(infoPane,"ShortCut:", "Ctrl + S per salvare l'allenamento");
     }
     public void indietroAction(ActionEvent actionEvent) {SceneSecondaryHandler.getInstance().CreateLastScene();}
 }

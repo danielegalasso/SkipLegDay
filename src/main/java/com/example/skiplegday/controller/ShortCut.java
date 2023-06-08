@@ -53,13 +53,13 @@ public class ShortCut {
         });
     }
 
-    public static void addNewSchedeShortCut(Parent scene){
-        SchedePersonaliController myController = (SchedePersonaliController) scene.getProperties().get("foo");
+    public static void addNewSchedeShortCut(Parent scene){ //qui non mi serve il controller devo solo cambiare scene
         KeyCombination newSchedeShortcut = new KeyCodeCombination(KeyCode.N, KeyCombination.CONTROL_DOWN);
         // Aggiunta dell'handler dell'evento "Ctrl + N" alla scena
         scene.setOnKeyPressed(event -> {
             if (newSchedeShortcut.match(event)) {
                 try {
+                    SceneSecondaryHandler.getInstance().setLastScene();
                     SceneSecondaryHandler.getInstance().createCreateAllenamentoScene(""); //non lo chiamo dalla modifica ""
                 } catch (IOException e) {
                     throw new RuntimeException(e);

@@ -1,10 +1,12 @@
 package com.example.skiplegday.controller;
 
 import com.example.skiplegday.view.GridPaneAllenamentiHandler;
+import com.example.skiplegday.view.InfoTooltip;
 import com.example.skiplegday.view.SceneSecondaryHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 
 import java.io.IOException;
@@ -14,6 +16,8 @@ public class SchedePersonaliController {
     GridPane gridPane;
     @FXML
     Button aggiungiEsercizioButton;
+    @FXML
+    AnchorPane infoPane;
     public void aggiungiEsercizioAction(ActionEvent actionEvent) throws IOException {
         //SceneSecondaryHandler.getInstance().aggiungiSchedaPersonaleScene();  non la devo aggiungere
         //prima la creo, e quando premo salva la aggiungo
@@ -23,5 +27,6 @@ public class SchedePersonaliController {
     public void initialize(){
         //SceneSecondaryHandler.getInstance().setGridPaneSchede(gridPane);
         GridPaneAllenamentiHandler.getInstance().setGridPaneSchede(gridPane);
+        InfoTooltip.agganciaTooltip(infoPane,"ShortCut:","CTRL + N per aggiungere una scheda");
     }
 }

@@ -177,7 +177,7 @@ public class SceneSecondaryHandler {
 
     //CREA SCHEDA PERSONALIZZATA ------- (ALLENAMENTI PERSONALIZZATI)---
     public void createCreateAllenamentoScene(String s) throws IOException {
-        Node node = (Node) loadRootFromFXML("createAllenamento.fxml");
+        Node node = (Node) loadRootFromFXMLandSetController("createAllenamento.fxml");
         CreateAllenamentoHandler.getInstance().caricaManualeEsercizi();
         if (!s.equals("")){ //se non è vuoto vuol dire che è stato chiamato dalla modifica
             CreateAllenamentoHandler.getInstance().caricaNomeAllenamento(s);
@@ -269,6 +269,13 @@ public class SceneSecondaryHandler {
         FXMLLoader fxmlLoader = new FXMLLoader(SceneHandler.class.getResource("/com/example/skiplegday/"+resourceName));
         return fxmlLoader.load();
     }
+    private Node loadRootFromFXMLandSetController(String resourceName) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(SceneHandler.class.getResource("/com/example/skiplegday/"+resourceName));
+        Node n= fxmlLoader.load();
+        n.getProperties().put("foo", fxmlLoader.getController());
+        return n;
+    }
+
     private void addAndCenter(Node node){
         sceneRoot.getChildren().setAll(node);
         /*

@@ -30,20 +30,10 @@ public class InformazioniEsercizi {
         nomiGruppiMuscolari = (ArrayList<String>) risultato.get(2);
         descrizioni = (HashMap<String, String>) risultato.get(3);*/
     }
-    public HashMap<String, ArrayList<String>> getHashMap() {
-        return hashMap;
-    }
     public ArrayList<String> getListaTuttiEsercizi() {
         return ListaTuttiEsercizi;
     }
-    public ArrayList<String> getNomiGruppiMuscolari() {
-        return nomiGruppiMuscolari;
-    }
     public HashMap<String, String> getDescrizioni() {
         return descrizioni;
-    }
-    public String getImageEsercizio(String name) {
-        String path = getClass().getResource("/com/example/skiplegday/icon/petto/" + name + ".png").toExternalForm();
-        return path;
     }
 }

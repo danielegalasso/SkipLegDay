@@ -33,9 +33,7 @@ public class SceneSecondaryHandler {
     private SceneSecondaryHandler() {}
     public static SceneSecondaryHandler getInstance() {return instance;}
     private AnchorPane sceneRoot;
-
     private VBox vBox;  //vbox nelle schede di default
-    private HBox hBoxHome; //prova mai implementato(?)
     private LinkedList<Node> lastScene= new LinkedList<>();
     private Map<String,Parent> sceneMap= new HashMap<>();
 
@@ -121,28 +119,27 @@ public class SceneSecondaryHandler {
     }
     //FARE OBIETTIVI
     public void createDatiPersonaliScene() throws IOException {
-        Node node = (Node) loadRootFromFXML("datiPersonali.fxml");
+        Node node = loadRootFromFXML("datiPersonali.fxml");
         addAndCenter(node);
         sceneRoot.requestFocus();
         simulateTabPress();
     }
     public void createValutaciScene() throws IOException {
-        Node node = (Node) loadRootFromFXML("recensione.fxml");
+        Node node = loadRootFromFXML("recensione.fxml");
         addAndCenter(node);
         sceneRoot.requestFocus();
         simulateTabPress();
     }
     //SCHEDE DEFAULT---------------------------------------------
     public void createSchedaDefaultNameScene(String text)  throws IOException{
-        Node node = (Node) loadRootFromFXML("vBoxEsercizi.fxml");
+        Node node = loadRootFromFXML("vBoxEsercizi.fxml");
         aggiungiSchedaPredefinita(text+".txt");
-        //vBox.getChildren().add(setControllerAndLoadFromFXML("allenamento.fxml","principiante.txt"));
         addAndCenter(node);
     }
     private void aggiungiSchedaPredefinita(String schedaName) throws IOException {
         List<List<String>> l=LettoreFile.getInstance().leggiSchedaDefault("files/"+schedaName);
         for(int i=0;i<l.size();i++) {
-            Node allenamento= (Node) loadRootFromFXML("allenamento.fxml");
+            Node allenamento= loadRootFromFXML("allenamento.fxml");
             //allenamento.setPrefHeight(600);
             AllenamentoHandler.getInstance().setAllenamentoPredef(l.get(i));
             //allenamento.setEffect(new DropShadow( 15, Color.DARKSLATEGREY));
@@ -162,7 +159,7 @@ public class SceneSecondaryHandler {
 
     //CREA SCHEDA PERSONALIZZATA ------- (ALLENAMENTI PERSONALIZZATI)---
     public void createCreateAllenamentoScene(String s) throws IOException {
-        Node node = (Node) loadRootFromFXMLandSetController("createAllenamento.fxml");
+        Node node = loadRootFromFXMLandSetController("createAllenamento.fxml");
         CreateAllenamentoHandler.getInstance().caricaManualeEsercizi();
         if (!s.equals("")){ //se non è vuoto vuol dire che è stato chiamato dalla modifica
             CreateAllenamentoHandler.getInstance().caricaNomeAllenamento(s);
@@ -283,7 +280,6 @@ public class SceneSecondaryHandler {
     public void setHomeSceneRoot(AnchorPane sceneRoot) {
         this.sceneRoot = sceneRoot;
     }
-    public void setHBoxHome(HBox hBoxHome) {this.hBoxHome = hBoxHome;} //è inutile?? mai implementata(?)
     public void setSchedeDefaultSceneRoot(VBox vBox) { this.vBox = vBox;}
     //public void setScrollPane(ScrollPane scrollPane) {this.scrollPane = scrollPane;}
     public void clearAll() {

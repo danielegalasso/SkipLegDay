@@ -73,7 +73,6 @@ public class AllenamentoController {
     }
     public void saveAllenamentoAction(ActionEvent actionEvent) throws SQLException {
         int res = ConfirmationAlert.showConfirmationAlert("Vuoi salvare i tuoi progressi?","Salva","Annulla");
-
         if (res==1){
             System.out.println("salvato");
             AllenamentoSaver.getInstance().loadAllenameto(idGruppoMuscolare.getText()); //in base al nome che gli metto come promp text
@@ -85,9 +84,13 @@ public class AllenamentoController {
     private ArrayList<String> getEserciziAllenamentoDefault(){
         ArrayList<String> eserciziAllenamentoDefault = new ArrayList<>();
         vBoxListaEsercizi.getChildren().forEach(node -> {
-            TextFlow textFlow = ((TextFlow) node.lookup("#esercizioTextFlow"));
-            String nomeEsercizio = ((Text) textFlow.getChildren().get(0)).getText();
-            eserciziAllenamentoDefault.add(nomeEsercizio);
+            if (node.lookup("#esercizioTextFlow") instanceof TextFlow textFlow){
+                String nomeEsercizio = ((Text) textFlow.getChildren().get(0)).getText();
+                eserciziAllenamentoDefault.add(nomeEsercizio);
+            }
+            else{
+                ErrorMessage.getInstance().showErrorMessage("Errore durante il caricamento della pagina");
+            }
         });
         return eserciziAllenamentoDefault;
     }

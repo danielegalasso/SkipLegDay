@@ -1,5 +1,6 @@
 package com.example.skiplegday.controller;
 
+import com.example.skiplegday.model.RegisterUserService;
 import com.example.skiplegday.model.RemoveUserService;
 import com.example.skiplegday.model.UtenteAttuale;
 import com.example.skiplegday.view.ConfirmationAlert;
@@ -34,6 +35,17 @@ public class DatiPersonaliController {
         //salva i dati nel DB
         int res=ConfirmationAlert.showConfirmationAlert("Sicuro di voler salvare i dati? I dati verranno salvati nel database","Annulla","Salva");
             if (res==0){
+                RemoveUserService rem = new RemoveUserService();
+                //rem.setDati(UtenteAttuale.getInstance().getUsername()); //senza password
+                rem.restart();
+                rem.setOnSucceeded(event -> {
+                    if (rem.getValue()) {
+                        RegisterUserService reg = new RegisterUserService();
+                        //reg.setDati(nomeField.getText(),cognomeField.getText(),genereField.getValue(),dataNascitaField.getValue(),altezzaField.getText(),pesoField.getText(),UtenteAttuale.getInstance().getUsername(),UtenteAttuale.getInstance().getPassword());
+                    } else {
+                        ErrorMessage.getInstance().showErrorMessage("Errore durante il salvataggio dei dati");
+                    }
+                });
             }
     }
     public void profiloAnnullaAction(){

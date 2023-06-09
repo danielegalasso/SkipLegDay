@@ -80,7 +80,7 @@ public class CreateAllenamentoHandler {
             vb.getChildren().add(text);
             ArrayList<String> esercizi=esGruppoMusc.get(s);
             for (String es:esercizi){
-                Node node1 = (Node) loadRootFromFXML("esercizio.fxml");
+                Node node1 = loadRootFromFXML("esercizio.fxml");
                 EsercizioHandler.getInstance().setDescrizioneEsercizio(loadImage(es),new DescrizioneEsercizio(es,true));
                 EsercizioHandler.getInstance().setOnMouseClickedEvent(event -> {
                     try {
@@ -103,19 +103,23 @@ public class CreateAllenamentoHandler {
                 /*
                 String textField = ((TextFlow) parent.getChildrenUnmodifiable().get(1)).getChildren().get(0).toString();
 //textField: [Text[text="panca piana manubri", x=0.0, y=0.0, alignment=LEFT, origin=BASELINE, boundsType=LOGICAL, font=Font[name=System Regular, family=System, style=Re*/
-                TextFlow textFlow = (TextFlow) parent.getChildrenUnmodifiable().get(1);
-                Text textNode = (Text) textFlow.getChildren().get(0);
-                String textField = textNode.getText();
-                System.out.println("textField: "+textField);
-                if (textField.equals(text)) {
-                    isUnique = false;
-                    break;
+                if (parent.getChildrenUnmodifiable().get(1) instanceof TextFlow textFlow){
+                    Text textNode = (Text) textFlow.getChildren().get(0);
+                    String textField = textNode.getText();
+                    System.out.println("textField: "+textField);
+                    if (textField.equals(text)) {
+                        isUnique = false;
+                        break;
+                    }
+                }
+                else {
+                    ErrorMessage.getInstance().showErrorMessage("Errore caricamento esercizi");
                 }
             }
         }
         System.out.println("isUnique: "+isUnique);
         if (isUnique) {  //SE NON è PRESENTE CREO L'HOB CON ESERCIZIO E BUTTON RIMUOVI
-            Node node2 = (Node) loadRootFromFXML("esercizio.fxml");
+            Node node2 = loadRootFromFXML("esercizio.fxml");
             EsercizioHandler.getInstance().setDescrizioneEsercizio(loadImage(text),new DescrizioneEsercizio(text,true));
             EsercizioHandler.getInstance().setOnMouseClickedEvent(event -> {
                 vBoxTuoAllenamento.getChildren().remove(node2);
@@ -129,10 +133,14 @@ public class CreateAllenamentoHandler {
         for (Node n: children) {
             if (n instanceof Parent) {  //nodoEsercizio:  image (0)  textFlow(1)   button(2
                 Parent parent = (Parent) n;
-                TextFlow textFlow = (TextFlow) parent.getChildrenUnmodifiable().get(1);
-                Text textNode = (Text) textFlow.getChildren().get(0); //sia DescrTExt che sercizio ereditano da Text
-                String textField = textNode.getText();
-                esercizi.add(textField);
+                if (parent.getChildrenUnmodifiable().get(1) instanceof TextFlow textFlow){
+                    Text textNode = (Text) textFlow.getChildren().get(0);  //sia DescrTExt che sercizio ereditano da Text
+                    String textField = textNode.getText();
+                    esercizi.add(textField);
+                }
+                else {
+                    ErrorMessage.getInstance().showErrorMessage("Errore caricamento esercizi");
+                }
             }
         }
         return esercizi;

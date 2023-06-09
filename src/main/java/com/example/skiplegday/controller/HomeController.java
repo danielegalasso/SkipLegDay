@@ -25,8 +25,6 @@ public class HomeController {
     private Button settingsButton;
     @FXML
     private ContextMenu settingsMenu;
-    @FXML
-    private HBox hBoxHome;
     public void logoutAction(ActionEvent actionEvent) {
         //model.logout();  daniele galasso   devo salvare qualcosa nell'account utente??
         SceneHandler.getInstance().createLoginScene();
@@ -46,7 +44,7 @@ public class HomeController {
         SceneSecondaryHandler.getInstance().createSchedePersonaliScene();
     }
     public void homeAction(ActionEvent actionEvent) throws IOException {
-        SceneSecondaryHandler.getInstance().createEserciziScene();  //devo tornare al principale, forse questa è una schifezza
+        SceneSecondaryHandler.getInstance().createSchedePredefiniteScene();  //devo tornare al principale, forse questa è una schifezza
     }
     public void profiloAction(ActionEvent actionEvent) throws IOException {
         SceneSecondaryHandler.getInstance().createDatiPersonaliScene();
@@ -79,6 +77,5 @@ public class HomeController {
     public void initialize() {
         // Imposta l'AnchorPane come campo privato della classe SceneSecondaryHandler
         SceneSecondaryHandler.getInstance().setHomeSceneRoot(sceneRoot);
-        SceneSecondaryHandler.getInstance().setHBoxHome(hBoxHome);
     }
 }

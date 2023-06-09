@@ -3,6 +3,7 @@ package com.example.skiplegday.controller;
 import com.example.skiplegday.model.RemoveSchedaService;
 import com.example.skiplegday.model.UtenteAttuale;
 import com.example.skiplegday.view.ConfirmationAlert;
+import com.example.skiplegday.view.ErrorMessage;
 import com.example.skiplegday.view.GridPaneAllenamentiHandler;
 import com.example.skiplegday.view.SceneSecondaryHandler;
 import javafx.event.ActionEvent;
@@ -66,8 +67,12 @@ public class SchedaPersonaleController {
             Parent schedaPersonale = deleteSchedaButton.getParent(); // Ottieni il nodo padre (schedaPersonale.fxml)
             int row = GridPane.getRowIndex(schedaPersonale); // Ottieni l'indice di riga del nodo
             int col = GridPane.getColumnIndex(schedaPersonale); // Ottieni l'indice di colonna del nodo
-            GridPane gridPane = (GridPane) schedaPersonale.getParent(); // Ottieni il nodo padre (GridPane)
-            removeAndShiftNodes(gridPane, row, col);
+            if (schedaPersonale.getParent() instanceof GridPane gridPane){ // Ottieni il nodo padre (GridPane)
+                removeAndShiftNodes(gridPane, row, col);
+            }
+            else{
+                ErrorMessage.getInstance().showErrorMessage("Errore durante l'eliminazione della scheda");
+            }
         });
     }
     public void removeAndShiftNodes(GridPane gridPane, int row, int column) {

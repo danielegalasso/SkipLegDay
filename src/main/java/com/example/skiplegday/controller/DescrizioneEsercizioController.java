@@ -10,6 +10,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -24,6 +25,10 @@ public class DescrizioneEsercizioController {
     AnchorPane paneCloseDesc;
     @FXML
     ImageView iconCloseDesc;
+    @FXML
+    AnchorPane paneExit;
+    @FXML
+    ImageView iconExit;
     public void indietroAction(ActionEvent actionEvent) {
     }
     public void loadDati(String nomeEsercizio) throws IOException {
@@ -41,6 +46,12 @@ public class DescrizioneEsercizioController {
     }
     public void buttonInvisibile() {
         paneCloseDesc.setVisible(false);
-        iconCloseDesc.setVisible(false);
+        paneExit.setVisible(true);
+        //iconCloseDesc.setVisible(false);
+    }
+
+    public void exitAction(MouseEvent mouseEvent) {
+        if (paneExit.getScene().getWindow() instanceof Stage stage)
+            stage.close();
     }
 }

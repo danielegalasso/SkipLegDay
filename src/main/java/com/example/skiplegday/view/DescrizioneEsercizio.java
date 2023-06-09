@@ -11,6 +11,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class DescrizioneEsercizio extends Text {
     public DescrizioneEsercizio(String text,boolean popup) {
@@ -27,6 +28,7 @@ public class DescrizioneEsercizio extends Text {
                     c.loadDati(this.getText());
                     c.buttonInvisibile();
                     Stage popupStage = new Stage();
+                    popupStage.initStyle(StageStyle.UNDECORATED);
                     popupStage.setScene(scene);
                     popupStage.show();
                 }

@@ -11,8 +11,8 @@
    <children>
       <Text fx:id="nomeEsercizioSpiegazione" layoutX="24.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="275.86328125" AnchorPane.topAnchor="21.05078125" />
       <ImageView fx:id="immagineEsercizioSpiegazione" fitHeight="57.0" fitWidth="57.0" layoutX="90.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true" />
-      <ScrollPane fx:id="scrollPaneEsercizioSpiegazione" layoutX="14.0" layoutY="123.0" prefHeight="475.0" prefWidth="438.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" />
-      <AnchorPane fx:id="paneCloseDesc" layoutX="400.0" layoutY="8.0" onMouseClicked="#closeDescAction" prefHeight="25.0" prefWidth="25.0">
+      <ScrollPane fx:id="scrollPaneEsercizioSpiegazione" layoutX="14.0" layoutY="123.0" prefHeight="475.0" prefWidth="438.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="78.66666666666669" />
+      <AnchorPane fx:id="paneCloseDesc" layoutX="400.0" layoutY="8.0" onMouseClicked="#closeDescAction" prefHeight="25.0" prefWidth="25.0" AnchorPane.rightAnchor="4.666666666666668" AnchorPane.topAnchor="10.0">
          <children>
             <ImageView fx:id="iconCloseDesc" fitHeight="25.0" fitWidth="25.0" layoutX="3.0" layoutY="5.0" onMouseClicked="#closeDescAction" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <image>
@@ -26,6 +26,18 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
+      </AnchorPane>
+      <AnchorPane fx:id="paneExit" layoutX="410.0" layoutY="18.0" onMouseClicked="#exitAction" prefHeight="25.0" prefWidth="25.0" visible="false" AnchorPane.rightAnchor="4.666666666666668" AnchorPane.topAnchor="10.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <children>
+            <ImageView fx:id="iconExit" fitHeight="25.0" fitWidth="25.0" onMouseClicked="#exitAction">
+               <image>
+                  <Image url="@icon/icongenerali/9110796_x_icon.png" />
+               </image>
+            </ImageView>
+         </children>
       </AnchorPane>
    </children>
 </AnchorPane>

@@ -46,19 +46,13 @@ public class Esercizio extends Text{  //la classe esercizio non è altro che un 
                 ErrorMessage.getInstance().showErrorMessage("Errore nel caricamento dell'esercizio");
             }
         });
-        setOnMouseEntered(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                setFill(Color.BLUE);
-                setCursor(Cursor.HAND);
-            }
+        setOnMouseEntered(event -> {
+            setFill(Color.BLUE);
+            setCursor(Cursor.HAND);
         });
-        setOnMouseExited(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                setFill(Color.BLACK);
-                setCursor(Cursor.DEFAULT);
-            }
+        setOnMouseExited(event -> {
+            setFill(Color.BLACK);
+            setCursor(Cursor.DEFAULT);
         });
     }
     private<T> T loadRootFromFXML(String resourceName) throws IOException {

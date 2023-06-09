@@ -25,7 +25,7 @@ public class AllenamentoHandler {
     public void setAllenamentoPers(List<String> l) throws IOException {
         idGruppoMuscolare.setText(l.get(0));
         for(int i=1;i<l.size();++i){
-            Node node = (Node) loadRootFromFXML("esercizio.fxml");
+            Node node = loadRootFromFXML("esercizio.fxml");
             EsercizioHandler.getInstance().setEsercizio(loadImage(l.get(i)),new Esercizio(l.get(i)),false);
             vBoxListaEsercizi.getChildren().add(node);
         }
@@ -37,7 +37,7 @@ public class AllenamentoHandler {
     public void setAllenamentoPredef(List<String> l) throws IOException {
         idGruppoMuscolare.setText(l.get(0));
         for(int i=1;i<l.size();++i){
-            Node node = (Node) loadRootFromFXML("esercizio.fxml");
+            Node node = loadRootFromFXML("esercizio.fxml");
             EsercizioHandler.getInstance().setEsercizio(loadImage(l.get(i)),new Esercizio(l.get(i)),true);
             vBoxListaEsercizi.getChildren().add(node);
         }

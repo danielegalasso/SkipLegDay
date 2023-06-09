@@ -1,5 +1,6 @@
 package com.example.skiplegday.controller;
 
+import com.example.skiplegday.view.ErrorMessage;
 import com.example.skiplegday.view.EsercizioHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,8 +20,13 @@ public class EsercizioController {
     @FXML
     private Button removeEsercizio;
     public void removeEsercizioAction(ActionEvent actionEvent) {
-        ((VBox)((Pane) removeEsercizio.getParent()).getParent()).getChildren().remove(removeEsercizio.getParent());
-        //DEVO RIMUOVERE DA DATABASEEEEEE
+        if (removeEsercizio.getParent() instanceof Pane pane) {
+            if (pane.getParent() instanceof VBox vBox) {
+                vBox.getChildren().remove(pane);
+                return;
+            }
+        }
+        ErrorMessage.getInstance().showErrorMessage("Errore nella rimozione dell'esercizio");
     }
     public void initialize(){
         EsercizioHandler.getInstance().collegaControllerHandlerEsercizio(imageEsercizio,esercizioTextFlow,removeEsercizio);

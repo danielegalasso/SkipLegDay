@@ -30,7 +30,7 @@ public class ManualeEserciziHandler {
         ArrayList<String> strings = InformazioniEsercizi.getInstance().getListaTuttiEsercizi();
         TextFlow t = new TextFlow();
         for (String s: strings) {
-            t.getChildren().add(new DescrizioneEsercizio(s,false));  //qua ci va DESCRIZIONEESERCIZIO !!!!
+            t.getChildren().add(new DescrizioneEsercizio(s,false)); //false e true per capire se deve aprire popup o meno
             t.getChildren().add(new Text("\n"));
         }
         scrollPane.setContent(t);

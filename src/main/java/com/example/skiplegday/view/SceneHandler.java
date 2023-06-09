@@ -22,7 +22,7 @@ public class SceneHandler {
     public static SceneHandler getInstance() {return instance;}
     private Stage stage;
     private Scene scene;
-    private String theme = "light";                                                  //da aggiungere
+    private String theme = "dark";                                                  //da aggiungere
     private static final String RESOURCE_PATH = "/com/example/skiplegday/";         //da aggiungere
     private static final String CSS_PATH = RESOURCE_PATH + "css/";                  //da aggiungere
     private static final String FONTS_PATH = RESOURCE_PATH + "fonts/";              //da aggiungere
@@ -34,7 +34,7 @@ public class SceneHandler {
             this.stage.initStyle(StageStyle.UNDECORATED);
             createLoginScene();  //funzione che imposta la scene dello SceneHandler
             loadFonts();            //da aggiungere
-            //setCSSForScene(scene);  //da aggiungere
+            setCSSForScene(scene);  //da aggiungere
             this.stage.setScene(scene);
             this.stage.show();
         }
@@ -78,6 +78,7 @@ public class SceneHandler {
             SceneSecondaryHandler.getInstance().createSchedePersonaliScene();
 
         } catch (IOException e) {
+            e.printStackTrace();
             ErrorMessage.getInstance().showErrorMessage("Errore durante il caricamento della schermata home");
         }
     }
@@ -144,5 +145,12 @@ public class SceneHandler {
     }
     public void resetRegisterPhase2() {
         nexttSceneRegisterP2 = null;
+    }
+    public void setTheme(String theme){
+        this.theme = theme;
+        setCSSForScene(scene);
+    }
+    public String getTheme(){
+        return theme;
     }
 }

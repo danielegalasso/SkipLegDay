@@ -1,9 +1,11 @@
 * {
-  primaryBackgroundColor: #333333;      //da modificare
-  secondaryBackgroundColor: #1f1f1f;    //da modificare
+  primaryBackgroundColor: #333333;
+  secondaryBackgroundColor: #1f1f1f;
   primarySelectionColor: #004ec4;
-  secondarySelectionColor: #004ec4;
-  tertiarySelectionColor: #004ec4;
+  lowContrastColor: #1C1C1C;
+  fillerColor: #FFFFFF;
+  confirmColor: green;
+  annulColor: white;
   imagesColor: #dcdcdd;
   imagesBorderColor: #bfbfbf;
   textColor: #dcdcdd;

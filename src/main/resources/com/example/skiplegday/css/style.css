@@ -1,15 +1,138 @@
-*{
-  -fx-text-fill: textColor;
-  -fx-background-color: primaryBackgroundColor;
+.login-pane,
+.register-pane,
+.main-pane{
+    -fx-background-color: primaryBackgroundColor;
+}
+.login-pane *,
+.register-pane *,
+#textAreaRecensione{
+    -fx-text-fill: textColor;
+}
+.top-pane {
+    -fx-border-color: transparent transparent secondaryBackgroundColor transparent;
+    -fx-border-width: 0 0 2 0;
+}
+.home-vbox{
+    -fx-border-color: transparent secondaryBackgroundColor transparent transparent;
+    -fx-border-width: 0 2 0 0;
+}
+.button {
+    -fx-cursor: hand;
 }
 
-.split-pane > .split-pane-divider {
-    -fx-padding: 0 0 0 0.10em;
-    -fx-background-color: lineColor;
-    -fx-background-insets: 0;
+.button-color,
+.label-color,
+.menu-color *{
+    -fx-text-fill: textColor;
 }
 
-.text-field * {
+.login-pane .button,
+.register-pane .button {
+    -fx-background-color: secondaryBackgroundColor;
+    -fx-background-radius: 5px;
+}
+
+.left-home-button:hover {                                   /*'left-button' è già utilizzato dal datePicker */
+    -fx-background-color: secondaryBackgroundColor;
+}
+
+.left-home-button:hover,
+.home-button:hover,
+.login-pane .button:hover,
+.register-pane .button:hover {
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+.left-home-button:pressed,
+.home-button:pressed,
+.login-pane .button:pressed,
+.register-pane .button:pressed {
+    -fx-scale-x: 0.95;
+    -fx-scale-y: 0.95;
+}
+
+.left-home-button {
+    -fx-font-weight: bold;
+    -fx-background-color: transparent;
+}
+
+.left-home-button:focused{
+    -fx-background-color: secondaryBackgroundColor;
+}
+
+.home-button{
+    -fx-background-color: secondaryBackgroundColor;
+    -fx-background-radius: 5px;
+}
+
+#settingsButton {
+    -fx-background-radius: 50%;
+    -fx-background-color: transparent;
+}
+
+#settingsButton:hover,
+#settingsButton:focused {
+    -fx-background-color: secondaryBackgroundColor;
+}
+
+#settingsMenu * {
+    -fx-background-color: primaryBackgroundColor;
+}
+
+.elimina-button{
+    -fx-background-color: errorTextColor;
+    -fx-background-radius: 5px;
+}
+
+.salva-button {
+    -fx-background-color: confirmColor;
+    -fx-background-radius: 5px;
+}
+
+.annulla-button {
+    -fx-background-color: annulColor;
+    -fx-background-radius: 5px;
+}
+
+#labelRecensione *{
+    -fx-font-size: 36px;
+    -fx-font-weight: bold;
+}
+
+#labelFirstRecensione *{
+    -fx-font-size: 18px;
+}
+
+#labelSecondRecensione *{
+    -fx-font-size: 16px;
+}
+
+#labelSliderRecensione *{
+    -fx-font-size: 48px;
+    -fx-font-weight: bold;
+}
+
+.slider .low-value,
+.slider .high-value {
+    -fx-text-fill: red; /* Colore del testo per i valori minimi e massimi */
+}
+
+.slider .thumb {
+    -fx-background-color: fillerColor; /* Imposta il colore del pollice*/
+}
+
+.slider .track {
+    -fx-background-color: lowContrastColor; /* Imposta il colore della traccia */
+}
+
+#textAreaRecensione * {
+    -fx-background-color: secondaryBackgroundColor;
+    -fx-font-size: 14px;
+}
+
+.login-pane .text-field,
+.register-pane .text-field{
     -fx-background-color: secondaryBackgroundColor;
     -fx-background-radius: 5px;
 }
@@ -18,28 +141,6 @@
     -fx-fill: errorTextColor;
     -fx-font-size: 13px;
     -fx-font-weight: bold;
-}
-
-.button {
-    -fx-background-color: secondaryBackgroundColor;
-    -fx-background-radius: 5px;
-}
-
-.circular-button {
-    -fx-background-radius: 50%;
-}
-
-.left-button {
-    -fx-font-weight: bold;
-}
-
-.button:hover {
-    -fx-background-color: primarySelectionColor;
-    -fx-cursor: hand;
-}
-/*  da aggiungere */
-.button:focused {
-    -fx-background-color: primarySelectionColor;
 }
 
 .table-view * {
@@ -117,16 +218,84 @@
 .icons-color {
     -fx-icon-color: imagesColor;
 }
-
 /*da aggiungere*/
 #principianteImage, #intermedioImage, #avanzatoImage, #corpoLiberoImage, #totalBodyImage, #resistenzaImage {
   -fx-border-color: imagesBorderColor;
   -fx-border-width: 3px;
   -fx-border-radius: 20%;
 }
-
-
 /*da aggiungere*/
 img:hover {
 /*  border-color: imagesBorderColor;      /*controllare se funziona*/
 }
+
+
+
+.date-picker .arrow-button {
+	-fx-background-color: grey;
+	-fx-background-radius: 0;
+}
+.date-picker .arrow-button:hover {
+	-fx-background-color: black;
+}
+.date-picker .arrow-button .arrow {
+	-fx-background-color: white;
+}
+.date-picker .cell {
+	-fx-background-color: grey;
+}
+.date-picker .cell:hover {
+	-fx-background-color: -fx-light-grey-color;
+}
+.date-picker .cell:focused {
+	-fx-background-color: -fx-light-grey-color;
+}
+.date-picker .selected {
+	-fx-background-color: -fx-primary-color; /*primary color*/
+	-fx-text-fill: white;
+}
+.date-picker .selected:focused {
+	-fx-background-color: primaryBackgroundColor;
+	-fx-text-fill: black;
+}
+.date-picker-popup  {
+	-fx-border-color: transparent;
+}
+.date-picker-popup .month-year-pane {
+	-fx-background-color: black; /*-fx-primary-color*/
+}
+.date-picker-popup .month-year-pane .label {
+	-fx-text-fill: white;
+}
+.date-picker-popup .week-number-cell {
+	-fx-text-fill: white; /*-fx-secondary-color*/
+}
+.date-picker-popup .spinner .button .left-arrow,
+.date-picker-popup .spinner .button .right-arrow {
+	-fx-background-color: grey;  /*white*/
+}
+.date-picker .text-field {
+    -fx-background-color: #4f4e4d; /* Colore di sfondo */
+    -fx-text-fill: black; /* Colore del testo */
+}
+.choice-box > * {
+    -fx-background-color: #4f4e4d;
+}
+/*Background color of the whole context menu*/
+.choice-box .context-menu { -fx-background-color: #4f4e4d; }
+/*Focused item background color in the list*/
+.choice-box .menu-item:focused { -fx-background-color: grey; }
+/* Text color of non-focused items in the list */
+.choice-box .menu-item > .label { -fx-text-fill: black; }
+/* Text color of focused item in the list */
+.choice-box .menu-item:focused > .label { -fx-text-fill: black; }
+
+.text-field {
+    -fx-background-color: black , black , #807e79;
+}
+
+.text-field:focused {
+    -fx-background-color: black , black , #8a8884;
+}
+
+

@@ -5,19 +5,20 @@ import javafx.concurrent.Task;
 
 import java.util.ArrayList;
 
-public class UtenteBilanciaService extends Service<ArrayList<Object>> {
+public class GetCss extends Service<String> {
     private String username;
     @Override
-    protected Task<ArrayList<Object>> createTask() {
+    protected Task<String> createTask() {
         return new Task<>() {
             @Override
-            protected ArrayList<Object> call() throws Exception {
-                ArrayList<Object> res=Database.getInstance().daUtenteDateBilancia(username);
-                return res;
+            protected String call() throws Exception {
+                String risultato = Database.getInstance().getCss(username);
+                return risultato;
             }
         };
     }
     public void setDati(String username) {
         this.username = username;
     }
+
 }

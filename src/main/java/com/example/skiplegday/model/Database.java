@@ -148,9 +148,9 @@ public class Database{
     }
 
 
-    public boolean registerUser(String username, String password, String nome, String cognome, String sesso, String peso, String dataNascita, String altezza) throws SQLException {
+    public boolean registerUser(String username, String password, String nome, String cognome, String sesso, String peso, String dataNascita, String altezza, String css, String valutazione, String recensione) throws SQLException {
         if (this.con != null && !this.con.isClosed()) {
-            PreparedStatement stmt = this.con.prepareStatement("INSERT INTO utenti (username, password, nome, cognome, sesso, peso, dataNascita, altezza) VALUES(?, ?, ?, ?, ?, ?, ?, ?);");
+            PreparedStatement stmt = this.con.prepareStatement("INSERT INTO utenti (username, password, nome, cognome, sesso, peso, dataNascita, altezza, css, valutazione, recensione) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
             stmt.setString(1, username);
             String generatedSecuredPasswordHash = BCrypt.hashpw(password, BCrypt.gensalt(12));
             stmt.setString(2, generatedSecuredPasswordHash);
@@ -160,12 +160,30 @@ public class Database{
             stmt.setString(6, peso);
             stmt.setString(7, dataNascita);
             stmt.setString(8, altezza);
+            stmt.setString(9, css);
+            stmt.setString(10, valutazione);
+            stmt.setString(11, recensione);
             stmt.execute();
             stmt.close();
             return true;
         }
         return false;
     }
+
+
+    public DataUser getAllDataFromUser(String username) throws SQLException {
+        ArrayList<String> temp = new ArrayList<>();
+        temp.add(username);
+        PreparedStatement ps = Database.getInstance().prepareQuery("select * from utenti where username = ?;", temp);
+        ArrayList<Object> a = fromPrepStatementToArrayList(ps, 1);
+
+
+        DataUser d = new DataUser((String) a.get(0),(String) a.get(0),(String) a.get(0),(String) a.get(0),(String) a.get(0),(Double) a.get(0),(String) a.get(0),(Double) a.get(0),(String) a.get(0),(Integer) a.get(0),(String) a.get(0));
+        return d;
+
+    }
+    
+    
     public ArrayList<String> getSchede(String username) throws SQLException {
         ArrayList<String> temp = new ArrayList<>();
         temp.add(username);
@@ -204,13 +222,44 @@ public class Database{
         boolean matched = BCrypt.checkpw(password, (String) objs.get(0));
         return matched;
     }
-    public boolean removeUser(String username, String password) throws SQLException {
-        if (this.con != null && !this.con.isClosed() && loginIn(username, password)) {
+    public boolean removeUser(String username) throws SQLException {
+        if (this.con != null && !this.con.isClosed()){
             String query = "DELETE FROM utenti WHERE username = ?";
             PreparedStatement pstmt = this.con.prepareStatement(query);
             pstmt.setString(1, username);
             pstmt.executeUpdate();
             pstmt.close();
+            return true;
+        }
+        return false;
+    }
+    public boolean removeUserCompletely(String username) throws SQLException{
+        if (this.con != null && !this.con.isClosed()){
+            String query = "DELETE FROM utenti WHERE username = ?";
+            PreparedStatement pstmt = this.con.prepareStatement(query);
+            pstmt.setString(1, username);
+            pstmt.executeUpdate();
+            pstmt.close();
+
+            query = "DELETE FROM allenamenti WHERE username = ?";
+            pstmt = this.con.prepareStatement(query);
+            pstmt.setString(1, username);
+            pstmt.executeUpdate();
+            pstmt.close();
+
+
+            query = "DELETE FROM schedepersonalizzate WHERE username = ?";
+            pstmt = this.con.prepareStatement(query);
+            pstmt.setString(1, username);
+            pstmt.executeUpdate();
+            pstmt.close();
+
+            query = "DELETE FROM serie WHERE username = ?";
+            pstmt = this.con.prepareStatement(query);
+            pstmt.setString(1, username);
+            pstmt.executeUpdate();
+            pstmt.close();
+
             return true;
         }
         return false;
@@ -458,15 +507,7 @@ public class Database{
         results.add(seriePerEsercizio);
         return results;
     }
-    public ArrayList<Object> daUtenteDateBilancia(String username) throws SQLException {
-        ArrayList<String> temp = new ArrayList<>();
-        temp.add(username);
-        PreparedStatement ps = prepareQuery("select datapesata, peso from peso where username = ? ORDER BY dataPesata;", temp);
-        ArrayList<Object> results = fromPrepStatementToArrayList(ps, 2);
-        //[[data, peso],[data1, peso],...]
 
-        return results;
-    }
     public ArrayList<Data> calcolaPunteggiUtenteXEsercizio(String username, String nomeEsercizio) throws SQLException {
         ArrayList<Data> punteggiUtente = new ArrayList<>();
         String query = "select peso, ripetizioni, allenamento_data from serie where allenamento_username = ? AND esercizio_nome = ?;";

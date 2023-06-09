@@ -46,7 +46,7 @@ public class Register2PhaseController {
             //uno diverso. Login-----> query db---> mi prendo tutti i dati li button in UtenteAttuale e li usa deFga
 
             RegisterUserService reg = new RegisterUserService();
-            reg.setDati(username,password,nomeField.getText(),cognomeField.getText(),genereChoice.getValue() ,pesoField.getText(),dateString ,altezzaField.getText());
+            reg.setDati(username,password,nomeField.getText(),cognomeField.getText(),genereChoice.getValue() ,pesoField.getText(),dateString ,altezzaField.getText(), "", "", "");
             reg.restart();
             reg.setOnSucceeded(event -> {
                 if (reg.getValue()) {

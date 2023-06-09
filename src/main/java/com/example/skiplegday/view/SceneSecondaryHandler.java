@@ -35,7 +35,6 @@ public class SceneSecondaryHandler {
     private AnchorPane sceneRoot;
 
     private VBox vBox;  //vbox nelle schede di default
-    private ScrollPane scrollPane;
     private HBox hBoxHome; //prova mai implementato(?)
     private LinkedList<Node> lastScene= new LinkedList<>();
     private Map<String,Parent> sceneMap= new HashMap<>();
@@ -114,7 +113,8 @@ public class SceneSecondaryHandler {
             root = loadRootFromFXML("manualeEsercizi.fxml");
             sceneMap.put("manualeEsercizi", root);
         }//altrimenti pensa caricare ogni volta tutti gli esercizi, cosi lo faccio solo una volta
-        aggiungiManualeEsercizi(root);
+        ManualeEserciziHandler.getInstance().aggiungiManualeEsercizi();
+        ManualeEserciziHandler.getInstance().resetDescrizioneEsercizio();
         addAndCenter(root);
         sceneRoot.requestFocus();
         simulateTabPress();
@@ -158,23 +158,7 @@ public class SceneSecondaryHandler {
         simulateTabPress();
     }
     //MANUALE ESERCIZI--------------------------------------------(anche per aggiungere allenamenti)
-    private void aggiungiManualeEsercizi(Node node) {
-        ArrayList<String> strings = InformazioniEsercizi.getInstance().getListaTuttiEsercizi();
-        TextFlow t = new TextFlow();
-        for (String s: strings) {
-            t.getChildren().add(new DescrizioneEsercizio(s));  //qua ci va DESCRIZIONEESERCIZIO !!!!
-            t.getChildren().add(new Text("\n"));
-        }
-        scrollPane.setContent(t);
-    }
-    public void createDescrizioneEsercizioScene() throws IOException {
-        Node node = (Node) loadRootFromFXML("descrizioneEsercizio.fxml");  //quando aggiungo l'fxml si attiva in automatico il controller associato che fa tutto
-        //funzione che mi prende da database tutti gli allenamenti e me li popola
-        addAndCenter(node);
 
-        sceneRoot.requestFocus();
-        simulateTabPress();
-    }
 
     //CREA SCHEDA PERSONALIZZATA ------- (ALLENAMENTI PERSONALIZZATI)---
     public void createCreateAllenamentoScene(String s) throws IOException {
@@ -301,7 +285,7 @@ public class SceneSecondaryHandler {
     }
     public void setHBoxHome(HBox hBoxHome) {this.hBoxHome = hBoxHome;} //è inutile?? mai implementata(?)
     public void setSchedeDefaultSceneRoot(VBox vBox) { this.vBox = vBox;}
-    public void setScrollPane(ScrollPane scrollPane) {this.scrollPane = scrollPane;}
+    //public void setScrollPane(ScrollPane scrollPane) {this.scrollPane = scrollPane;}
     public void clearAll() {
         sceneMap.clear();
         GridPaneAllenamentiHandler.getInstance().setPosInitialGridPane();

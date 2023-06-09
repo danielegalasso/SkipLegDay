@@ -17,6 +17,8 @@ import javafx.scene.text.TextFlow;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Set;
 
 public class CreateAllenamentoHandler {
     private CreateAllenamentoHandler() {}
@@ -51,7 +53,7 @@ public class CreateAllenamentoHandler {
             }
         });
     }
-    public void caricaManualeEsercizi() throws IOException {
+    public void caricaManualeEsercizi() throws IOException { /*
         ArrayList<String> strings = InformazioniEsercizi.getInstance().getListaTuttiEsercizi(); // RIMETTERE DECOMMENTANDOLO!!!!!!!!!!!
         System.out.println(strings);
         //ArrayList<String> strings = new ArrayList<>(); //mi serve come prova, poi lo elimino e tengo lo string di sopra
@@ -59,7 +61,7 @@ public class CreateAllenamentoHandler {
         VBox vb = new VBox();
         for (String s: strings) {
             Node node1 = (Node) loadRootFromFXML("esercizio.fxml");
-            EsercizioHandler.getInstance().setDescrizioneEsercizio(loadImage(s),new DescrizioneEsercizio(s));
+            EsercizioHandler.getInstance().setDescrizioneEsercizio(loadImage(s),new DescrizioneEsercizio(s,true));
             EsercizioHandler.getInstance().setOnMouseClickedEvent(event -> {
                 try {
                     addvBoxIfUnique(s);
@@ -68,6 +70,27 @@ public class CreateAllenamentoHandler {
                 }
             },"Aggiungi");
             vb.getChildren().add(node1);
+        }*/
+        HashMap<String,ArrayList<String>> esGruppoMusc=InformazioniEsercizi.getInstance().getGruppoMuscolareEsercizi();
+        Set<String> gruppiMuscolari=esGruppoMusc.keySet();
+        VBox vb = new VBox();
+        for (String s: gruppiMuscolari) {
+            Text text=new Text(s);
+            text.setStyle("-fx-font-size: 25px");
+            vb.getChildren().add(text);
+            ArrayList<String> esercizi=esGruppoMusc.get(s);
+            for (String es:esercizi){
+                Node node1 = (Node) loadRootFromFXML("esercizio.fxml");
+                EsercizioHandler.getInstance().setDescrizioneEsercizio(loadImage(es),new DescrizioneEsercizio(es,true));
+                EsercizioHandler.getInstance().setOnMouseClickedEvent(event -> {
+                    try {
+                        addvBoxIfUnique(es);
+                    } catch (IOException e) {
+                        ErrorMessage.getInstance().showErrorMessage("Errore caricamento esercizi");
+                    }
+                },"Aggiungi");
+                vb.getChildren().add(node1);
+            }
         }
         scrollPaneEsercizi.setContent(vb); //rimettere t
     }
@@ -93,7 +116,7 @@ public class CreateAllenamentoHandler {
         System.out.println("isUnique: "+isUnique);
         if (isUnique) {  //SE NON è PRESENTE CREO L'HOB CON ESERCIZIO E BUTTON RIMUOVI
             Node node2 = (Node) loadRootFromFXML("esercizio.fxml");
-            EsercizioHandler.getInstance().setDescrizioneEsercizio(loadImage(text),new DescrizioneEsercizio(text));
+            EsercizioHandler.getInstance().setDescrizioneEsercizio(loadImage(text),new DescrizioneEsercizio(text,true));
             EsercizioHandler.getInstance().setOnMouseClickedEvent(event -> {
                 vBoxTuoAllenamento.getChildren().remove(node2);
             },"Rimuovi");

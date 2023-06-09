@@ -36,4 +36,6 @@ public class InformazioniEsercizi {
     public HashMap<String, String> getDescrizioni() {
         return descrizioni;
     }
+    public ArrayList<String> getNomiGruppiMuscolari() {return nomiGruppiMuscolari;}
+    public HashMap<String, ArrayList<String>> getGruppoMuscolareEsercizi() {return gruppoMuscolareEsercizi;}
 }

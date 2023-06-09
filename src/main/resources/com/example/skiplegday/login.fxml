@@ -10,29 +10,29 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.skiplegday.controller.LoginController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="380.0" prefWidth="400.0" styleClass="login-pane" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.skiplegday.controller.LoginController">
    <children>
-      <Label layoutX="82.0" layoutY="116.0" text="Nome utente" />
-      <TextField fx:id="NomeUtenteLogin" layoutX="82.0" layoutY="134.0" prefHeight="25.0" prefWidth="257.0" />
-      <Label layoutX="82.0" layoutY="191.0" text="Password" />
-      <PasswordField fx:id="PasswordLogin" layoutX="82.0" layoutY="209.0" prefHeight="25.0" prefWidth="257.0" />
-      <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="57.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true">
+      <Label layoutX="90.0" layoutY="140.0" text="Nome utente" AnchorPane.leftAnchor="90.0" AnchorPane.topAnchor="140.0" />
+      <TextField fx:id="NomeUtenteLogin" layoutX="90.0" layoutY="165.0" prefHeight="25.0" prefWidth="257.0" AnchorPane.leftAnchor="90.0" AnchorPane.topAnchor="165.0" />
+      <Label layoutX="90.0" layoutY="210.0" text="Password" AnchorPane.leftAnchor="90.0" AnchorPane.topAnchor="210.0" />
+      <PasswordField fx:id="PasswordLogin" layoutX="90.0" layoutY="235.0" prefHeight="25.0" prefWidth="257.0" AnchorPane.leftAnchor="90.0" AnchorPane.topAnchor="235.0" />
+      <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="55.0" layoutY="165.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="55.0" AnchorPane.topAnchor="165.0">
          <image>
             <Image url="@../skiplegday/icon/icongenerali/profiloLogin.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="57.0" layoutY="209.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="55.0" layoutY="235.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="55.0" AnchorPane.topAnchor="235.0">
          <image>
             <Image url="@../skiplegday/icon/icongenerali/passLogin.png" />
          </image>
       </ImageView>
-      <Button fx:id="LoginButton" layoutX="57.0" layoutY="260.0" mnemonicParsing="false" onAction="#loginAction" prefHeight="25.0" prefWidth="100.0" text="ACCEDI" />
-      <Label fx:id="RegisterButtonText" layoutX="125.0" layoutY="305.0" onMouseClicked="#RegistraAction" prefHeight="20.0" prefWidth="170.0" text="Non hai un account? Registrati" textFill="#555555" underline="true">
+      <Button fx:id="LoginButton" layoutX="57.0" layoutY="267.0" mnemonicParsing="false" onAction="#loginAction" prefHeight="25.0" prefWidth="100.0" text="ACCEDI" AnchorPane.leftAnchor="55.0" AnchorPane.topAnchor="290.0" />
+      <Label fx:id="RegisterButtonText" layoutX="125.0" layoutY="309.0" onMouseClicked="#RegistraAction" prefHeight="20.0" prefWidth="170.0" text="Non hai un account? Registrati" textFill="#555555" underline="true" AnchorPane.topAnchor="330.0">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Label>
       <Text fx:id="erroreLoginText" layoutX="192.0" layoutY="277.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome utente o password errati" visible="false" />
-      <ImageView fitHeight="100.0" fitWidth="400.0">
+      <ImageView fitHeight="120.0" fitWidth="400.0">
          <image>
             <Image url="@icon/icongenerali/SkipLegDayLogoRemoveBG.png" />
          </image>

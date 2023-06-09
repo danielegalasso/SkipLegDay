@@ -42,12 +42,6 @@ public class StatisticheHandler {
     }
     public void loadCalendar() {
         DatePicker datePicker = new DatePicker(LocalDate.now());
-
-
-
-
-
-
         service.setDati(UtenteAttuale.getInstance().getUsername()); //username DOMENICO
         service.restart();
         service.setOnSucceeded(event ->  {
@@ -119,11 +113,8 @@ public class StatisticheHandler {
                 categories.add(gruppoMuscolare);
                 dataValues.add(peso);
                 paneGrafoRadar.getChildren().setAll(new GrafoStatisticaRadar( categories, dataValues));
-
             }
         });
-
-
     }
     public void loadGrafo() throws IOException {
         /*

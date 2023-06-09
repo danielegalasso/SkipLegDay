@@ -3,15 +3,13 @@ package com.example.skiplegday.view;
 import com.example.skiplegday.controller.ShortCut;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.MenuItem;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyCodeCombination;
-import javafx.scene.input.KeyCombination;
 import javafx.scene.text.Font;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -33,6 +31,7 @@ public class SceneHandler {
         if(this.stage==null){
             this.stage = stage;
             this.stage.setTitle("SkipLegDay");
+            this.stage.initStyle(StageStyle.UNDECORATED);
             createLoginScene();  //funzione che imposta la scene dello SceneHandler
             loadFonts();            //da aggiungere
             //setCSSForScene(scene);  //da aggiungere
@@ -44,13 +43,20 @@ public class SceneHandler {
         FXMLLoader fxmlLoader = new FXMLLoader(SceneHandler.class.getResource("/com/example/skiplegday/"+resourceName));
         return fxmlLoader.load();
     }
+    private Parent loadRootFromFXMLandSetController(String resourceName) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(SceneHandler.class.getResource("/com/example/skiplegday/"+resourceName));
+        Parent n= fxmlLoader.load();
+        n.getProperties().put("foo", fxmlLoader.getController());
+        return n;
+    }
     public void createLoginScene() {
         try {
             if(scene == null) {
                 scene = new Scene(loadRootFromFXML("login.fxml"));
             }
-            else   //se non c'è la creo altrimenti la modifico
+            else {   //se non c'è la creo altrimenti la modifico
                 scene.setRoot(loadRootFromFXML("login.fxml"));
+            }
             stage.setWidth(400);
             stage.setHeight(380);
             setCentre();
@@ -77,14 +83,33 @@ public class SceneHandler {
     }
     public void createRegistraScene() {
         try {
-            scene.setRoot(loadRootFromFXML("register.fxml"));
-            stage.setWidth(400);
-            stage.setHeight(500);
+            Parent root = loadRootFromFXML("register.fxml");
+            scene.setRoot(root);
+            lastSceneRegister =root;
+            stage.setWidth(420);
+            stage.setHeight(420);
             setCentre();
             stage.setResizable(false);
         } catch (IOException e) {
             ErrorMessage.getInstance().showErrorMessage("Errore durante il caricamento della schermata di registrazione");
         }
+    }
+    public Parent createRegister2PhaseScene(){
+        try {
+            if (nexttSceneRegisterP2 == null)
+                nexttSceneRegisterP2 = loadRootFromFXMLandSetController("register2phase.fxml");
+            scene.setRoot(nexttSceneRegisterP2);
+
+            stage.setWidth(420);
+            stage.setHeight(420);
+            setCentre();
+            stage.setResizable(false);
+            return nexttSceneRegisterP2;
+        } catch (IOException ignored) {
+            ignored.printStackTrace();
+            ErrorMessage.getInstance().showErrorMessage("Errore durante il caricamento della schermata di registrazione");
+        }
+        return null;
     }
     private void setCentre() {
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
@@ -110,5 +135,14 @@ public class SceneHandler {
         scene.getStylesheets().clear();
         for(String resource : resources)
             scene.getStylesheets().add(resource);
+    }
+    private Parent lastSceneRegister;
+    private Parent nexttSceneRegisterP2;
+    public void tornaRegisterScene() { //createLastScene
+        scene.setRoot(lastSceneRegister);
+        setCentre();
+    }
+    public void resetRegisterPhase2() {
+        nexttSceneRegisterP2 = null;
     }
 }

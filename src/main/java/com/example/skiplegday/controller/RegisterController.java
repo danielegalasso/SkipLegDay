@@ -1,57 +1,82 @@
 package com.example.skiplegday.controller;
 
-import com.example.skiplegday.model.Database;
+import com.example.skiplegday.model.RegisterUserService;
+import com.example.skiplegday.view.ErrorMessage;
 import com.example.skiplegday.view.SceneHandler;
+import com.example.skiplegday.view.SceneSecondaryHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.Parent;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class RegisterController {
     @FXML
-    private PasswordField PasswordRegister;
-    @FXML
     private TextField NomeUtenteRegister;
     @FXML
-    private Text erroreRegisterText;
+    private PasswordField PasswordRegister;
     @FXML
-    private TextField nomeField;
-    @FXML
-    private TextField cognomeField;
-    @FXML
-    private TextField emailField;
-    @FXML
-    private TextField altezzaField;
-    @FXML
-    private DatePicker dataNascita;
-    public void creaAccountAction(ActionEvent actionEvent) throws SQLException {
-        if (checkIsValid()){
-            LocalDate selectedDate = dataNascita.getValue();
-            String dateString = selectedDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")); //posso mettere il cazzo che voglio per daniele
-            //DEVO METTERE LA DATA NEL DATABASE!!!!!!!!!!!!
-            //il peso si carica da profilo, inoltre tutti i valori me li salvo in UtenteAttuale cosi deFga se li puo prendere easy
-            //in realtà me li devo caricare su UtenteAttuale da Login e non ora, perche un utente si potrebbe registrare ma collegarsi
-            //uno diverso. Login-----> query db---> mi prendo tutti i dati li button in UtenteAttuale e li usa deFga
-            /*   DECOMMENTO PER EVITARE DI BUTTARE MERDA NEL DB
-            if (Database.getInstance().registerUser(NomeUtenteRegister.getText(),PasswordRegister.getText(),nomeField.getText(),cognomeField.getText(),emailField.getText(),dateString,altezzaField.getText() )){
-                SceneHandler.getInstance().createHomeScene();
+    private PasswordField confermaPasswordRegister;
+    //defga
+    public void initialize() {
+        if (PasswordRegister==null) return;
+        Tooltip passwordTooltip = new Tooltip("La password deve contenere almeno 8 caratteri, una lettera maiuscola, una minuscola e un numero");
+        passwordTooltip.setShowDelay(Duration.millis(10));
+        PasswordRegister.setTooltip(passwordTooltip);
+        PasswordRegister.focusedProperty().addListener((obs, oldValue, newValue) -> {
+            if (newValue) {
+                // Quando il TextField ottiene il focus, mostra il Tooltip
+                passwordTooltip.show(PasswordRegister,
+                        PasswordRegister.getScene().getWindow().getX() + PasswordRegister.getLayoutX(),
+                        PasswordRegister.getScene().getWindow().getY() + PasswordRegister.getLayoutY() + PasswordRegister.getHeight()*2);
+            } else {
+                // Quando il TextField perde il focus, nascondi il Tooltip
+                passwordTooltip.hide();
             }
-            else{
-                erroreRegisterText.setVisible(true);
-            }*/
-        }
+        });
     }
-    private boolean checkIsValid(){
-        return !NomeUtenteRegister.getText().equals("") && !PasswordRegister.getText().equals("") && !nomeField.getText().equals("")  && !cognomeField.getText().equals("")  && !altezzaField.getText().equals("");
+    public void avantiAction (ActionEvent actionEvent) throws IOException {
+        if (usernameAndPasswordIsValid()) {
+            Parent collegamento= SceneHandler.getInstance().createRegister2PhaseScene();
+            System.out.println("coll"+collegamento);
+            Register2PhaseController controller = (Register2PhaseController) collegamento.getProperties().get("foo");
+            controller.setDati(NomeUtenteRegister.getText(),PasswordRegister.getText());
+            //DEVO METTERE NEL DB
+            //VADO ALLA SCHERMATA SUCCESSIVO
+        }
     }
     public void tornaALoginAction(MouseEvent mouseEvent) {
         SceneHandler.getInstance().createLoginScene();
+    }
+    private boolean usernameAndPasswordIsValid() {
+        String username = NomeUtenteRegister.getText();
+        String password = PasswordRegister.getText();
+        String confermaPassword = confermaPasswordRegister.getText();
+
+        if (username.isEmpty() || password.isEmpty()) {
+            ErrorMessage.getInstance().showErrorMessage("Inserisci sia il nome utente che la password.");
+            return false;
+        }
+
+        if (!password.equals(confermaPassword)) {
+            ErrorMessage.getInstance().showErrorMessage("La password e la conferma password non corrispondono.");
+            return false;
+        }
+
+        if (!isValidatePassword(password)) {
+            ErrorMessage.getInstance().showErrorMessage("La password non è valida.");
+            return false;
+        }
+        return true;
+    }
+    private boolean isValidatePassword (String str){
+        return str.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{8,20}$");
     }
 }

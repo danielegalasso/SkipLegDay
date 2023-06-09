@@ -19,6 +19,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
 public class GrafoStatisticheEsercizio extends Pane {
+    /*
     public GrafoStatisticheEsercizio(String nomeEs,Double width, Double height) {
         ArrayList<Data> dataList = new ArrayList<>();
         dataList.add(new Data("2023-02-01", 100));
@@ -94,4 +95,5 @@ public class GrafoStatisticheEsercizio extends Pane {
         lineChart.setMaxSize(lunghezza_panello, root.getMinHeight() - 20);
         getChildren().add(root);
     }
+     */
 }

@@ -14,7 +14,6 @@ public class GetTrainingDaysByMuscleGroup extends Service<HashMap<String, Intege
             @Override
             protected HashMap<String, Integer> call() throws Exception {
                 return Database.getInstance().getTrainingDaysByMuscleGroup(username,veroSegueMeseFalsoSegueTotale);
-
             }
         };
     }

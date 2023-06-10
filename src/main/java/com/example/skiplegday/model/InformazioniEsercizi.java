@@ -24,7 +24,6 @@ public class InformazioniEsercizi {
                 nomiGruppiMuscolari = (ArrayList<String>) risultato.get(2);
                 descrizioni = (HashMap<String, String>) risultato.get(3);
             }
-
         });/*
         ArrayList<Object> risultato = Database.getInstance().prendiHashListaeserciziNomigruppiDescrizioni();
         gruppoMuscolareEsercizi = (HashMap<String, ArrayList<String>>) risultato.get(0);

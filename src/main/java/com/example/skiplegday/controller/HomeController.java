@@ -61,7 +61,8 @@ public class HomeController {
     public void valutaciAction(ActionEvent actionEvent) throws IOException {
         SceneSecondaryHandler.getInstance().createValutaciScene();
     }
-    public void obiettiviAction(ActionEvent actionEvent) {
+    public void obiettiviAction(ActionEvent actionEvent) throws IOException {
+        SceneSecondaryHandler.getInstance().createObiettiviScene();
     }
     public void cambiaTemaAction(ActionEvent actionEvent) {
         RadioMenuItem selectedMenuItem = (RadioMenuItem) actionEvent.getSource();       //prendo l'evento del colore cliccato

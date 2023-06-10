@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
@@ -122,7 +123,14 @@ public class SceneSecondaryHandler {
         sceneRoot.requestFocus();
         simulateTabPress();
     }
-    //FARE OBIETTIVI
+    public void createObiettiviScene() throws IOException {
+        //Node node = loadRootFromFXML("obiettivi.fxml");
+        Node node= loadRootFromFXMLandSetController("obiettivi.fxml");
+        ProgressiObiettivi.getInstance().loadObiettivi();
+        addAndCenter(node);
+        sceneRoot.requestFocus();
+        simulateTabPress();
+    }
     public void createDatiPersonaliScene() throws IOException {
         Node node = loadRootFromFXML("datiPersonali.fxml");
         addAndCenter(node);
@@ -207,15 +215,18 @@ public class SceneSecondaryHandler {
         HashMap<String, ArrayList<Serie>> eserciziSerie = (HashMap<String, ArrayList<Serie>>) esercizi.get(1); //in 0 c'è nomeScheda
         ArrayList<String> keysNomiEs = new ArrayList<>(eserciziSerie.keySet());
         //System.out.println("chiavi " + keysNomiEs);
-
+        Node node = loadRootFromFXML("vBoxEsercizi.fxml");
+        ScrollPane scrollPaneRoot= (ScrollPane) node.lookup("#scrollPaneRoot");
         GridPane pane = new GridPane();
         pane.setPrefWidth(700);
-        pane.setPrefHeight(460);
+        pane.setPrefHeight(360);
+        scrollPaneRoot.setContent(pane);
+        /*
         ScrollPane scrollPane = new ScrollPane(pane);
         scrollPane.setPrefWidth(800);
         scrollPane.setPrefHeight(550);
         pane.setHgap(10);
-        pane.setVgap(10);
+        pane.setVgap(10);*/
 
         int colonna = 0;
         int riga = 0;
@@ -241,7 +252,7 @@ public class SceneSecondaryHandler {
                 riga++;
             }
         }
-        addAndCenter(scrollPane);
+        addAndCenter(node);
     }
     // METODI UTILI ----------------------------------------------------
     private<T> T loadRootFromFXML(String resourceName) throws IOException {

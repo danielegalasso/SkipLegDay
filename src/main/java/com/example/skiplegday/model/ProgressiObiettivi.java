@@ -1,11 +1,9 @@
 package com.example.skiplegday.model;
 
 import com.example.skiplegday.controller.ObiettiviController;
-import javafx.application.Platform;
 
 import java.util.HashMap;
 import java.util.Set;
-import java.util.concurrent.CountDownLatch;
 
 public class ProgressiObiettivi {
     private final static ProgressiObiettivi instance = new ProgressiObiettivi();
@@ -35,7 +33,7 @@ public class ProgressiObiettivi {
         });
     }
     private void getTrainingDaysMuscleGroup(){
-        GetTrainingDaysByMuscleGroup g = new GetTrainingDaysByMuscleGroup();
+        GetTrainingDaysByMuscleGroupService g = new GetTrainingDaysByMuscleGroupService();
         g.setDati(UtenteAttuale.getInstance().getUsername(), true);
         g.restart();
         g.setOnSucceeded(event->{
@@ -48,7 +46,7 @@ public class ProgressiObiettivi {
         });
     }
     private void getTrainingDayUser(){
-        GetTrainingDaysForUser g = new GetTrainingDaysForUser();
+        GetTrainingDaysForUserService g = new GetTrainingDaysForUserService();
         g.setDati(UtenteAttuale.getInstance().getUsername(), true);
         g.restart();
         g.setOnSucceeded(event->{
@@ -57,7 +55,7 @@ public class ProgressiObiettivi {
         });
     }
     private void getMaxWeightExercise(String text){
-        GetMaxWeightPerExercise g = new GetMaxWeightPerExercise();
+        GetMaxWeightPerExerciseService g = new GetMaxWeightPerExerciseService();
         g.setDati(UtenteAttuale.getInstance().getUsername(), text);
         g.restart();
         g.setOnSucceeded(event->{
@@ -65,7 +63,7 @@ public class ProgressiObiettivi {
         });
     }
     private void getMaxRepsExercise(String text){
-        GetMaxRepsPerExercise g = new GetMaxRepsPerExercise();
+        GetMaxRepsPerExerciseService g = new GetMaxRepsPerExerciseService();
         g.setDati(UtenteAttuale.getInstance().getUsername(), text);
         g.restart();
         g.setOnSucceeded(event->{

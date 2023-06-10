@@ -5,6 +5,7 @@ import com.example.skiplegday.model.UtenteAttuale;
 import com.example.skiplegday.view.StatisticheHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -14,6 +15,8 @@ import javafx.scene.text.Text;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class StatisticheController {
+    @FXML
+    public ScrollPane scroll;
     @FXML
     BorderPane setCalendarRoot;
     @FXML
@@ -38,6 +41,7 @@ public class StatisticheController {
     private CalcolaPesoSettimanaService service = new CalcolaPesoSettimanaService();
     private String username = UtenteAttuale.getInstance().getUsername();
     public void initialize() {
+
         StatisticheHandler.getInstance().setCalendarRoot(setCalendarRoot);
         StatisticheHandler.getInstance().setGrafoRadarRoot(setGrafoRadarRoot);
         StatisticheHandler.getInstance().setGrafoRoot(setGrafoRoot);

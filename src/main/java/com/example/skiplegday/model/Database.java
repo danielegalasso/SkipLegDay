@@ -147,7 +147,47 @@ public class Database{
         return dates;
     }
 
+    public boolean modRecensione(String username, int valutazione, String recensione) throws SQLException {
+        if (this.con != null && !this.con.isClosed()) {
+            PreparedStatement stmt = this.con.prepareStatement("UPDATE utenti SET recensione = ?, valutazione = ? WHERE username = ?;");
+            stmt.setString(1, recensione);
+            stmt.setInt(2, valutazione);
+            stmt.setString(3, username);
+            stmt.execute();
+            stmt.close();
+            return true;
+        }
+        return false;
+    }
 
+    public boolean modCss(String username, String css) throws SQLException {
+        if (this.con != null && !this.con.isClosed()) {
+            PreparedStatement stmt = this.con.prepareStatement("UPDATE utenti SET css = ? WHERE username = ?;");
+            stmt.setString(1, css);
+            stmt.setString(2, username);
+            stmt.execute();
+            stmt.close();
+            return true;
+        }
+        return false;
+
+    }
+    public boolean modInfoUser(String username, String nome, String cognome, String sesso, String peso, String dataNascita, String altezza) throws SQLException {
+        if (this.con != null && !this.con.isClosed()) {
+            PreparedStatement stmt = this.con.prepareStatement("UPDATE utenti SET nome = ?, cognome = ?, sesso = ?, peso = ?, dataNascita = ?, altezza = ? WHERE username = ?;");
+            stmt.setString(1, nome);
+            stmt.setString(2, cognome);
+            stmt.setString(3, sesso);
+            stmt.setString(4, peso);
+            stmt.setString(5, dataNascita);
+            stmt.setString(6, altezza);
+            stmt.setString(7, username);
+            stmt.execute();
+            stmt.close();
+            return true;
+        }
+        return false;
+    }
     public boolean registerUser(String username, String password, String nome, String cognome, String sesso, String peso, String dataNascita, String altezza, String css, String valutazione, String recensione) throws SQLException {
         if (this.con != null && !this.con.isClosed()) {
             PreparedStatement stmt = this.con.prepareStatement("INSERT INTO utenti (username, password, nome, cognome, sesso, peso, dataNascita, altezza, css, valutazione, recensione) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");

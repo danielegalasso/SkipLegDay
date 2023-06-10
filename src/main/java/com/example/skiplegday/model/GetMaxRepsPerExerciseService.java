@@ -3,7 +3,7 @@ package com.example.skiplegday.model;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 
-public class GetTotalPointsFromAnExercise extends Service<Double> {
+public class GetMaxRepsPerExerciseService extends Service<Double> {
     private String username;
     private String esercizio;
     @Override
@@ -11,7 +11,7 @@ public class GetTotalPointsFromAnExercise extends Service<Double> {
         return new Task<Double>() {
             @Override
             protected Double call() throws Exception {
-                double risultato = Database.getInstance().getTotalPointsFromAnExercise(username,esercizio);
+                double risultato = Database.getInstance().getMaxRepsPerExercise(username,esercizio);
                 return risultato;
             }
         };

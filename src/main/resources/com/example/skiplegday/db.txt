@@ -53,16 +53,8 @@ CREATE TABLE utenti (
     dataNascita TEXT,
     altezza REAL,
     css TEXT,
-    valutazione INTEGER,
-    recesione TEXT
-);
-
-CREATE TABLE peso (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    username TEXT,
-    dataPesata TEXT,
-    peso REAL,
-    FOREIGN KEY (username) REFERENCES utenti(username)
+    valutazione REAL,
+    recensione TEXT
 );
 
 
@@ -120,8 +112,8 @@ CREATE TABLE serie (
 
 INSERT INTO utenti (username, password, nome, cognome, sesso, peso, dataNascita, altezza, css, valutazione, recensione)
 VALUES
-    ('marco', 'password1', 'Marco', 'Rossi', 'M', 70,8, '1990-01-01', 180, 'css1', 5, 'buono'),
-    ('giulia', 'password2', 'Giulia', 'Verdi', 'F', 77.8 , '1992-05-10', 165, 'css2', 2, 'male');
+    ('marco', 'password1', 'Marco', 'Rossi', 'M', 70,8, '1990-01-01', 180, 'css1', 5.0, 'buono'),
+    ('giulia', 'password2', 'Giulia', 'Verdi', 'F', 77.8 , '1992-05-10', 165, 'css2', 2.0, 'male');
 
 INSERT INTO schedepersonalizzate (username, nome_scheda, nome_esercizi)
 VALUES

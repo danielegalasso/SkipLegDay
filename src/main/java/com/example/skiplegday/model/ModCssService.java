@@ -3,23 +3,21 @@ package com.example.skiplegday.model;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 
-public class LogIn extends Service<Boolean> {
+public class ModCssService extends Service<Boolean> {
     private String username;
-    private String password;
-
+    private String css;
     @Override    //DA CHIAMARE A FINE REGISTRAZIONE, MERGE CO DE FRA
     protected Task<Boolean> createTask() {
         return new Task<>() {
             @Override
             protected Boolean call() throws Exception {
-                return Database.getInstance().loginIn(username,password);
-
+                Boolean res=Database.getInstance().modCss(username, css);
+                return res;
             }
         };
     }
-    public void setDati(String username, String password) {
+    public void setDati(String username, String css) {
         this.username = username;
-        this.password = password;
-
+        this.css = css;
     }
 }

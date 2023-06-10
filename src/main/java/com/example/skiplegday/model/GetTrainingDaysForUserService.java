@@ -3,7 +3,7 @@ package com.example.skiplegday.model;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 
-public class GetTrainingDaysForUser extends Service<Integer> {
+public class GetTrainingDaysForUserService extends Service<Integer> {
     private String username;
     private boolean veroSegueMeseFalsoSegueTotale;
     @Override

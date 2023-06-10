@@ -3,22 +3,19 @@ package com.example.skiplegday.model;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 
-import java.util.ArrayList;
-
-public class GetCss extends Service<String> {
+public class RemoveUserCompletelyService extends Service<Boolean> {
     private String username;
     @Override
-    protected Task<String> createTask() {
+    protected Task<Boolean> createTask() {
         return new Task<>() {
             @Override
-            protected String call() throws Exception {
-                String risultato = Database.getInstance().getCss(username);
-                return risultato;
+            protected Boolean call() throws Exception {
+                return Database.getInstance().removeUserCompletely(username);
+
             }
         };
     }
     public void setDati(String username) {
         this.username = username;
     }
-
 }

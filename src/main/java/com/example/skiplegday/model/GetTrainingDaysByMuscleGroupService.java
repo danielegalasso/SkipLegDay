@@ -5,7 +5,7 @@ import javafx.concurrent.Task;
 
 import java.util.HashMap;
 
-public class GetTrainingDaysByMuscleGroup extends Service<HashMap<String, Integer>> {
+public class GetTrainingDaysByMuscleGroupService extends Service<HashMap<String, Integer>> {
     private String username;
     private boolean veroSegueMeseFalsoSegueTotale;
     @Override

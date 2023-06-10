@@ -3,7 +3,7 @@ package com.example.skiplegday.model;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 
-public class GetMaxWeightPerExercise extends Service<Double> {
+public class GetMaxWeightPerExerciseService extends Service<Double> {
     private String username;
     private String esercizio;
     @Override

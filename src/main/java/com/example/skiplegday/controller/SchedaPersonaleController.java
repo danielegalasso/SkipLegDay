@@ -46,8 +46,9 @@ public class SchedaPersonaleController {
     public void setLabelSchedaPersonalizzata(String text) {
         labelSchedaPersonalizzata.setText(text);
     }
-    public void accediSchedaPersonalizzata(ActionEvent actionEvent) throws IOException {
+    public void accediSchedaPersonalizzata(ActionEvent actionEvent) throws IOException {  //o personalizzata o meno
         if (modalitàDefault){
+            SceneSecondaryHandler.getInstance().setLastScene();
             SceneSecondaryHandler.getInstance().createSchedaDefaultNameScene(labelSchedaPersonalizzata.getText());
         }
         else {

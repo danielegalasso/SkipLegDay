@@ -4,10 +4,7 @@ import com.example.skiplegday.model.*;
 import com.example.skiplegday.view.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Tooltip;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -131,4 +128,29 @@ public class CreateAllenamentoController {
         InfoTooltip.agganciaTooltip(infoPane,"ShortCut:", "Ctrl + S per salvare l'allenamento");
     }
     public void indietroAction(ActionEvent actionEvent) {SceneSecondaryHandler.getInstance().CreateLastScene();}
+
+    public void filterAction(ActionEvent actionEvent) throws IOException {
+        if (actionEvent.getSource() instanceof MenuItem menuItem){
+            setMenuButtonName(menuItem);   //serve per cambiare il MenuButton col nome del filtro che ho scelto
+            CreateAllenamentoHandler.getInstance().filter(menuItem.getText());
+        }
+        else{
+            ErrorMessage.getInstance().showErrorMessage("Errore nel caricamento esercizi");
+        }
+    }
+    public void filterAllAction(ActionEvent actionEvent) throws IOException {
+        if (actionEvent.getSource() instanceof MenuItem menuItem){
+            setMenuButtonName(menuItem);
+            CreateAllenamentoHandler.getInstance().caricaManualeEsercizi();
+        }
+        else{
+            ErrorMessage.getInstance().showErrorMessage("Errore nel caricamento esercizi");
+        }
+    }
+    private void setMenuButtonName(MenuItem menuItem){
+        ContextMenu contextMenu = menuItem.getParentPopup();
+        if (contextMenu != null && contextMenu.getOwnerNode() instanceof MenuButton menuButton) {
+            menuButton.setText(menuItem.getText());
+        }
+    }
 }

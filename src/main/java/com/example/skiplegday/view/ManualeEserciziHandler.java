@@ -28,12 +28,7 @@ public class ManualeEserciziHandler {
     }
     public void aggiungiManualeEsercizi() {
         ArrayList<String> strings = InformazioniEsercizi.getInstance().getListaTuttiEsercizi();
-        TextFlow t = new TextFlow();
-        for (String s: strings) {
-            t.getChildren().add(new DescrizioneEsercizio(s,false)); //false e true per capire se deve aprire popup o meno
-            t.getChildren().add(new Text("\n"));
-        }
-        scrollPane.setContent(t);
+        scrollPane.setContent(retTextFlow(strings));
     }
     public void setPaneDescrizioneRoot(AnchorPane paneDescrizioneRoot) {
         this.paneDescrizioneRoot = paneDescrizioneRoot;
@@ -61,5 +56,17 @@ public class ManualeEserciziHandler {
         transition.setOnFinished(event -> {
             paneDescrizioneRoot.getChildren().clear();
         });
+    }
+    private TextFlow retTextFlow(ArrayList<String> es) {
+        TextFlow t = new TextFlow();
+        for (String s: es) {
+            t.getChildren().add(new DescrizioneEsercizio(s,false)); //false e true per capire se deve aprire popup o meno
+            t.getChildren().add(new Text("\n"));
+        }
+        return t;
+    }
+    public void filter(String gruppoMuscolare) {
+        ArrayList<String> es=InformazioniEsercizi.getInstance().getEserciziGruppoMuscolare(gruppoMuscolare);
+        scrollPane.setContent(retTextFlow(es));
     }
 }

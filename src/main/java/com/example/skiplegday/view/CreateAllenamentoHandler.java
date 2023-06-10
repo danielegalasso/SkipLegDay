@@ -53,14 +53,14 @@ public class CreateAllenamentoHandler {
             }
         });
     }
-    public void caricaManualeEsercizi() throws IOException { /*
-        ArrayList<String> strings = InformazioniEsercizi.getInstance().getListaTuttiEsercizi(); // RIMETTERE DECOMMENTANDOLO!!!!!!!!!!!
-        System.out.println(strings);
-        //ArrayList<String> strings = new ArrayList<>(); //mi serve come prova, poi lo elimino e tengo lo string di sopra
-        //strings.add("panca piana manubri");strings.add("croci cavi");strings.add("squat");
+    public void caricaManualeEsercizi() throws IOException {
+        ArrayList<String> strings = InformazioniEsercizi.getInstance().getListaTuttiEsercizi();
+        scrollPaneEsercizi.setContent(retVbox(strings));
+    }
+    private VBox retVbox(ArrayList<String> esercizi) throws IOException {
         VBox vb = new VBox();
-        for (String s: strings) {
-            Node node1 = (Node) loadRootFromFXML("esercizio.fxml");
+        for (String s: esercizi) {
+            Node node1 = loadRootFromFXML("esercizio.fxml");
             EsercizioHandler.getInstance().setDescrizioneEsercizio(loadImage(s),new DescrizioneEsercizio(s,true));
             EsercizioHandler.getInstance().setOnMouseClickedEvent(event -> {
                 try {
@@ -70,30 +70,14 @@ public class CreateAllenamentoHandler {
                 }
             },"Aggiungi");
             vb.getChildren().add(node1);
-        }*/
-        HashMap<String,ArrayList<String>> esGruppoMusc=InformazioniEsercizi.getInstance().getGruppoMuscolareEsercizi();
-        Set<String> gruppiMuscolari=esGruppoMusc.keySet();
-        VBox vb = new VBox();
-        for (String s: gruppiMuscolari) {
-            Text text=new Text(s);
-            text.setStyle("-fx-font-size: 25px");
-            vb.getChildren().add(text);
-            ArrayList<String> esercizi=esGruppoMusc.get(s);
-            for (String es:esercizi){
-                Node node1 = loadRootFromFXML("esercizio.fxml");
-                EsercizioHandler.getInstance().setDescrizioneEsercizio(loadImage(es),new DescrizioneEsercizio(es,true));
-                EsercizioHandler.getInstance().setOnMouseClickedEvent(event -> {
-                    try {
-                        addvBoxIfUnique(es);
-                    } catch (IOException e) {
-                        ErrorMessage.getInstance().showErrorMessage("Errore caricamento esercizi");
-                    }
-                },"Aggiungi");
-                vb.getChildren().add(node1);
-            }
         }
-        scrollPaneEsercizi.setContent(vb); //rimettere t
+        return vb;
     }
+    public void filter(String gruppoMuscolare) throws IOException {
+        ArrayList<String> es=InformazioniEsercizi.getInstance().getEserciziGruppoMuscolare(gruppoMuscolare);
+        scrollPaneEsercizi.setContent(retVbox(es));
+    }
+
     private void addvBoxIfUnique(String text) throws IOException {
         System.out.println("addvBoxIfUnique");
         boolean isUnique = true;

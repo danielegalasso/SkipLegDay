@@ -40,4 +40,7 @@ public class InformazioniEsercizi {
     }
     public ArrayList<String> getNomiGruppiMuscolari() {return nomiGruppiMuscolari;}
     public HashMap<String, ArrayList<String>> getGruppoMuscolareEsercizi() {return gruppoMuscolareEsercizi;}
+    public ArrayList<String> getEserciziGruppoMuscolare(String gruppoMuscolare) {  //se magari voglio prendermene solo uno
+        return gruppoMuscolareEsercizi.get(gruppoMuscolare);
+    }
 }

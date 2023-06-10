@@ -4,12 +4,14 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DialogPane;
+import javafx.stage.StageStyle;
 
 import java.util.Optional;
 
 public class ConfirmationAlert {
     public static int showConfirmationAlert(String contentText,String buttonName,String buttonName1) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.initStyle(StageStyle.UNDECORATED);
         alert.setTitle("Conferma");
         alert.setHeaderText(null);
         alert.setContentText(contentText);
@@ -32,6 +34,7 @@ public class ConfirmationAlert {
 
         // Aggiunta dei pulsanti al DialogPane
         DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(ConfirmationAlert.class.getResource("/com/example/skiplegday/css/dialog.css").toExternalForm());
         dialogPane.getButtonTypes().setAll(buttonClose, buttonYes);
 
         Optional<ButtonType> result = alert.showAndWait();

@@ -68,8 +68,7 @@ public class SceneSecondaryHandler {
         setLastScene();
         simulateTabPress();
     }
-    public void createSchedePredefiniteScene() throws IOException {
-        //Node node = (Node) loadRootFromFXML("schedeDefault.fxml");
+    public void createSchedePredefiniteScene() throws IOException {  //CAMBIARE NOME SCHEDEDEFAULT
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/skiplegday/schedeDefault1.fxml"));
         Node node = loader.load();
         SchedeDefault1Controller controller = loader.getController();
@@ -175,7 +174,6 @@ public class SceneSecondaryHandler {
     }
     //per accedere all'allenamento pers quando sono sulla label
     public void accediSchedaPersonalizzataScene(String schedaNome) throws IOException {  //meglio chiamarlo accedi allenamento
-        //setLastScene();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/skiplegday/allenamentoPersonale.fxml"));
         Node node=loader.load();
         //Node node = (Node) loadRootFromFXML("allenamentoPersonale.fxml");

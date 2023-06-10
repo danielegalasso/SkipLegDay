@@ -3,6 +3,7 @@ package com.example.skiplegday;
 import javafx.scene.image.Image;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Setting {
     private static Setting instance = new Setting();

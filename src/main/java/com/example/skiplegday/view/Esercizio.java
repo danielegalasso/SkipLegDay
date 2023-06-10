@@ -18,12 +18,13 @@ import java.util.Map;
 
 public class Esercizio extends Text{  //la classe esercizio non è altro che un Text con associato un actionEvent internamente che apre una finestra popup
     private Map<String, Parent> popupMap = new HashMap<String,Parent>();  //con questa struttura riesco a memorizzare le finestre popup già aperte
-    //in modo da non doverle ricaricare ogni volta che clicco su un esercizio, potendomi memorizzare lo stato passato, ripartendo sempre da quello
+    //in modo da non doverle ricaricare ogni volta che clicco su un esercizio, potendomi inoltre memorizzare lo stato passato, ripartendo sempre da quello
     private Scene scene;
     public Esercizio(String text){
         setText(text);
+        getStyleClass().add("esercizio");
         setOnMouseClicked(event -> {
-            Stage mainStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Stage mainStage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //prendo il mainStage per poterlo passare alla classe popup
             try {
                 String nomeEsercizio = getText();
                 Parent root = popupMap.get(nomeEsercizio);  //accedo alla map col nome di questo esercizio per vedere se è presente un Parent gia caricato in precedenza
@@ -36,7 +37,8 @@ public class Esercizio extends Text{  //la classe esercizio non è altro che un 
                 }
                 else {
                     PopupHandler.getInstance().setvBoxDatiEsercizi((VBox) root.lookup("#vBoxDatiEsercizi")); //se non lo setto qui perdo il riferimento al vBox,
-                    //in qunato non caricando il fxml non si crea il controller associato che setta il Vbox, quindi se prima clicco su un altro esercizio
+                    //in quanto non caricando il fxml (se è già presente nella map non si carica, ma lo prendo e basta) -> non si crea il controller
+                    // associato che setta il Vbox, quindi se prima clicco su un altro esercizio
                     //e poi su questo, il vBox non è settato e non posso aggiungere i dati dell'esercizio.
                     scene.setRoot(root);
                 }
@@ -45,14 +47,6 @@ public class Esercizio extends Text{  //la classe esercizio non è altro che un 
             } catch (IOException e) {
                 ErrorMessage.getInstance().showErrorMessage("Errore nel caricamento dell'esercizio");
             }
-        });
-        setOnMouseEntered(event -> {
-            setFill(Color.BLUE);
-            setCursor(Cursor.HAND);
-        });
-        setOnMouseExited(event -> {
-            setFill(Color.BLACK);
-            setCursor(Cursor.DEFAULT);
         });
     }
     private<T> T loadRootFromFXML(String resourceName) throws IOException {

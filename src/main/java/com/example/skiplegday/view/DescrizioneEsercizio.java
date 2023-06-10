@@ -14,8 +14,9 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public class DescrizioneEsercizio extends Text {
-    public DescrizioneEsercizio(String text,boolean popup) {
+    public DescrizioneEsercizio(String text,boolean popup) {  //la descrizione esercizio si puo aprire sia sul popup, che in menuEsercizi
         setText(text);
+        getStyleClass().add("esercizio");
         setOnMouseClicked(event -> {
             try {
                 if (!popup) {
@@ -36,14 +37,6 @@ public class DescrizioneEsercizio extends Text {
                 e.printStackTrace();
                 ErrorMessage.getInstance().showErrorMessage("Errore nel caricamento della descrizione dell'esercizio");
             }
-        });
-        setOnMouseEntered(event -> {
-            setFill(Color.BLUE);
-            setCursor(Cursor.HAND);
-        });
-        setOnMouseExited(event -> {
-            setFill(Color.BLACK);
-            setCursor(Cursor.DEFAULT);
         });
     }
 }

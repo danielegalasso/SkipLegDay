@@ -17,8 +17,6 @@ import javafx.scene.text.TextFlow;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Set;
 
 public class CreateAllenamentoHandler {
     private CreateAllenamentoHandler() {}
@@ -61,8 +59,10 @@ public class CreateAllenamentoHandler {
         VBox vb = new VBox();
         for (String s: esercizi) {
             Node node1 = loadRootFromFXML("esercizio.fxml");
-            EsercizioHandler.getInstance().setDescrizioneEsercizio(loadImage(s),new DescrizioneEsercizio(s,true));
-            EsercizioHandler.getInstance().setOnMouseClickedEvent(event -> {
+            EsercizioGeneraleHandler.getInstance().setDescrizioneEsercizio(loadImage(s),new DescrizioneEsercizio(s,true));
+            //rimuovibile: false perche nel manuale esercizi non si puo rimuovere, deve essere un qualcosa di statico,
+            //quindi nascondo il button
+            EsercizioGeneraleHandler.getInstance().setOnMouseClickedEvent(event -> {
                 try {
                     addvBoxIfUnique(s);
                 } catch (IOException e) {
@@ -104,8 +104,10 @@ public class CreateAllenamentoHandler {
         System.out.println("isUnique: "+isUnique);
         if (isUnique) {  //SE NON è PRESENTE CREO L'HOB CON ESERCIZIO E BUTTON RIMUOVI
             Node node2 = loadRootFromFXML("esercizio.fxml");
-            EsercizioHandler.getInstance().setDescrizioneEsercizio(loadImage(text),new DescrizioneEsercizio(text,true));
-            EsercizioHandler.getInstance().setOnMouseClickedEvent(event -> {
+            EsercizioGeneraleHandler.getInstance().setDescrizioneEsercizio(loadImage(text),new DescrizioneEsercizio(text,true));
+            //rimuovibile: true perche do la possibilita di rimuovere la descrizione esercizio, per modificare la scheda
+
+            EsercizioGeneraleHandler.getInstance().setOnMouseClickedEvent(event -> {
                 vBoxTuoAllenamento.getChildren().remove(node2);
             },"Rimuovi");
             vBoxTuoAllenamento.getChildren().add(node2);

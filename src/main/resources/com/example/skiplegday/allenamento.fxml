@@ -6,14 +6,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="280.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.skiplegday.controller.AllenamentoController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="780.0" styleClass="allenamento-pane" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.skiplegday.controller.AllenamentoController">
    <children>
-      <Text fx:id="idGruppoMuscolare" layoutX="3.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" AnchorPane.leftAnchor="3.0" AnchorPane.topAnchor="5.0" />
-      <Button fx:id="importaButton" layoutX="628.0" layoutY="207.0" mnemonicParsing="false" onAction="#importaSchedaAction" text="importa" AnchorPane.bottomAnchor="47.66666666666666" AnchorPane.rightAnchor="14.0" />
-      <Button fx:id="saveAllenamentoButton" layoutX="486.0" layoutY="172.0" mnemonicParsing="false" onAction="#saveAllenamentoAction" text="salva" AnchorPane.bottomAnchor="14.666666666666657" AnchorPane.rightAnchor="22.0" />
+      <Text fx:id="idGruppoMuscolare" layoutX="3.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-color" text="Text" AnchorPane.leftAnchor="3.0" AnchorPane.topAnchor="5.0" />
+      <Button fx:id="importaButton" layoutX="628.0" layoutY="207.0" mnemonicParsing="false" onAction="#importaSchedaAction" prefHeight="30.0" prefWidth="60.0" styleClass="button-allenamento" text="importa" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="15.0" />
+      <Button fx:id="saveAllenamentoButton" layoutX="486.0" layoutY="172.0" mnemonicParsing="false" onAction="#saveAllenamentoAction" prefHeight="30.0" prefWidth="60.0" styleClass="button-allenamento" text="salva" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="15.0" />
       <ScrollPane fx:id="scrollPaneAllen" fitToHeight="true" fitToWidth="true" layoutX="4.0" layoutY="31.0" prefHeight="194.0" prefWidth="467.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="78.66666666666669" AnchorPane.topAnchor="31.0">
          <content>
-            <VBox fx:id="vBoxListaEsercizi" prefHeight="190.0" prefWidth="587.0" spacing="10.0" />
+            <VBox fx:id="vBoxListaEsercizi" prefHeight="268.0" prefWidth="720.0" spacing="10.0" styleClass="vbox-allenamento" />
          </content>
       </ScrollPane>
    </children>

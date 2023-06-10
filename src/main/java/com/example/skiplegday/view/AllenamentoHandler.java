@@ -4,8 +4,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
@@ -26,7 +24,7 @@ public class AllenamentoHandler {
         idGruppoMuscolare.setText(l.get(0));
         for(int i=1;i<l.size();++i){
             Node node = loadRootFromFXML("esercizio.fxml");
-            EsercizioHandler.getInstance().setEsercizio(loadImage(l.get(i)),new Esercizio(l.get(i)),false);
+            EsercizioGeneraleHandler.getInstance().setEsercizio(loadImage(l.get(i)),new Esercizio(l.get(i)),false);
             vBoxListaEsercizi.getChildren().add(node);
         }
         importaButton.setVisible(false);
@@ -38,11 +36,12 @@ public class AllenamentoHandler {
         idGruppoMuscolare.setText(l.get(0));
         for(int i=1;i<l.size();++i){
             Node node = loadRootFromFXML("esercizio.fxml");
-            EsercizioHandler.getInstance().setEsercizio(loadImage(l.get(i)),new Esercizio(l.get(i)),true);
+            EsercizioGeneraleHandler.getInstance().setEsercizioSchedeDefault(loadImage(l.get(i)),new DescrizioneEsercizio(l.get(i),true));
+            //popup: true perche va caricato su un popUp in caso venga premuto
             vBoxListaEsercizi.getChildren().add(node);
         }
-        importaButton.setVisible(true);
-        saveAllenamentoButton.setVisible(false);
+        importaButton.setVisible(true);  // in schedaAllenamentoPredefinito  non devo inserire l'allenamento e salvarlo
+        saveAllenamentoButton.setVisible(false);  //posso solo importare la scheda nei miei allenamenti
     }
     private Image loadImage(String nomeEsercizio) throws IOException {
         Image img=new Image(getClass().getResource(FONT_PATH+nomeEsercizio+".png").openStream());

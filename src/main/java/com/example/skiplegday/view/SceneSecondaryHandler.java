@@ -45,18 +45,18 @@ public class SceneSecondaryHandler {
         if(root == null) {
             root = loadRootFromFXML("schedePersonali.fxml");
             sceneMap.put("schedePersonali", root);
-            //--------------------------------
-            GetSchedeService getSchedeService = new GetSchedeService();  //devo salvarmi i dati in utente attuale!!!!!!!!!!!!!!!
+            //query al db per ottenere le schede personali dell'utente
+            GetSchedeService getSchedeService = new GetSchedeService();
             getSchedeService.setDati(UtenteAttuale.getInstance().getUsername());
             getSchedeService.restart();
-            getSchedeService.setOnSucceeded(event -> {  //va fatto solo all'inizio?????? altrimenti sarebbe inefficiente
+            getSchedeService.setOnSucceeded(event -> {  //va fatto solo all'inizio, e non ogni volta che apro schedePersonali altrimenti sarebbe inefficiente
                 ArrayList<String> schede = getSchedeService.getValue();
                 for (int i = 0; i < schede.size(); i++) {
                     try {
                         GridPaneAllenamentiHandler.getInstance().aggiungiSchedaPersonaleScene(schede.get(i));
                     } catch (IOException e) {
                         e.printStackTrace();
-                        //ErrorMessage.getInstance().showErrorMessage("Errore nel caricamento delle schede personali");
+                        ErrorMessage.getInstance().showErrorMessage("Errore nel caricamento delle schede personali");
                     }
                 }
             });
@@ -70,10 +70,10 @@ public class SceneSecondaryHandler {
     }
     public void createSchedePredefiniteScene() throws IOException {  //CAMBIARE NOME SCHEDEDEFAULT
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/skiplegday/schedeDefault1.fxml"));
+        //sarebbe un gridPane, prendo il controller associato e ci aggiungo le schedeDefault col metodo addSchedaDefault
         Node node = loader.load();
         SchedeDefault1Controller controller = loader.getController();
-        ArrayList<String> nomiSchedeDef = new ArrayList<>();
-        nomiSchedeDef.add("PRINCIPIANTE");nomiSchedeDef.add("INTERMEDIO");nomiSchedeDef.add("AVANZATO");nomiSchedeDef.add("TOTAL BODY");nomiSchedeDef.add("CORPO LIBERO");nomiSchedeDef.add("RESISTENZA");
+        ArrayList<String> nomiSchedeDef = nomiSchedePredefinite();
         for(int i=0;i<2;++i){
             for(int j=0;j<3;++j){
                 int linearizzato= (i)*3+j;
@@ -85,13 +85,19 @@ public class SceneSecondaryHandler {
         //setLastScene(); + pulsante indietroo
         simulateTabPress();
     }
+    private ArrayList<String> nomiSchedePredefinite(){
+        ArrayList<String> nomiSchedeDef = new ArrayList<>();
+        nomiSchedeDef.add("PRINCIPIANTE");nomiSchedeDef.add("INTERMEDIO");nomiSchedeDef.add("AVANZATO");nomiSchedeDef.add("TOTAL BODY");nomiSchedeDef.add("CORPO LIBERO");nomiSchedeDef.add("RESISTENZA");
+        return nomiSchedeDef;
+    }
     private Node caricaSchedeDefault(String nomeScheda,int n) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/skiplegday/schedaPersonale.fxml"));
         Node node = loader.load();
-        SchedaPersonaleController controller = loader.getController();
+        SchedaPersonaleController controller = loader.getController(); //prendo il controller per settare i componenti
         controller.setLabelSchedaPersonalizzata(nomeScheda);
         controller.setSchedaDefault(); //cosi non mi fa modificare la scheda (rimuoverla)
         controller.setImageViewSchedaPersonalizzata(new Image(getClass().getResource("/com/example/skiplegday/imageSchede/def"+n+".jpg").toExternalForm())); //!!!!!!!!!!!! qua c'era random
+        //le schede di default hanno delle immagini di default a differenza di quelle personalizzate
         return node;
     }
 
@@ -139,16 +145,9 @@ public class SceneSecondaryHandler {
         List<List<String>> l=LettoreFile.getInstance().leggiSchedaDefault("files/"+schedaName);
         for(int i=0;i<l.size();i++) {
             Node allenamento= loadRootFromFXML("allenamento.fxml");
-            //allenamento.setPrefHeight(600);
             AllenamentoHandler.getInstance().setAllenamentoPredef(l.get(i));
             //allenamento.setEffect(new DropShadow( 15, Color.DARKSLATEGREY));
-            ScrollPane scrollPane= new ScrollPane();
-            scrollPane.setEffect(new DropShadow( 15, Color.DARKSLATEGREY));
-            scrollPane.setMinHeight(300);
-            scrollPane.setMaxHeight(300);
-            scrollPane.setContent(allenamento);
-            // Applica uno stile personalizzato alla barra di scorrimento
-            vBox.getChildren().add(scrollPane);
+            vBox.getChildren().add(allenamento);
         }
         sceneRoot.requestFocus();
         simulateTabPress();

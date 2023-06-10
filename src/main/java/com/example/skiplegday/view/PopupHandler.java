@@ -34,17 +34,14 @@ public class PopupHandler {
     private static final PopupHandler instance = new PopupHandler();
     private PopupHandler() {}
     public static PopupHandler getInstance() {return instance;}
-    private VBox vBoxDatiEsercizi;
+    private VBox vBoxDatiEsercizi; //vbox che contiene le serie kr rep rec (fxml)
     public Text nomeEsercizio;
     private Text errorText;
     private LineChart<Number, Number> lineChart;
     private NumberAxis AX;
-    @FXML
     private NumberAxis AY;
-
-    private String username = UtenteAttuale.getInstance().getUsername(); //DOMENICO
+    private String username = UtenteAttuale.getInstance().getUsername();
     private final PunteggiUtenteEsercizioService service = new PunteggiUtenteEsercizioService();
-
     private<T> T loadRootFromFXML(String resourceName) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(SceneHandler.class.getResource("/com/example/skiplegday/"+resourceName));
         return fxmlLoader.load();
@@ -53,24 +50,25 @@ public class PopupHandler {
         vBoxDatiEsercizi.getChildren().add(loadRootFromFXML("kgRepRec.fxml"));
     }
     public void loadGraph() {
-        System.out.println(username + this.nomeEsercizio.getText());
-        service.setDati(username, nomeEsercizio.getText()); //username DOMENICO
+        //System.out.println(username + this.nomeEsercizio.getText());
+        service.setDati(username, nomeEsercizio.getText());
         service.restart();
         service.setOnSucceeded(event ->  {
             AX.setLabel("Giorno");
             AY.setLabel("Punteggio");
 
             String formattedStartDate;
-            String formattedEndDate;
+            String formattedEndDate;   //per avere un range di data di 3 mesi
             formattedEndDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
             formattedStartDate = LocalDate.now().minusMonths(3).format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
             if(event.getSource().getValue() instanceof DataResult result) {
+                //creo serie dati per X e Y entrambi numerici
                 XYChart.Series<Number, Number> dataSeries = new XYChart.Series<>(); // definisco i dati come data e punteggio (nota: la data non è una stringa
                 // poiché poi faccio la conversione, faccio questo perché voglio poter avere
                 // la distanza che decido io nell'asse x, e lo faccio mediante le coordinate
-                LocalDate firstDate = LocalDate.parse(formattedStartDate);  //start DATEPICKER LocalDate
-                LocalDate lastDate = LocalDate.parse(formattedEndDate);  //end DATEPICKER LocalDate
+                LocalDate firstDate = LocalDate.parse(formattedStartDate);  //converto la data in formato stringa in formato LocalDate
+                LocalDate lastDate = LocalDate.parse(formattedEndDate);
 
                 double intervallo_giorni = ChronoUnit.DAYS.between(firstDate, lastDate);
                 ObservableList<XYChart.Data<Number, Number>> data = FXCollections.observableArrayList(); //è una lista di date e punteggi
@@ -84,12 +82,13 @@ public class PopupHandler {
                         }
                     }
                 }
-                int slide_giorni = (int) (intervallo_giorni/25);
+                int slide_giorni = (int) (intervallo_giorni/25);  //per determinare la distanza tra un punto e l'altro nell'asse x
                 for (Data d : result.allElements()) {
-                    if (d.date().compareTo(formattedStartDate) >= 0 && d.date().compareTo(formattedEndDate) <= 0) {
+                    if (d.date().compareTo(formattedStartDate) >= 0 && d.date().compareTo(formattedEndDate) <= 0) { //se la data del dato è compresa tra la data di inizio e la data di fine
                         LocalDate for_date = LocalDate.parse(d.date(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-                        long days = ChronoUnit.DAYS.between(firstDate, for_date);
+                        long days = ChronoUnit.DAYS.between(firstDate, for_date);  //per avere la distanza in giorni tra la data del dato e la data di inizio
                         //System.out.println(days);
+                        //creo un oggetto XYChart.Data<Number, Number> utilizzando i giorni trascorsi e il punteggio associato al dato
                         XYChart.Data<Number, Number> dataPoint = new XYChart.Data<>(days-min +slide_giorni, d.punteggio());
                         data.add(dataPoint);
                         // Personalizzazione dell'etichetta del punto con la data
@@ -100,17 +99,17 @@ public class PopupHandler {
                 dataSeries.setData(data);
                 lineChart.getData().clear();
                 lineChart.getData().add(dataSeries);
-                lineChart.setLegendVisible(false);
+                lineChart.setLegendVisible(false);  //visibilità della legenda del grafico
                 AX.setAnimated(false);
                 AX.setTickLabelFormatter(new StringConverter<Number>() {
                     @Override
-                    public String toString(Number object) {
+                    public String toString(Number object) { //per avere la data in formato stringa
                         long days = object.longValue();
                         LocalDate date = firstDate.plusDays((long) (days+2 - slide_giorni));
                         return date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
                     }
                     @Override
-                    public Number fromString(String string) {
+                    public Number fromString(String string) { //per avere la data in formato numerico
                         LocalDate date = LocalDate.parse(string, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
                         long days = ChronoUnit.DAYS.between(firstDate, date);
                         return days;
@@ -143,19 +142,19 @@ public class PopupHandler {
     public boolean chekValueNull() {
         ObservableList<Node> items = vBoxDatiEsercizi.getChildren();
         for (Node item : items) {
-            if (item instanceof Parent) {
-                Parent parent = (Parent) item;
-                TextField textField1 = (TextField) parent.getChildrenUnmodifiable().get(0);
-                TextField textField2 = (TextField) parent.getChildrenUnmodifiable().get(1);
-                TextField textField3 = (TextField) parent.getChildrenUnmodifiable().get(2);
-                if (textField1.getText().equals("") || textField2.getText().equals("") || textField3.getText().equals("")) {
-                    return true;
+            if (item instanceof Parent parent) {
+                if (parent.getChildrenUnmodifiable().get(0) instanceof TextField textField1 &&
+                        parent.getChildrenUnmodifiable().get(1) instanceof TextField textField2 &&
+                        parent.getChildrenUnmodifiable().get(2) instanceof TextField textField3) {
+                    if (textField1.getText().equals("") || textField2.getText().equals("") || textField3.getText().equals("")) {
+                        return true;
+                    }
                 }
+                else {ErrorMessage.getInstance().showErrorMessage("");}
             }
         }
         return false;
     }
-
     public void setErrorText(Text errorText) {
         this.errorText = errorText;
     }

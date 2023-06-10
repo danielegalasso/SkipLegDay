@@ -19,20 +19,15 @@ public class GridPaneAllenamentiHandler {
     private static GridPaneAllenamentiHandler instance = new GridPaneAllenamentiHandler();
     private GridPaneAllenamentiHandler(){}
     public static GridPaneAllenamentiHandler getInstance() {return instance;}
-    private GridPane gridPane; //per le schedePersonali
+    private GridPane gridPane;
     private int columnCount = 3;//gridPane.getColumnCount();
-    private int rowIndex = 0;  //quando ricclicco su scheda personale le resetto, finche non prendo le cose da daniele
+    private int rowIndex = 0;
     private int columnIndex = 0;
     void setPosInitialGridPane() {
         rowIndex = 0;
         columnIndex = 0;
     }
     public void aggiungiSchedaPersonaleScene(String nameExercise) throws IOException {
-        /*
-        nameExercise= nameAllenamento(nameExercise);
-        mieiAllenamenti.add(nameExercise);*/
-        //Node node = (Node) loadRootFromFXML("schedaPersonale.fxml"); non posso farla con questa funzione perche mi serve
-        //controller associato
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/skiplegday/schedaPersonale.fxml"));
         Node node = loader.load();
         SchedaPersonaleController controller = loader.getController();
@@ -41,12 +36,12 @@ public class GridPaneAllenamentiHandler {
         addSchedaNextPositionGridPane(node);
     }
     private ArrayList<Integer> immaginiUscite = new ArrayList<>();
-    private Image randomImage(){
+    private Image randomImage(){  //genera un numero random da 0 a 10 e ritorna l'immagine corrispondente per la schedaCard
         Random random = new Random();
         int min = 0; // Valore minimo
         int max = 10; // Valore massimo
-        if (immaginiUscite.size() == 10) { //se ho aggiunto tutte le immagini le resetto
-            immaginiUscite.clear();
+        if (immaginiUscite.size() == 10) { //se ho aggiunto tutte le immagini le resetto, in modo da non avere immagini uguali
+            immaginiUscite.clear();        //finchè non escono tutte
         }
         int n = random.nextInt(max - min + 1) + min;
         while (immaginiUscite.contains(n)) {
@@ -68,7 +63,6 @@ public class GridPaneAllenamentiHandler {
         rowIndex = 0;
         columnIndex = 0;
         for (Node node : children) {
-            // Riposiziona il nodo nel GridPane
             addSchedaNextPositionGridPane(node);
         }
     }
@@ -78,12 +72,19 @@ public class GridPaneAllenamentiHandler {
     public void setModificaNomeAllenamento(String nomeAllenamentoNuovo, String nomeAllenamentoVecchio) {
         ObservableList<Node> children = gridPane.getChildren();
         for (Node node : children) {
-            if (node instanceof AnchorPane) {
-                AnchorPane anchorPane = (AnchorPane) node;
-                if(((Label) anchorPane.getChildren().get(0)).getText().equals(nomeAllenamentoVecchio)) {
-                    ((Label) anchorPane.getChildren().get(0)).setText(nomeAllenamentoNuovo);
+            if (node instanceof AnchorPane anchorPane){
+                if(anchorPane.getChildren().get(0) instanceof Label label) {
+                    if(label.getText().equals(nomeAllenamentoVecchio)) {
+                        label.setText(nomeAllenamentoNuovo);
+                        return;
+                    }
                 }
             }
         }
+        ErrorMessage.getInstance().showErrorMessage("Errore modifica nome allenamento");
+        //cambio il nome dell'allenamento visivamente per renderlo piu efficiente, altrimenti dovrei ogni volta ricaricare
+        //la pagina facendo la query al db per le modifiche. Molto meglio salvare nel db, ma non rifare la query per ottenere
+        //la modifica, bensi solo modificarlo visivamente. Al prossimo login sarà comunque visibile in quanto all'avvio
+        //prende i dati dal db, ovviamente modificati
     }
 }

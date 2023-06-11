@@ -87,6 +87,7 @@ public class StatisticheHandler {
                             ErrorMessage.getInstance().showErrorMessage("Errore durante il caricamento della scheda personalizzata");
                         }
                     }
+                    datePicker.setValue(null);
                 });
             });
             paneCalendar.setCenter(popupContent);

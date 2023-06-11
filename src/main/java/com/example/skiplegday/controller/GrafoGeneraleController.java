@@ -36,7 +36,7 @@ public class GrafoGeneraleController {
 
     private ObservableList<String> data;
     private String username = UtenteAttuale.getInstance().getUsername();
-    private String nomeEsercizio = "panca piana";
+    private String nomeEsercizio = "Panca Piana";
 
     private LocalDate firstDate;
     private LocalDate lastDate;
@@ -67,7 +67,7 @@ public class GrafoGeneraleController {
             xAxis.setLabel("Giorno");
             yAxis.setLabel("Punteggio");
 
-            String nomeEsercizio = "panca piana";
+            String nomeEsercizio = "Panca Piana";
             String formattedStartDate;
             String formattedEndDate;
             if(startDate.getValue() == null){
@@ -81,10 +81,6 @@ public class GrafoGeneraleController {
                 formattedEndDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
             } else{
                 formattedEndDate = endDate.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));     //end DATEPICKER
-            }
-
-            if (es.getText() == "") {
-                es.setText(nomeEsercizio); ////!!!!!
             }
 
 
@@ -133,10 +129,14 @@ public class GrafoGeneraleController {
                 }
 
 
-                System.out.println(maxInterval);
-                lineChart.setPrefWidth(Math.max(750, 100*(maxInterval/30)));
+                //System.out.println(maxInterval);
+
                 lineChart.getData().clear();
-                lineChart.getData().add(dataSeries);
+                if (maxInterval > 0) {
+                    lineChart.setPrefWidth(Math.max(750, 100*(maxInterval/30)));
+                    lineChart.getData().add(dataSeries);
+                }
+
                 lineChart.setLegendVisible(false);
                 xAxis.setAnimated(false);
                 xAxis.setTickLabelFormatter(new StringConverter<Number>() {

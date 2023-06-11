@@ -11,7 +11,7 @@ public class CalcolaPesoSettimanaService extends Service<Double> {
         return new Task<>() {
             @Override
             protected Double call() throws Exception {
-                Double risultato = Database.getInstance().calcolaPesoSettimanaCorrente(username,settimanaPrecedente);
+                Double risultato = Database.getInstance().calcolaPesoMeseCorrente(username,settimanaPrecedente);
                 return risultato;
             }
         };

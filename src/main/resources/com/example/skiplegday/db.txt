@@ -124,12 +124,6 @@ VALUES
 
 
 
-INSERT INTO peso (username, dataPesata, peso)
-VALUES
-    ('marco', '2023-05-31', 75.5),
-    ('giulia', '2023-05-31', 62.2);
-
-
 INSERT INTO allenamenti (username, data, scheda)
 VALUES
     ('marco', '2023-05-31', 'petto-braccia'),
@@ -153,5 +147,190 @@ https://sqlite.org/faq.html#q3
 https://sqlite.org/datatype3.html#affinity
 
 
+-----python script ---------------------
+
+import json
+from datetime import datetime, timedelta
+import random
+
+#inserisci esercizi
+with open('esercizi.json') as file:
+    data = json.load(file)
+script = "INSERT INTO esercizi (nome, descrizione, gruppoMuscolare) VALUES\n"
+for esercizio in data['esercizi']:
+    nome = esercizio['nome']
+    descrizione = esercizio['descrizione']
+    gruppo_muscolare = esercizio['gruppoMuscolare']
+    script += f"    ('{nome}', '{descrizione}', '{gruppo_muscolare}'),\n"
+script = script.rstrip(",\n") + ";\n"
+print(script)
+
+#inserisci schedePersonalizzate
+schede_script ="INSERT INTO schedepersonalizzate(username, nome_scheda, nome_esercizi) VALUES\n";
+for scheda in data['schede_personalizzate']:
+    username = scheda['username']
+    nome_scheda = scheda['nome_scheda']
+    nome_esercizi = scheda['nome_esercizi']
+    for esercizio in nome_esercizi:
+        schede_script += f"    ('{username}', '{nome_scheda}', '{esercizio}'),\n"
+schede_script = schede_script.rstrip(",\n") + ";\n"
+print(schede_script)
+
+#inserisci allenamenti
+start_date =datetime.strptime("2023-03-01", "%Y-%m-%d")
+date = start_date
+users = ["daniele", "federico", "domenico"]
+end_date = datetime.strptime("2023-06-30", "%Y-%m-%d")
+while date <= end_date:
+    username = random.choice(users)
+    avanzamentoGiorni = random.randint(1, 2)
+    date += timedelta(days=avanzamentoGiorni)
+    date_str = date.strftime("%Y-%m-%d")
+
+    valid_scheda = False
+    scheda = None
+    while not valid_scheda:
+        scheda = random.choice(data['schede_personalizzate'])
+        if scheda['username'] == username:
+            valid_scheda = True
+
+    queryAllenamento = "INSERT INTO allenamenti (username, data, scheda) VALUES\n"
+    queryAllenamento += f"    ('{username}', '{date_str}', '{scheda['nome_scheda']}');\n"
+    print(queryAllenamento)
+
+    for esercizio in scheda['nome_esercizi']:
+        inseriscoEsercizio = random.randint(1, 2)
+        if inseriscoEsercizio == 1:
+            continue
+        esercizio_nome = esercizio
+        peso = random.randint(10, 100)
+        ripetizioni = random.randint(8, 12)
+        recupero_secondi = random.randint(0, 300)
+
+        nSerie = random.randint(1, 5)
+        for i in range(nSerie):
+            querySerie = "INSERT INTO serie (allenamento_username, allenamento_data, esercizio_nome, peso, ripetizioni, recuperoSecondi) VALUES\n"
+            querySerie += f"    ('{username}', '{date_str}', '{esercizio_nome}', '{peso + (5*(i-1))}', '{ripetizioni}', '{recupero_secondi}');\n"
+            print(querySerie)
 
 
+'''
+
+CREATE TABLE utenti (
+    username TEXT PRIMARY KEY,
+    password TEXT,
+    nome TEXT,
+    cognome TEXT,
+    sesso TEXT,
+    peso REAL,
+    dataNascita TEXT,
+    altezza REAL,
+    css TEXT,
+    valutazione REAL,
+    recensione TEXT
+);
+
+
+CREATE TABLE allenamenti (
+    username TEXT,
+    data TEXT,
+    scheda TEXT,
+    PRIMARY KEY (username, data),
+    FOREIGN KEY (username) REFERENCES utenti(username)
+    FOREIGN KEY (scheda) REFERENCES schedepersonalizzate(nome_scheda)
+);
+
+CREATE TABLE schedepersonalizzate (
+    id INTEGER,
+    username TEXT,
+    nome_scheda TEXT,
+    nome_esercizi TEXT,
+    PRIMARY KEY (username, nome_scheda, nome_esercizi),
+    FOREIGN KEY (username) REFERENCES utenti(username),
+    FOREIGN KEY (nome_esercizi) REFERENCES esercizi(nome)
+);
+
+
+CREATE TRIGGER increment_id
+AFTER INSERT ON schedepersonalizzate
+BEGIN
+    UPDATE schedepersonalizzate
+    SET id = (SELECT COALESCE(MAX(id), 0) + 1 FROM schedepersonalizzate)
+    WHERE username = new.username AND nome_scheda = new.nome_scheda and nome_esercizi = new.nome_esercizi;
+END;
+
+
+
+
+CREATE TABLE esercizi (
+    nome TEXT PRIMARY KEY,
+    descrizione TEXT,
+    gruppoMuscolare TEXT
+);
+
+CREATE TABLE serie (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    allenamento_username TEXT,
+    allenamento_data TEXT,
+    esercizio_nome TEXT,
+    peso REAL,
+    ripetizioni INTEGER,
+    recuperoSecondi INTEGER,
+    FOREIGN KEY (allenamento_username, allenamento_data) REFERENCES allenamenti(username, data),
+    FOREIGN KEY (esercizio_nome) REFERENCES esercizi(nome)
+);
+
+
+
+
+
+//registrare utenti
+try {
+            db.registerUser("daniele", "daniele", "Daniele", "Rossi", "M", "70", "1990-01-01", "180", "blue", "5.0", "Ottimo utente");
+            db.registerUser("federico", "federico", "Federico", "Bianchi", "M", "80", "1995-05-10", "175", "green", "4.0", "Utente affidabile");
+            db.registerUser("domenico", "domenico", "Domenico", "Verdi", "M", "65", "1988-11-15", "170", "red", "3.0", "Buon utente");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+
+'''
+{
+    "esercizi": [
+      {
+        "nome": "Panca Piana",
+        "descrizione": "Esercizio per pettorali e tricipiti",
+        "gruppoMuscolare": "Petto"
+      },
+      {
+        "nome": "Squat",
+        "descrizione": "Esercizio per gambe e glutei",
+        "gruppoMuscolare": "Gambe"
+      },
+      {
+        "nome": "Croci",
+        "descrizione": "Esercizio petto",
+        "gruppoMuscolare": "Braccia"
+      }
+    ],
+    "schede_personalizzate": [
+        {
+          "username": "federico",
+          "nome_scheda": "Giorno1",
+          "nome_esercizi": ["Panca Piana", "Croci", "Squat"]
+        },
+        {
+          "username": "domenico",
+          "nome_scheda": "Salvatore obeso",
+          "nome_esercizi": ["Squat"]
+        },
+        {
+          "username": "daniele",
+          "nome_scheda": "Alhamdullilah",
+          "nome_esercizi": ["Panca Piana", "Croci"]
+        }
+      ]
+  }
+
+-------------------------------------------

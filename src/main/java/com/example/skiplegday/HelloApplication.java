@@ -25,8 +25,15 @@ public class HelloApplication extends Application {
 
         Database db = Database.getInstance();
         db.createConnection();
-
-
+        /*
+        try {
+            db.registerUser("daniele", "daniele", "Daniele", "Rossi", "M", "70", "1990-01-01", "180", "blue", "5", "Ottimo utente");
+            db.registerUser("federico", "federico", "Federico", "Bianchi", "M", "80", "1995-05-10", "175", "green", "4", "Utente affidabile");
+            db.registerUser("domenico", "domenico", "Domenico", "Verdi", "M", "65", "1988-11-15", "170", "red", "3", "Buon utente");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        */
         SceneHandler.getInstance().init(stage);
         SceneHandler.getInstance().createLoginScene();
         /*db.registerUser("domenico", "1234", "Dome", "Visci", "dsduiws@gmail.com", "03-02-2009","1.80");

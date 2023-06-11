@@ -51,10 +51,10 @@ public class StatisticheHandler {
                     public void updateItem(LocalDate date, boolean empty) {
                         super.updateItem(date, empty);
                         // Verifica le condizioni per colorare la cella
-                        System.out.println(date);
+                        //System.out.println(date);
                         String d = String.valueOf(date);
                         if (date != null) {
-                            System.out.println(result.allElements());
+                            //System.out.println(result.allElements());
 
                             if (result.allElements().contains(d)) {
                                 setStyle("fx-text-fill: white;\n" +
@@ -108,12 +108,15 @@ public class StatisticheHandler {
             HashMap<String, Double> pesoGruppiMuscolari = getHash.getValue();
             for (Map.Entry<String, Double> entry : pesoGruppiMuscolari.entrySet()) {
                 String gruppoMuscolare = entry.getKey();
+                System.out.println(gruppoMuscolare);
                 double peso = entry.getValue();
-                System.out.println("aaaaaaaaaaaaaaaaaaa" + gruppoMuscolare + peso);
+                //System.out.println("aaaaaaaaaaaaaaaaaaa" + gruppoMuscolare + peso);
                 categories.add(gruppoMuscolare);
                 dataValues.add(peso);
                 paneGrafoRadar.getChildren().setAll(new GrafoStatisticaRadar( categories, dataValues));
+
             }
+            System.out.println("Radar loaded");
         });
     }
     public void loadGrafo() throws IOException {

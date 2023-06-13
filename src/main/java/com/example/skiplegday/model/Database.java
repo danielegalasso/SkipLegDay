@@ -15,7 +15,7 @@ public class Database{
     private Connection con = null;
 
     public void createConnection() throws SQLException {
-        String url = "jdbc:sqlite:db_name11.db";
+        String url = "jdbc:sqlite:db_name12.db";
         this.con = DriverManager.getConnection(url);
         if (this.con != null && !this.con.isClosed()) {
             System.out.println("Connected!");

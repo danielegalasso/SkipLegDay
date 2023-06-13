@@ -66,28 +66,31 @@ public class StatisticheHandler {
             }
             DatePickerSkin datePickerSkin = new DatePickerSkin(datePicker);
             Node popupContent = datePickerSkin.getPopupContent();
+            //per mettere un listener sul DatePickerSkin devo mettere questi tre parametri (cliccando sul calendario la proprietà assume un valore)
             datePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
-
-                System.out.println("Data selezionata: " + newValue + oldValue);
-                DaDataAAllenamentoService getAllenamento = new DaDataAAllenamentoService();
-                getAllenamento.setDati(UtenteAttuale.getInstance().getUsername(), newValue.toString());  //IL PATTERN DELLA DATA VA BENE??
-                getAllenamento.restart();
-                getAllenamento.setOnSucceeded(event1 -> {
-                    ArrayList<Object> esercizi = getAllenamento.getValue();
-                    System.out.println("Esercizi: " + esercizi);
-                    if (esercizi.get(0) == "") {
-                        ErrorMessage.getInstance().showErrorMessage("Non hai effettuato un allenamento in questa data");
-                    } else {
-                        System.out.println("Allenamento trovato");
-                        try {
-                            SceneSecondaryHandler.getInstance().setLastScene();
-                            SceneSecondaryHandler.getInstance().createAllenamentoCalendarioScene(esercizi);
-                        } catch (IOException e) {
-                            ErrorMessage.getInstance().showErrorMessage("Errore durante il caricamento della scheda personalizzata");
+                //faccio questo poiché ogni volta imposto: datePicker.setValue(null); dunque il valore di daePicker varia con null
+                if (newValue != null) {
+                    System.out.println("Data selezionata: " + newValue);
+                    DaDataAAllenamentoService getAllenamento = new DaDataAAllenamentoService();
+                    getAllenamento.setDati(UtenteAttuale.getInstance().getUsername(), newValue.toString());
+                    getAllenamento.restart();
+                    getAllenamento.setOnSucceeded(event1 -> {
+                        ArrayList<Object> esercizi = getAllenamento.getValue();
+                        System.out.println("Esercizi: " + esercizi);
+                        if (esercizi.get(0) == "") {
+                            ErrorMessage.getInstance().showErrorMessage("Non hai effettuato un allenamento in questa data");
+                        } else {
+                            System.out.println("Allenamento trovato");
+                            try {
+                                SceneSecondaryHandler.getInstance().setLastScene();
+                                SceneSecondaryHandler.getInstance().createAllenamentoCalendarioScene(esercizi);
+                            } catch (IOException e) {
+                                ErrorMessage.getInstance().showErrorMessage("Errore durante il caricamento della scheda personalizzata");
+                            }
                         }
-                    }
-                    datePicker.setValue(null);
-                });
+                        datePicker.setValue(null);
+                    });
+                }
             });
             paneCalendar.setCenter(popupContent);
             System.out.println("Calendar loaded");

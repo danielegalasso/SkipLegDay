@@ -44,6 +44,7 @@ public class AllenamentoHandler {
         saveAllenamentoButton.setVisible(false);  //posso solo importare la scheda nei miei allenamenti
     }
     private Image loadImage(String nomeEsercizio) throws IOException {
+        System.out.println(nomeEsercizio);
         Image img=new Image(getClass().getResource(FONT_PATH+nomeEsercizio+".png").openStream());
         return img;
     }

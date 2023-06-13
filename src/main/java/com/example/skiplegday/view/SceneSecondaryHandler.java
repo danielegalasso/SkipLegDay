@@ -241,7 +241,8 @@ public class SceneSecondaryHandler {
             c.setNomeEsercizioText(nomeEs);
             c.setImageEsercizio(loadImage("croci cavi")); //mettere nomeEs !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             for (Serie s : serie) {
-                Text t = new Text(s.toString());
+                Text t = new Text("Peso: "+ s.getPeso() + "kg    Ripetizioni: "+s.getRipetizioni()+"    Recupero: "+s.getRecuperoSecondi()+"sec");
+                //System.out.println();
                 c.addSerie(t);
             }
             pane.add(allenamento, colonna, riga);

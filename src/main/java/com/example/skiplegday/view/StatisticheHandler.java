@@ -81,8 +81,6 @@ public class StatisticheHandler {
                         try {
                             SceneSecondaryHandler.getInstance().setLastScene();
                             SceneSecondaryHandler.getInstance().createAllenamentoCalendarioScene(esercizi);
-                            //SceneSecondaryHandler.getInstance().setLastScene();
-                            //SceneSecondaryHandler.getInstance().accediSchedaPersonalizzataScene((String) esercizi.get(0)); //newValue.toString()
                         } catch (IOException e) {
                             ErrorMessage.getInstance().showErrorMessage("Errore durante il caricamento della scheda personalizzata");
                         }

@@ -25,7 +25,7 @@ public class HelloApplication extends Application {
 
         Database db = Database.getInstance();
         db.createConnection();
-        ///*
+        /*
         try {
             db.registerUser("daniele", "daniele", "Daniele", "Rossi", "M", "70", "1990-01-01", "180", "blue", "5", "Ottimo utente");
             db.registerUser("federico", "federico", "Federico", "Bianchi", "M", "80", "1995-05-10", "175", "green", "4", "Utente affidabile");
@@ -33,9 +33,9 @@ public class HelloApplication extends Application {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        //*/
-        //SceneHandler.getInstance().init(stage);
-        //SceneHandler.getInstance().createLoginScene();
+        */
+        SceneHandler.getInstance().init(stage);
+        SceneHandler.getInstance().createLoginScene();
         /*db.registerUser("domenico", "1234", "Dome", "Visci", "dsduiws@gmail.com", "03-02-2009","1.80");
         RegisterUserService registerUserService = new RegisterUserService();
         registerUserService.setDati("domenico", "1234", "Dome", "Visci", "M","80" ,"03-02-2009","180");

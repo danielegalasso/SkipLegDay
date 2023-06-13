@@ -102,6 +102,9 @@ public class GrafoGeneraleController {
                     maxInterval = Long.MIN_VALUE;
                     for (Data d : result.allElements()) {
                         if (d.date().compareTo(formattedStartDate) >= 0 && d.date().compareTo(formattedEndDate) <= 0) {
+                            /////////////
+                            //System.out.println("CIAOAOAOOAOAOA");
+                            //System.out.println(d.date());
                             LocalDate for_date = LocalDate.parse(d.date(), DateTimeFormatter.ofPattern("yyyy-MM-dd")); //la data dell'allenamento reso dal for
                             long days = ChronoUnit.DAYS.between(firstDate, for_date);
                             if (days > maxInterval) {

@@ -67,7 +67,8 @@ public class StatisticheHandler {
             DatePickerSkin datePickerSkin = new DatePickerSkin(datePicker);
             Node popupContent = datePickerSkin.getPopupContent();
             datePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
-                System.out.println("Data selezionata: " + newValue);
+
+                System.out.println("Data selezionata: " + newValue + oldValue);
                 DaDataAAllenamentoService getAllenamento = new DaDataAAllenamentoService();
                 getAllenamento.setDati(UtenteAttuale.getInstance().getUsername(), newValue.toString());  //IL PATTERN DELLA DATA VA BENE??
                 getAllenamento.restart();

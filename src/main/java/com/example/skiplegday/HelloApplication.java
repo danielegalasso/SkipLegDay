@@ -23,6 +23,7 @@ public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException, SQLException {
 
+        System.out.println("ciao");
         Database db = Database.getInstance();
         db.createConnection();
         /*

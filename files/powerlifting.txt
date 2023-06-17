@@ -1,0 +1,3 @@
+Powerlifting Giorno1;Panca Piana;Military Press;Squat;Dip Parallele;
+Corpo Libero Giorno2;Squat;Panca Inclinata;Stacco;Trazioni;
+Corpo Libero Giorno3;Stacco;Panca Piana;Military Press;Squat;Curl Manubri;

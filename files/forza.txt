@@ -1,0 +1,3 @@
+forza giorno1;Calf Seduto;Hip Thrust;Leg Curl;Estensione Con Manubrio;Peck Deck;
+forza giorno2;Panca Piana;Shoulder Press;Lat Machine;Leg Press;Leg Press;
+forza giorno3;Tirate Laterali;Rematore Bilanciere;Push Down;Low Row; Curl Concentrato;

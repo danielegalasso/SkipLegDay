@@ -1,0 +1,621 @@
+.login-pane,
+.register-pane,
+.toolbar-box-esercizi,
+.toolbar-bottom-schede,
+.toolbar-allenamento-personale,
+.pane-popup-esercizio,
+.vbox-allenamento,
+.allenamento-pane,
+.schede-personali-pane,
+.left-pane-create,
+.left-pane-create > *,
+.right-pane-create > *,
+.right-pane-create,
+.right-vbox,
+.esercizio-pane,
+.create-pane,
+.main-pane,
+.obiettivi-pane,
+.obiettivi-box,
+.pane-schede-personali,
+.scrollpane-schede-personali,
+.scrollpane-schede-personali > *,
+.allenamento-pane *,
+.scrollpane-vbox-esercizi > *,
+.pane-descrizione-esercizio,
+.scrollpane-descrizione-esercizio,
+.left-pane-esercizi > *,
+.scrollpane-descrizione-esercizio *,
+.pane-statistiche,
+.pane-top-statistiche,
+.pane-radar,
+.pane-grafico,
+.chart-grafico,
+.gridpane-allenamento,
+.scrollpane-allenamento-calendario *,
+.scrollpane-box-esercizi > *,
+.pane-statistiche > *,
+.scrollpane-guida *,
+.pane-guida,
+.textarea-allenamento *,
+.scrollpane-grafico > * {
+    -fx-background-color: primaryBackgroundColor;
+}
+
+.allenamento-pane,
+.left-pane-create,
+.right-pane-create,
+.toolbar-allenamento-personale,
+.right-pane-esercizi,
+.pane-esercizi,
+.scrollpane-popup,
+.pane-descrizione-esercizio,
+.scrollpane-descrizione-esercizio,
+.pane-allenamento-calendario,
+.textarea-allenamento,
+.pane-statistiche {
+    -fx-border-color: secondaryBackgroundColor;
+}
+
+.scrollpane-allenamento{
+    -fx-border-color: secondaryBackgroundColor secondaryBackgroundColor transparent transparent;
+}
+
+.scrollpane-vbox-esercizi,
+.scrollpane-allenamento-calendario,
+.scrollpane-guida,
+.scrollpane-box-esercizi,
+.left-pane-esercizi{
+    -fx-background-color: secondaryBackgroundColor;
+}
+
+.login-pane *,
+.register-pane *,
+.textarea-allenamento,
+#textAreaRecensione {
+    -fx-text-fill: textColor;
+}
+
+.top-pane {
+    -fx-border-color: transparent transparent secondaryBackgroundColor transparent;
+    -fx-border-width: 0 0 2 0;
+}
+
+.home-vbox{
+    -fx-border-color: transparent secondaryBackgroundColor transparent transparent;
+    -fx-border-width: 0 2 0 0;
+}
+
+.button {
+    -fx-cursor: hand;
+}
+
+.card-button,
+.button-allenamento,
+.button-allenamento-personale,
+.button-color,
+.button-popup,
+.label-color,
+.button-schede-personali,
+.button-esercizio,
+.button-grafico,
+.label-statistiche,
+.pane-vbox-esercizi .button,
+.menu-color *{
+    -fx-text-fill: textColor;
+}
+
+.testo-color,
+.obiettivi-pane *,
+.scrollpane-allenamento-calendario *,
+.chart-grafico .axis-label {
+    -fx-fill: textColor;
+}
+
+.chart-grafico .axis-label {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+.chart-grafico .axis {
+    -fx-tick-label-fill: textColor;
+}
+
+.scrollpane-grafico {
+    -fx-background-color: primaryBackgroundColor;
+}
+
+.testo-popup-esercizio {
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+}
+
+.text-descrizione-esercizio *{
+    -fx-fill: textColor;
+    -fx-font-size: 14px;
+}
+
+.text-esercizio *{
+    -fx-fill: textColor;
+    -fx-font-size: 16px;
+}
+.esercizio:hover {
+    -fx-fill: primarySelectionColor;
+}
+
+.testo-descrizione-esercizio{
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+}
+
+.text-allenamento {
+    -fx-font-size: 16px;
+}
+
+.text-statistiche {
+    -fx-fill: textColor;
+}
+
+.text-tonnellaggio {
+    -fx-font-size: 48px;
+    -fx-font-weight: bold;
+}
+
+.text-kg {
+    -fx-font-size: 48px;
+    -fx-font-weight: bold;
+}
+
+.text-sollevati {
+    -fx-font-size: 18px;
+}
+
+.label-statistiche * {
+    -fx-font-size: 16px;
+}
+
+.text-radar {
+    -fx-fill: textColor;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.card-button,
+.button-allenamento,
+.login-pane .button,
+.register-pane .button,
+.button-schede-personali,
+.button-allenamento-personale,
+.button-esercizio,
+.button-popup,
+.button-box-esercizi,
+.button-grafico,
+.pane-vbox-esercizi .button,
+.button-create-allenamento {
+    -fx-background-color: secondaryBackgroundColor;
+    -fx-background-radius: 5px;
+}
+
+.home-button:hover,
+.home-button:focused {
+    -fx-background-color: secondaryBackgroundColor;
+}
+
+.home-button:hover,
+.home-button:focused,
+.login-pane .button:hover,
+.login-pane .button:focused,
+.register-pane .button:hover,
+.register-pane .button:focused,
+.card-button:hover,
+.card-button:focused,
+.button-schede-personali:hover,
+.button-schede-personali:focused,
+.button-allenamento-personale:hover,
+.button-allenamento-personale:focused,
+.button-esercizio:hover,
+.button-esercizio:focused,
+.button-popup:hover,
+.button-popup:focused,
+.button-box-esercizi:hover,
+.button-box-esercizi:focused,
+.button-grafico:hover,
+.button-grafico:focused,
+.pane-vbox-esercizi .button:hover,
+.pane-vbox-esercizi .button:focused,
+.button-allenamento:hover,
+.button-allenamento:focused {
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.75), 5, 0, 0, 0);
+}
+
+.home-button:pressed,
+.login-pane .button:pressed,
+.register-pane .button:pressed,
+.button-allenamento:pressed,
+.button-schede-personali:pressed,
+.button-allenamento-personale:pressed,
+.button-esercizio:pressed,
+.button-popup:pressed,
+.button-box-esercizi:pressed,
+.button-grafico:pressed,
+.pane-vbox-esercizi .button:pressed,
+.card-button:pressed {
+    -fx-scale-x: 0.95;
+    -fx-scale-y: 0.95;
+}
+
+.home-button {
+    -fx-font-weight: bold;
+    -fx-background-color: transparent;
+    -fx-background-radius: 5px;
+}
+
+.circular-button {
+    -fx-background-radius: 50%;
+    -fx-background-color: transparent;
+}
+
+.circular-button:hover,
+.circular-button:focused {
+    -fx-background-color: secondaryBackgroundColor;
+}
+
+#settingsMenu * {
+    -fx-background-color: primaryBackgroundColor;
+}
+
+.elimina-button{
+    -fx-background-color: errorTextColor;
+    -fx-background-radius: 5px;
+    -fx-font-weight: bold;
+}
+
+.salva-button {
+    -fx-background-color: green;
+    -fx-background-radius: 5px;
+    -fx-font-weight: bold;
+}
+
+.annulla-button {
+    -fx-background-color: derive(secondaryBackgroundColor, 80%);
+    -fx-background-radius: 5px;
+    -fx-font-weight: bold;
+}
+
+#labelRecensione *{
+    -fx-font-size: 36px;
+    -fx-font-weight: bold;
+}
+
+#labelFirstRecensione *{
+    -fx-font-size: 18px;
+}
+
+#labelSecondRecensione *{
+    -fx-font-size: 16px;
+}
+
+#labelSliderRecensione *{
+    -fx-font-size: 48px;
+    -fx-font-weight: bold;
+}
+
+.obiettivi-pane *{
+    -fx-font-size: 18px;
+}
+
+.first-row {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+}
+
+.obiettivi-box *{
+    -fx-background-radius: 20px;
+}
+
+.slider .low-value,
+.slider .high-value {
+    -fx-text-fill: textColor; /* Colore del testo per i valori minimi e massimi */
+}
+
+.slider .thumb {
+    -fx-background-color: textColor; /* Imposta il colore del pollice*/
+}
+
+.slider .track {
+    -fx-background-color: secondaryBackgroundColor; /* Imposta il colore della traccia */
+}
+
+#textAreaRecensione * {
+    -fx-background-color: secondaryBackgroundColor;
+    -fx-font-size: 14px;
+}
+
+#erroreLoginText, #erroreRegisterText{
+    -fx-fill: errorTextColor;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track{
+    -fx-background-color :transparent;
+    -fx-border-color :transparent;
+    -fx-background-radius : 0.0em;
+    -fx-border-radius :2.0em;
+    -fx-padding :0.0 10.0 0.0 0.0;
+}
+
+.scroll-bar:horizontal .increment-button ,
+.scroll-bar:horizontal .decrement-button {
+    -fx-background-color :transparent;
+    -fx-background-radius : 0.0em;
+    -fx-padding :0.0 0.0 10.0 0.0;
+
+}
+
+.scroll-bar:vertical .increment-button ,
+.scroll-bar:vertical .decrement-button {
+    -fx-background-color :transparent;
+    -fx-background-radius : 0.0em;
+    -fx-padding :0.0 10.0 0.0 0.0;
+}
+
+ .scroll-bar .increment-arrow,
+ .scroll-bar .decrement-arrow{
+    -fx-shape : " ";
+    -fx-padding :0.15em 0.0;
+}
+
+ .scroll-bar:vertical .increment-arrow,
+ .scroll-bar:vertical .decrement-arrow{
+    -fx-shape : " ";
+    -fx-padding :0.0 0.15em;
+}
+
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-color :derive(black,90.0%);
+    -fx-background-insets : 2.0, 0.0, 0.0;
+    -fx-background-radius : 2.0em;
+}
+
+.scroll-bar:horizontal .thumb:hover,
+.scroll-bar:vertical .thumb:hover {
+    -fx-background-color :derive(#4D4C4F,10.0%);
+    -fx-background-insets : 2.0, 0.0, 0.0;
+    -fx-background-radius : 2.0em;
+}
+
+.date-picker .arrow-button {
+    -fx-scale-x: 0.95;
+    -fx-scale-y: 0.95;
+	-fx-background-color: derive(black,90%);
+	-fx-background-radius: 2px;
+	-fx-cursor: hand;
+}
+
+.date-picker {
+    -fx-background-color: primaryBackgroundColor;
+}
+
+.date-picker .arrow-button:hover {
+	-fx-background-color: black;
+}
+
+.date-picker .arrow-button .arrow {
+	-fx-background-color: white;
+	-fx-cursor: hand;
+}
+
+.date-picker .cell {
+	-fx-background-color: secondaryBackgroundColor;
+	-fx-text-fill: textColor;
+}
+
+.date-picker .cell:hover {
+	-fx-background-color: derive(secondaryBackgroundColor, 80%);
+	-fx-cursor: hand;
+}
+
+.date-picker .cell:focused {
+	-fx-background-color: derive(secondaryBackgroundColor, 80%);
+	-fx-cursor: hand;
+}
+
+.date-picker .selected {
+	-fx-background-color: derive(secondaryBackgroundColor, 20%);
+	-fx-text-fill: selectedTextColor;
+}
+
+.date-picker .selected:focused {
+	-fx-background-color: primaryBackgroundColor;
+	-fx-text-fill: textColor;
+}
+
+.date-picker-popup  {
+	-fx-border-color: transparent;
+}
+
+.date-picker-popup .month-year-pane {
+	-fx-background-color: secondaryBackgroundColor;
+}
+
+.date-picker-popup .month-year-pane .label {
+	-fx-text-fill: textColor;
+}
+
+.date-picker-popup .week-number-cell {
+	-fx-text-fill: textColor;
+}
+
+.date-picker-popup .week-number-cell{
+    -fx-background-color: derive(secondaryBackgroundColor, 50%);
+}
+
+.date-picker-popup .week-number-cell:hover {
+    -fx-cursor: default;
+    -fx-background-color: derive(secondaryBackgroundColor, 50%);
+}
+
+.date-picker-popup .week-number-cell:focused {
+	-fx-cursor: default;
+	-fx-background-color: derive(secondaryBackgroundColor, 50%);
+}
+
+.date-picker-popup .spinner .button .left-arrow,
+.date-picker-popup .spinner .button .right-arrow {
+	-fx-background-color: grey;
+}
+
+.calendario .cell:hover {
+    -fx-cursor: hand;
+}
+
+.calendario .cell:focused {
+    -fx-cursor: hand;
+}
+
+.choice-box:hover {
+    -fx-cursor: hand;
+}
+
+.choice-box * {
+    -fx-text-fill: textColor;
+}
+
+.choice-box .arrow {
+    -fx-background-color: textColor;
+}
+
+.choice-box:focused {
+    -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.75), 5, 0, 0, 0);
+}
+
+.choice-box,
+.choice-box > * {
+    -fx-background-color: secondaryBackgroundColor;
+    -fx-background-radius: 5px;
+}
+
+.choice-box .context-menu {
+    -fx-background-color: primaryBackgroundColor;
+}
+
+.choice-box .menu-item:focused {
+    -fx-background-color: secondaryBackgroundColor;
+    -fx-cursor: hand;
+}
+
+.choice-box .menu-item > .label {
+    -fx-text-fill: textColor;
+}
+
+.text-field {
+    -fx-background-color: secondaryBackgroundColor;
+    -fx-background-radius: 5px;
+    -fx-text-fill: textColor;
+}
+
+.text-field:focused {
+    -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.75), 5, 0, 0, 0);
+}
+
+.card-pane {
+    -fx-background-color: white;
+    -fx-background-radius: 8;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.8), 20, 0, 0, 0);
+}
+
+.allenamento-pane {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.8), 20, 0, 0, 0);
+}
+
+.esercizio {
+    -fx-cursor: hand;
+}
+
+.menu-button {
+    -fx-background-color: secondaryBackgroundColor;
+    -fx-cursor: hand;
+    -fx-background-radius: 5px;
+}
+
+.menu-button .label {
+    -fx-text-fill: textColor;
+}
+
+.menu-button .arrow {
+    -fx-background-color: textColor;
+}
+
+.menu-item {
+    -fx-background-color: primaryBackgroundColor;
+}
+
+.menu-item .label {
+    -fx-text-fill: textColor;
+}
+
+.menu-item:focused,
+.menu-item:hovered {
+	-fx-background-color: derive(secondaryBackgroundColor, 60%);
+}
+
+.menu-item:hover {
+    -fx-cursor: hand;
+}
+
+.context-menu {
+    -fx-background-color: primaryBackgroundColor;
+}
+
+ .dialog-pane{
+  -fx-background-color:primaryBackgroundColor;
+  -fx-border-color:black;
+ }
+
+.dialog-pane > .button-bar > .container {
+  -fx-background-color:primaryBackgroundColor;
+}
+
+.dialog-pane > .content.label {
+   -fx-padding: 0.5em 0.5em 0.5em 0.5em;
+   -fx-background-color: primaryBackgroundColor;
+   -fx-text-fill:textColor;
+   -fx-font-size: 15px;
+}
+
+.dialog-pane {
+   -fx-background-color:primaryBackgroundColor;
+   -fx-text-fill:textColor;
+   -fx-wrap-text: true;
+   -fx-cursor:hand;
+ }
+
+.dialog-pane .button:hover{
+  -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.75), 5, 0, 0, 0);
+
+}
+
+.list-view * {
+    -fx-background-color: primaryBackgroundColor;
+}
+
+.list-view * {
+    -fx-text-fill: textColor;
+    -fx-fill: textColor;
+}
+
+.text-modifiche-popup {
+    -fx-fill: errorTextColor;
+    -fx-font-weight: bold;
+}
+
+.pane-guida * {
+    -fx-fill: textColor;
+    -fx-font-size: 14px;
+    -fx-border-color: secondaryBackgroundColor;
+}

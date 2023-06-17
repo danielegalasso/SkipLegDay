@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="575.0" prefWidth="830.0" styleClass="create-pane" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.skiplegday.controller.CreateSchedaAllenamentoController">
+   <children>
+      <Text fx:id="scegliNomeText" layoutX="9.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="testo-color" text="Scegli un nome per il tuo allenamento" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="25.0" />
+      <TextField fx:id="fieldCreateNameScheda" layoutX="227.0" layoutY="21.0" prefHeight="25.0" prefWidth="169.0" promptText="inserisci nome" AnchorPane.leftAnchor="227.0" AnchorPane.topAnchor="21.0" />
+      <Text layoutX="4.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="testo-color" text="Clicca sul + per aggiungere un esercizio" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="62.0" />
+      <ScrollPane fx:id="scrollPaneEsercizi" hbarPolicy="NEVER" layoutX="34.0" layoutY="81.0" prefHeight="426.0" prefWidth="415.0" styleClass="left-pane-create" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="415.0" AnchorPane.topAnchor="85.0" />
+      <Text layoutX="415.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="testo-color" text="Il tuo allenamento:" AnchorPane.topAnchor="61.05078125" />
+      <ScrollPane hbarPolicy="NEVER" layoutX="386.0" layoutY="97.0" prefHeight="425.0" prefWidth="415.0" styleClass="right-pane-create" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
+         <content>
+            <VBox fx:id="vBoxTuoAllenamento" prefHeight="425.0" prefWidth="415.0" styleClass="right-vbox" />
+         </content>
+      </ScrollPane>
+      <Button fx:id="saveAllenamentoButton" layoutX="704.0" layoutY="526.0" mnemonicParsing="false" onAction="#saveSchedaAllenamentoAction" prefHeight="30.0" prefWidth="120.0" text="Salva Allenamento" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="15.0">
+         <styleClass>
+            <String fx:value="button-color" />
+            <String fx:value="button-create-allenamento" />
+         </styleClass></Button>
+      <Button fx:id="indietroButton" layoutX="777.0" layoutY="14.0" mnemonicParsing="false" onAction="#indietroAction" prefHeight="25.0" prefWidth="60.0" text="Indietro" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
+         <styleClass>
+            <String fx:value="button-color" />
+            <String fx:value="button-create-allenamento" />
+         </styleClass></Button>
+      <AnchorPane fx:id="infoPane" layoutX="651.0" layoutY="535.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="20.0">
+         <children>
+            <ImageView fx:id="infoIcon" fitHeight="20.0" fitWidth="20.0" layoutX="4.0" layoutY="3.0" AnchorPane.bottomAnchor="0.33333333333333215" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.3333333333333357">
+               <image>
+                  <Image url="@icon/icongenerali/5349749_faq_faqs_help_info_information_icon.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+         </children>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </AnchorPane>
+      <Text fx:id="errorText" layoutX="485.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" visible="false" />
+      <MenuButton layoutX="312.0" layoutY="57.0" mnemonicParsing="false" styleClass="menubutton-create" text="Filtri" AnchorPane.topAnchor="57.0">
+         <items>
+            <MenuItem mnemonicParsing="false" onAction="#filterAction" text="petto" />
+            <MenuItem mnemonicParsing="false" onAction="#filterAction" text="gambe" />
+            <MenuItem mnemonicParsing="false" onAction="#filterAction" text="dorso" />
+            <MenuItem mnemonicParsing="false" onAction="#filterAction" text="bicipiti" />
+            <MenuItem mnemonicParsing="false" onAction="#filterAction" text="tricipiti" />
+            <MenuItem mnemonicParsing="false" onAction="#filterAllAction" text="tutti" />
+         </items>
+      </MenuButton>
+   </children>
+</AnchorPane>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="575.0" prefWidth="830.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.skiplegday.controller.AccediAllenamentoController">
+   <children>
+      <ToolBar prefHeight="50.0" prefWidth="830.0" styleClass="toolbar-allenamento-personale" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+            <Button fx:id="modificaSchedaButton" mnemonicParsing="false" onAction="#modificaAllenamentoAction" styleClass="button-allenamento-personale" text="Modifica " />
+            <AnchorPane prefHeight="29.0" prefWidth="638.0" />
+            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#openTutorial" prefHeight="20.0" prefWidth="20.0" styleClass="pane-icon">
+               <children>
+                  <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="-3.0" layoutY="3.0" onMouseClicked="#openTutorial" AnchorPane.bottomAnchor="0.33" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.3333333333333357">
+                     <image>
+                        <Image url="@icon/icongenerali/infoIcon.png" />
+                     </image>
+                  </ImageView>
+               </children>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </AnchorPane>
+            <Button fx:id="indietroButton" mnemonicParsing="false" onAction="#indietroAction" styleClass="button-allenamento-personale" text="Indietro" wrapText="true">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </Button>
+        </items>
+      </ToolBar>
+      <BorderPane fx:id="paneAllenamento" layoutY="64.0" prefHeight="491.0" prefWidth="652.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="158.0" AnchorPane.topAnchor="64.0" />
+      <TextArea fx:id="textAreaTutorial" editable="false" layoutX="642.0" layoutY="208.0" prefHeight="347.0" prefWidth="157.0" styleClass="textarea-allenamento" text="Questa è la tua scheda&#10;allenamento, cliccando&#10;sull'esercizio potrai &#10;inserire i tuoi progressi, &#10;inserendo per ogni serie&#10;effettuata, quanti kg,&#10;quante ripetizioni, e &#10;quanto tempo di &#10;recupero hai effettuato&#10;per ogni esercizio della&#10;scheda.Una volta &#10;compilato tutto, premi&#10;il pulsante salva per &#10;salvare il tuo allenamento.&#10;Buon proseguimento! &#10;&#10;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="652.6666666666666" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="208.0" />
+   </children>
+</AnchorPane>

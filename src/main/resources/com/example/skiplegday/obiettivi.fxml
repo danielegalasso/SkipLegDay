@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<ScrollPane hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="575.0" prefWidth="830.0" styleClass="obiettivi-pane" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.skiplegday.controller.ObiettiviController">
+   <content>
+      <VBox fx:id="vBox" prefHeight="2000.0" prefWidth="830.0" spacing="10.0" styleClass="obiettivi-box">
+         <children>
+            <AnchorPane prefHeight="80.0" prefWidth="810.0">
+               <children>
+                  <Label layoutX="14.0" prefHeight="80.0" prefWidth="263.0" styleClass="first-row" text="OBIETTIVI COMPLETATI:">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <Text fx:id="obiettiviCompletati" layoutX="360.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="first-row" text="5/20">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Text>
+                  <ProgressBar fx:id="barCompletati" layoutX="490.0" layoutY="30.0" prefHeight="20.0" prefWidth="300.0" progress="0.5" />
+               </children>
+            </AnchorPane>
+            <Separator prefHeight="5.0" prefWidth="200.0" />
+            <AnchorPane prefHeight="70.0" prefWidth="810.0">
+               <children>
+                  <Label layoutX="5.0" layoutY="21.0" text="Crea 3 allenamenti personali:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Text fx:id="allenamentiCreatiAttuali" layoutX="370.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0/3">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <ProgressBar fx:id="barAllenamentiPers" layoutX="490.0" layoutY="23.0" prefHeight="20.0" prefWidth="300.0" progress="1.0" />
+               </children>
+            </AnchorPane>
+            <Separator prefHeight="5.0" prefWidth="200.0" />
+            <AnchorPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="70.0" prefWidth="780.0">
+               <children>
+                  <Label layoutX="5.0" layoutY="21.0" text="Allena il petto 8 volte nello stesso mese:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Text fx:id="allenamentiPettoMensile" layoutX="370.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0/8">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <ProgressBar fx:id="barAllenamentiPettoMensile" layoutX="490.0" layoutY="23.0" prefHeight="20.0" prefWidth="300.0" progress="1.0" />
+               </children>
+            </AnchorPane>
+            <Separator prefWidth="200.0" />
+            <AnchorPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="70.0" prefWidth="780.0">
+               <children>
+                  <Label layoutX="5.0" layoutY="21.0" text="Allena il dorso 25 volte:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Text fx:id="allenamentiDorso" layoutX="370.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0/25">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <ProgressBar fx:id="barAllenamentiDorso" layoutX="490.0" layoutY="23.0" prefHeight="20.0" prefWidth="300.0" progress="1.0" />
+               </children>
+            </AnchorPane>
+            <Separator prefWidth="200.0" />
+            <AnchorPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="70.0" prefWidth="780.0">
+               <children>
+                  <Label layoutX="5.0" layoutY="21.0" text="Allena le gambe 25 volte:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Text fx:id="allenamentiGambe" layoutX="370.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0/25">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <ProgressBar fx:id="barAllenamentiGambe" layoutX="490.0" layoutY="23.0" prefHeight="20.0" prefWidth="300.0" progress="1.0" />
+               </children>
+            </AnchorPane>
+            <Separator prefWidth="200.0" />
+            <AnchorPane layoutX="20.0" layoutY="496.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="70.0" prefWidth="780.0">
+               <children>
+                  <Label layoutX="5.0" layoutY="21.0" text="Allena i bicipiti 12 volte:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Text fx:id="allenamentiBicipiti" layoutX="370.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0/12">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <ProgressBar fx:id="barAllenamentiBicipiti" layoutX="490.0" layoutY="23.0" prefHeight="20.0" prefWidth="300.0" progress="1.0" />
+               </children>
+            </AnchorPane>
+            <Separator prefWidth="200.0" />
+            <AnchorPane layoutX="20.0" layoutY="591.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="70.0" prefWidth="780.0">
+               <children>
+                  <Label layoutX="5.0" layoutY="21.0" text="Allena i tricipiti 12 volte:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Text fx:id="allenamentiTricipiti" layoutX="370.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0/12">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <ProgressBar fx:id="barAllenamentiTricipiti" layoutX="490.0" layoutY="23.0" prefHeight="20.0" prefWidth="300.0" progress="1.0" />
+               </children>
+            </AnchorPane>
+            <Separator prefWidth="200.0" />
+            <AnchorPane layoutX="20.0" layoutY="685.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="70.0" prefWidth="780.0">
+               <children>
+                  <Label layoutX="5.0" layoutY="21.0" text="Allena le spalle 6 volte nello stesso mese:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Text fx:id="allenamentiSpalleMensile" layoutX="370.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0/6">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <ProgressBar fx:id="barAllenamentiSpalleMensile" layoutX="490.0" layoutY="23.0" prefHeight="20.0" prefWidth="300.0" progress="1.0" />
+               </children>
+            </AnchorPane>
+            <Separator prefWidth="200.0" />
+            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="780.0">
+               <children>
+                  <Label layoutX="5.0" layoutY="21.0" text="Allenati 16 volte nello stesso mese:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Text fx:id="allenamentiMese" layoutX="370.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0/16">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <ProgressBar fx:id="barAllenamentiMese" layoutX="490.0" layoutY="23.0" prefHeight="20.0" prefWidth="300.0" progress="0.42" />
+               </children>
+            </AnchorPane>
+            <Separator prefWidth="200.0" />
+            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="780.0">
+               <children>
+                  <Label layoutX="5.0" layoutY="21.0" text="Allenati 100 volte :">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Text fx:id="allenamentiTotali" layoutX="370.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0/100">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <ProgressBar fx:id="barNumAllenamenti" layoutX="490.0" layoutY="23.0" prefHeight="20.0" prefWidth="300.0" progress="0.42" />
+               </children>
+            </AnchorPane>
+            <Separator prefWidth="200.0" />
+            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="780.0">
+               <children>
+                  <Label layoutX="5.0" layoutY="21.0" text="Effettua 20 &quot;Piegamenti&quot; consecutivi">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Text fx:id="maxRepPiegamenti" layoutX="370.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0/20">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <ProgressBar fx:id="barPiegamentiConsecutivi" layoutX="490.0" layoutY="23.0" prefHeight="20.0" prefWidth="300.0" progress="1.0" />
+               </children>
+            </AnchorPane>
+            <Separator prefWidth="200.0" />
+            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="780.0">
+               <children>
+                  <Label layoutX="5.0" layoutY="21.0" text="Effettua 15 &quot;Dip Parallele&quot; consecutive:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Text fx:id="maxRepDipParallele" layoutX="370.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0/15">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <ProgressBar fx:id="barDipParalleleConsecutive" layoutX="490.0" layoutY="23.0" prefHeight="20.0" prefWidth="300.0" progress="0.9" />
+               </children>
+            </AnchorPane>
+            <Separator prefWidth="200.0" />
+            <AnchorPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="70.0" prefWidth="200.0">
+               <children>
+                  <Label layoutX="5.0" layoutY="21.0" text="Effettua 10 &quot;Trazioni&quot; consecutive:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Text fx:id="maxRepTrazioni" layoutX="370.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0/10">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <ProgressBar fx:id="barTrazioniConsecutive" layoutX="490.0" layoutY="23.0" prefHeight="20.0" prefWidth="300.0" progress="0.7" />
+               </children>
+            </AnchorPane>
+            <Separator prefWidth="200.0" />
+            <AnchorPane layoutX="20.0" layoutY="1157.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="70.0" prefWidth="200.0">
+               <children>
+                  <Label layoutX="5.0" layoutY="21.0" text="Effettua 8 &quot;Pistol Squat&quot; consecutivi:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Text fx:id="maxRepPistolSquat" layoutX="370.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0/8">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <ProgressBar fx:id="barPistolSquatConsecutivi" layoutX="490.0" layoutY="23.0" prefHeight="20.0" prefWidth="300.0" progress="0.7" />
+               </children>
+            </AnchorPane>
+            <Separator prefWidth="200.0" />
+            <AnchorPane layoutX="20.0" layoutY="1252.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="70.0" prefWidth="200.0">
+               <children>
+                  <Label layoutX="5.0" layoutY="21.0" text="Effettua 6 &quot;Curl Concentrato&quot; consecutivi:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Text fx:id="maxRepCurlConcentrato" layoutX="370.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0/6">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <ProgressBar fx:id="barCurlConcentratoConsecutivi" layoutX="490.0" layoutY="23.0" prefHeight="20.0" prefWidth="300.0" progress="0.7" />
+               </children>
+            </AnchorPane>
+            <Separator prefWidth="200.0" />
+            <AnchorPane layoutX="20.0" layoutY="1440.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="780.0">
+               <children>
+                  <Label layoutX="5.0" layoutY="21.0" text="Solleva 80kg nell'esercizio &quot;Lat Machine&quot;:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Text fx:id="maxKgLatMachine" layoutX="370.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0/80.0">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <ProgressBar fx:id="barLatMachineMaxPeso" layoutX="490.0" layoutY="23.0" prefHeight="20.0" prefWidth="300.0" progress="0.7" />
+               </children>
+            </AnchorPane>
+            <Separator prefWidth="200.0" />
+            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="780.0">
+               <children>
+                  <Label layoutX="5.0" layoutY="21.0" text="Solleva 100kg nell'esercizio &quot;Panca Piana&quot;:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Text fx:id="maxKgPancaPiana" layoutX="370.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0/100.0">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <ProgressBar fx:id="barPancaPianaMaxPeso" layoutX="490.0" layoutY="23.0" prefHeight="20.0" prefWidth="300.0" progress="0.7" />
+               </children>
+            </AnchorPane>
+            <Separator prefWidth="200.0" />
+            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="780.0">
+               <children>
+                  <Label layoutX="5.0" layoutY="21.0" text="Solleva 120kg nell'esercizio &quot;Squat&quot;:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Text fx:id="maxKgSquat" layoutX="370.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0/120.0">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <ProgressBar fx:id="barSquatMaxPeso" layoutX="490.0" layoutY="23.0" prefHeight="20.0" prefWidth="300.0" progress="0.8" />
+               </children>
+            </AnchorPane>
+            <Separator prefWidth="200.0" />
+            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="780.0">
+               <children>
+                  <Label layoutX="5.0" layoutY="21.0" text="Solleva 150kg nell'esercizio &quot;Stacco&quot;:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Text fx:id="maxKgStacco" layoutX="370.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0/150.0">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <ProgressBar fx:id="barStaccoMaxPeso" layoutX="490.0" layoutY="23.0" prefHeight="20.0" prefWidth="300.0" progress="0.8" />
+               </children>
+            </AnchorPane>
+            <Separator prefWidth="200.0" />
+            <AnchorPane layoutX="20.0" layoutY="1629.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="780.0">
+               <children>
+                  <Label layoutX="5.0" layoutY="21.0" text="Solleva 180kg nell'esercizio &quot;Hip Thrust&quot;:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Text fx:id="maxKgHipThrust" layoutX="370.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0/180.0">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <ProgressBar fx:id="barHipThrustMaxPeso" layoutX="490.0" layoutY="23.0" prefHeight="20.0" prefWidth="300.0" progress="0.8" />
+               </children>
+            </AnchorPane>
+            <Separator prefWidth="200.0" />
+            <AnchorPane layoutX="20.0" layoutY="1818.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="780.0">
+               <children>
+                  <Label layoutX="5.0" layoutY="21.0" text="Solleva 200kg nell'esercizio &quot;Leg Press&quot;:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Text fx:id="maxKgLegPress" layoutX="370.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0/200.0">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <ProgressBar fx:id="barLegPressMaxPeso" layoutX="490.0" layoutY="23.0" prefHeight="20.0" prefWidth="300.0" progress="0.8" />
+               </children>
+            </AnchorPane>
+         </children>
+         <padding>
+            <Insets left="10.0" right="10.0" />
+         </padding>
+      </VBox>
+   </content>
+</ScrollPane>

@@ -1,3 +1,3 @@
-full-body giorno1;Squat;Panca Piana;Lat Machine;Curl Manubri;Crunch;
-full-body giorno2;Stacco;Rematore Panca Inclinata;Piegamenti Mani Alte;Leg Curl;Plank;
-full-body giorno3;Leg Press;Croci Cavi;Shoulder Press Manubri;Dip tra panche;Pulley;
+full-body giorno1;Squat;Panca Piana;Lat Machine;Curl Manubri;Piegamenti;
+full-body giorno2;Stacco;Rematore Panca Inclinata;Chest Press;Leg Curl;Trazioni;
+full-body giorno3;Leg Press;Croci Cavi;Shoulder Press;Dip Tra Panche;Pulley;

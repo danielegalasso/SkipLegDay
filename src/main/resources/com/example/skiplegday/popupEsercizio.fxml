@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="510.0" prefWidth="300.0" styleClass="pane-popup-esercizio" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.skiplegday.controller.PopupEsercizioController">
+    <children>
+        <Text fx:id="nomeEsercizio" layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.05078125">
+         <styleClass>
+            <String fx:value="testo-color" />
+            <String fx:value="testo-popup-esercizio" />
+         </styleClass></Text>
+        <Button fx:id="addDatiEsButton" layoutX="214.0" layoutY="45.0" mnemonicParsing="false" onAction="#addDatiEsAction" prefHeight="25.0" prefWidth="34.0" styleClass="button-popup" text="+" />
+        <ScrollPane hbarPolicy="NEVER" layoutX="14.0" layoutY="45.0" prefHeight="200.0" prefWidth="200.0" styleClass="scrollpane-popup" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="45.0">
+            <content>
+                <VBox fx:id="vBoxDatiEsercizi" prefHeight="197.0" prefWidth="197.0" />
+            </content>
+        </ScrollPane>
+        <Button fx:id="salvaProgressiButton" layoutX="218.0" layoutY="214.0" mnemonicParsing="false" onAction="#salvaProgressiAction" prefHeight="30.0" prefWidth="60.0" styleClass="button-popup" text="salva" />
+        <Text fx:id="textError" layoutX="152.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-modifiche-popup" text="Text" visible="false" />
+        <LineChart fx:id="lineChart" layoutX="-7.0" layoutY="257.0" prefHeight="226.0" prefWidth="284.0">
+            <xAxis>
+                <NumberAxis fx:id="AX" label="Data" side="BOTTOM" />
+            </xAxis>
+            <yAxis>
+                <NumberAxis fx:id="AY" label="Punteggio" side="LEFT" />
+            </yAxis>
+        </LineChart>
+    </children>
+</AnchorPane>

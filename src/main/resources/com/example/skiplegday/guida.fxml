@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<ScrollPane hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="575.0" prefWidth="830.0" styleClass="scrollpane-guida" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+   <content>
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="4380.0" prefWidth="830.0" styleClass="pane-guida">
+         <children>
+            <ImageView fitHeight="420.0" fitWidth="600.0" layoutX="115.0" AnchorPane.leftAnchor="115.0" AnchorPane.rightAnchor="115.0" AnchorPane.topAnchor="10.0">
+               <image>
+                  <Image url="@imageInfo/infoSchedePers.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="400.0" fitWidth="600.0" layoutX="115.0" layoutY="991.0" AnchorPane.leftAnchor="115.0" AnchorPane.rightAnchor="95.39999999999998">
+               <image>
+                  <Image url="@imageInfo/infoCreaScheda.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="400.0" fitWidth="600.0" layoutX="115.0" layoutY="497.0" AnchorPane.leftAnchor="115.0" AnchorPane.rightAnchor="95.39999999999998">
+               <image>
+                  <Image url="@imageInfo/infoSchedaPers.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="400.0" fitWidth="600.0" layoutX="105.0" layoutY="1500.0" AnchorPane.leftAnchor="105.0" AnchorPane.rightAnchor="105.39999999999998">
+               <image>
+                  <Image url="@imageInfo/infoPopup.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="240.0" fitWidth="600.0" layoutX="115.0" layoutY="2026.0" AnchorPane.leftAnchor="115.0" AnchorPane.rightAnchor="95.39999999999998">
+               <image>
+                  <Image url="@imageInfo/infoSchedeDef.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="280.0" fitWidth="600.0" layoutX="115.0" layoutY="2369.0" AnchorPane.leftAnchor="115.0" AnchorPane.rightAnchor="95.39999999999998">
+               <image>
+                  <Image url="@imageInfo/infoSchedaDef.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="260.0" fitWidth="600.0" layoutX="105.0" layoutY="2745.0">
+               <image>
+                  <Image url="@imageInfo/infoCalendar.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="350.0" fitWidth="600.0" layoutX="105.0" layoutY="3105.0">
+               <image>
+                  <Image url="@imageInfo/infoStat.JPG" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="270.0" fitWidth="600.0" layoutX="105.0" layoutY="4014.0">
+               <image>
+                  <Image url="@imageInfo/infoObiettivi.jpg" />
+               </image>
+            </ImageView>
+            <Text layoutX="15.0" layoutY="458.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nella sezione &quot;Scheda Personale&quot; troverai le schede personali create da te. Puoi crearne di nuove, modificarle o eliminarle. Durante la fase di modifica delle schede, potrai accedere alla descrizione degli esercizi cliccando su di essi." wrappingWidth="800.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="-4.600000000000023" />
+            <Text layoutX="15.0" layoutY="937.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cliccando sul tasto &quot;Modifica&quot; modificherai una tua scheda personale, in alto a destra è posizionato un tasto per maggiori info riguardanti la modifica della scheda. Per uscire dalla schermata di modifica è necessario prima salvare." wrappingWidth="800.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="-4.600000000000023" />
+            <Text layoutX="15.0" layoutY="1434.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cliccando sul tasto &quot;Aggiungi Scheda&quot; potrai creare una scheda di allenamento, a sinistra sono presenti tutti gli esercizi disponibili. E' possibile filtrare gli esercizi in base al gruppo muscolare. Ricordati di dare un nome alla tua scheda prima di salvare." wrappingWidth="800.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="-4.600000000000023" />
+            <Text layoutX="394.0" layoutY="1948.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Per ogni esercizio aggiunto ti verrà chiesto di inserire i chili, le ripetizioni e i secondi di pausa di ogni serie, puoi aggiungiere le serie cliccando sul tasto &quot;+&quot;. Nel grafico sottostante è possibile vedere l'andamento dei tuoi allenamenti relativi all'esercizio che stai aggiungendo, il grafico mostra il punteggio assegnato al tuo allenamento." wrappingWidth="800.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" />
+            <Text layoutX="15.0" layoutY="2319.0" strokeType="OUTSIDE" strokeWidth="0.0" text="In &quot;Schede Predefinite&quot; troverai una serie di schede già create che potrai importare ed utilizzare come se fossero tue, Queste schede sono dedicate a coloro che si stanno avvicinando al mondo della palestra e desiderano avere degli esempi di schede a disposizione." wrappingWidth="800.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="-4.600000000000023" />
+            <Text layoutX="15.0" layoutY="2696.0" strokeType="OUTSIDE" strokeWidth="0.0" text="In base alla scheda selezionata saranno visualizzati diverse giornate di allenamento, più sarà avanzato l'allenamento selezionato e più saranno i giorni di allenamento da poter importare." wrappingWidth="800.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="-4.600000000000023" />
+            <Text layoutX="383.0" layoutY="3050.0" strokeType="OUTSIDE" strokeWidth="0.0" text="In &quot;Statistiche&quot; viene mostrato un calendario dei tuoi giorni di allenamento e i giorni in cui ti sei allenato saranno colorati di verde, cliccando su di essi è possibile vedere gli esercizi svolti in quell'allenamento." wrappingWidth="800.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" />
+            <Text layoutX="394.0" layoutY="3504.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Inoltre sono presenti due grafici, il primo mostrerà il tuo punteggio complessivo, mentre il secondo punteggio relativo a un singolo esercizio. E' possibile selezionare l'arco temporale in cui osservare i tuoi progressi." wrappingWidth="800.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" />
+            <ImageView fitHeight="350.0" fitWidth="600.0" layoutX="105.0" layoutY="3556.0">
+               <image>
+                  <Image url="@imageInfo/infoEser.jpg" />
+               </image>
+            </ImageView>
+            <Text layoutX="5.0" layoutY="3955.0" strokeType="OUTSIDE" strokeWidth="0.0" text="In &quot;Esercizi&quot; saranno mostrati tutti gli esercizi e la loro relativa descrizione, con particolare attenzione alla corretta esecuzione degli esercizi e ai loro errori più comuni. Anche qui è possibile filtrare gli esercizi in base al gruppo muscolare." wrappingWidth="800.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.399999999999977" />
+            <Text layoutX="15.0" layoutY="4320.0" strokeType="OUTSIDE" strokeWidth="0.0" text="In &quot;Obiettivi&quot; sono presenti vari obiettivi volti a stimolarti e motivarti a migliorare le tue prestazioni e il tuo benessere fisico." wrappingWidth="800.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="-4.600000000000023" />
+         </children>
+      </AnchorPane>
+   </content>
+</ScrollPane>

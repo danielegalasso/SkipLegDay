@@ -1,0 +1,4 @@
+Petto-Dorso-Bicipiti;Panca Inclinata;Croci Manubri;Chest Press;Lat Machine; Pulley;Curl Manubri;Curl Bilanciere;
+Gambe-Spalle-Tricipiti;Leg Press;Squat;Calf In Piedi;Shoulder Press;Military Press;Push Down;Estensione Con Manubrio;
+Dorso-Petto-Bicipiti;Trazioni;Rematore Bilanciere;Lat Machine Triangolo;Croci Cavi;Peck Deck;Curl Concentrato;Curl Bilanciere;
+Spalle-Gambe-Tricipiti;Alzate Laterali;Tirate Laterali;Hip Thrust;Leg Curl;Squat;Dip Parallele;

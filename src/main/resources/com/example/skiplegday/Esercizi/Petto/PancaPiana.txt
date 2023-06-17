@@ -1,6 +1,0 @@
-Panca Piana;Petto
-<!DOCTYPE html>
-<body>
-	<p>Questa è panca piana su su s u alza stu pisu</p>
-</body>
-</html>
